@@ -14,17 +14,40 @@ class CommandeDetailsScreen extends StatelessWidget {
     required this.orderId,
   });
 
-  Future<double> sumUserMontants(String userEmail) async {
+  Future<double> printUserTotal(String userEmail) async {
+  print('Recherche orders_total pour email: $userEmail');
+  final snapshot =
+        await FirebaseFirestore.instance
+            .collection('orders_total')
+            .where('email', isEqualTo: userEmail)
+            .get();
+
+  print('Nb de docs trouvés: ${snapshot.docs.length}');
+  if (snapshot.docs.isEmpty) {
+      return 0.0;
+    }
+
+  // On prend le premier document trouvé
+  final data = snapshot.docs.first.data() as Map<String, dynamic>;
+  print('data trouvé: $data');
+  final montantString = data['totalAvecRemise'].toString();
+  final montantNum = double.tryParse(
+    RegExp(r'\d+(\.\d+)?').stringMatch(montantString) ?? '0'
+  ) ?? 0.0;
+  return montantNum;
+  }
+
+  Future<double> sumOrderNum(String userEmail) async {
     final snapshot =
         await FirebaseFirestore.instance
             .collection('orders')
             .where('email', isEqualTo: userEmail)
             .get();
 
-    double total = 0.0;
+    double total = 0;
     for (final doc in snapshot.docs) {
       final data = doc.data();
-      final montant = (data["Coût unitaire"] ?? 0).toDouble();
+      final montant = (data["Quantité commandée"] ?? 0).toDouble();
       total += montant;
     }
     return total;
@@ -119,7 +142,7 @@ class CommandeDetailsScreen extends StatelessWidget {
                               ),
                               DataCell(
                                 FutureBuilder<double>(
-                                  future: sumUserMontants(userEmail),
+                                  future: printUserTotal(userEmail),
                                   builder: (context, snapshot) {
                                     if (!snapshot.hasData) {
                                       return const Text('...');
@@ -131,7 +154,11 @@ class CommandeDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                               DataCell(
-                                TextButton(
+                                FutureBuilder<double>(
+                                  future: sumOrderNum(userEmail),
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return TextButton(
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
@@ -139,7 +166,20 @@ class CommandeDetailsScreen extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  child: Text(articles),
+                                  child: Text('...',),
+                                );
+                                    }
+                                    return TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (builder) => OrdersListFirst(),
+                                      ),
+                                    );
+                                  },
+                                  child: Text('${snapshot.data!.toStringAsFixed(0)}',),
+                                );
+                                  },
                                 ),
                               ),
                               DataCell(Text('$statut')),
