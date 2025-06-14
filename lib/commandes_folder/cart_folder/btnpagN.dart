@@ -3,7 +3,10 @@ import 'package:espace_kong_admin/commandes_folder/cart_folder/cart_total.dart';
 import 'package:flutter/material.dart';
 
 class CartButtonPco extends StatefulWidget {
-  const CartButtonPco({super.key});
+  final String id;
+  final String email;
+
+  const CartButtonPco({super.key, required this.id, required this.email});
 
   @override
   State<CartButtonPco> createState() => _CartButtonState();
@@ -45,7 +48,11 @@ class _CartButtonState extends State<CartButtonPco> {
           MaterialButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (builder) => Articles()));
+                MaterialPageRoute(
+                  builder:
+                      (builder) => Articles(id: widget.id, email: widget.email),
+                ),
+              );
               activateOnPressed();
               controller.ifsigned();
             },

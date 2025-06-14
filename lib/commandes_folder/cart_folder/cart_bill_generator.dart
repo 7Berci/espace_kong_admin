@@ -5,17 +5,18 @@ import 'package:espace_kong_admin/home_folder/home.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
+
 import 'cart_controller.dart';
 
 class BillGenertor extends StatelessWidget {
-  BillGenertor({super.key});
+  final email;
+  BillGenertor({super.key, required this.email});
 
   //final CartController controller = Get.find();
   final controller = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Générateur de facture'),
@@ -27,9 +28,7 @@ class BillGenertor extends StatelessWidget {
             padding: EdgeInsets.all(18.0),
             child: Text(
               "Cliquez sur le bouton pour générer votre facture",
-              style: TextStyle(
-                fontSize: 21.0,
-              ),
+              style: TextStyle(fontSize: 21.0),
             ),
           ),
           const SizedBox(height: 21.0),
@@ -38,8 +37,9 @@ class BillGenertor extends StatelessWidget {
             //ElevatedButton(
             onPressed: () {
               controller.ifRemise();
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (builder) => CartBill()));
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (builder) => CartBill(email: email)),
+              );
               replaceAllZeroValue;
             },
             color: eclatColor,
