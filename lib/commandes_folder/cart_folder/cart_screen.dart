@@ -55,7 +55,7 @@ class _CartButtonState extends State<CartButton> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text('Erreur'),
-              content: Text('Aucun produit sélectionné dans le panier.'),
+              content: Text('Aucun produit dans le panier.'),
               actions: <Widget>[
                 TextButton(
                   child: Text('OK'),
@@ -84,9 +84,7 @@ class _CartButtonState extends State<CartButton> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: Text('Erreur'),
-                      content: Text(
-                        'Aucun produit sélectionné dans le panier. Veuillez sélectionné un produit',
-                      ),
+                      content: Text('Aucun produit dans le panier.'),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () {

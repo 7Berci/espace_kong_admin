@@ -8,7 +8,7 @@ import 'cart_validate_order_form.dart';
 
 class CartBill extends StatefulWidget {
   final email;
-  CartBill({super.key, required this.email});
+  const CartBill({super.key, required this.email});
 
   @override
   State<CartBill> createState() => _CartBillState();

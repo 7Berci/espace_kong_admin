@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:espace_kong_admin/commandes_folder/admin_folder/orders_list_first.dart';
 import 'package:espace_kong_admin/commandes_folder/ajouter_articles_home.dart';
+import 'package:espace_kong_admin/commandes_folder/changer_statut.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -14,44 +15,46 @@ class CommandeDetailsScreen extends StatelessWidget {
     required this.orderId,
   });
 
-  Future<double> printUserTotal(String userEmail) async {
-  print('Recherche orders_total pour email: $userEmail');
-  final snapshot =
-        await FirebaseFirestore.instance
-            .collection('orders_total')
-            .where('email', isEqualTo: userEmail)
-            .get();
+  // Future<double> printUserTotal(String userEmail) async {
+  //   print('Recherche orders_total pour email: $userEmail');
+  //   final snapshot =
+  //       await FirebaseFirestore.instance
+  //           .collection('orders_total')
+  //           .where('email', isEqualTo: userEmail)
+  //           .get();
 
-  print('Nb de docs trouvés: ${snapshot.docs.length}');
-  if (snapshot.docs.isEmpty) {
-      return 0.0;
-    }
+  //   print('Nb de docs trouvés: ${snapshot.docs.length}');
+  //   if (snapshot.docs.isEmpty) {
+  //     return 0.0;
+  //   }
 
-  // On prend le premier document trouvé
-  final data = snapshot.docs.first.data() as Map<String, dynamic>;
-  print('data trouvé: $data');
-  final montantString = data['totalAvecRemise'].toString();
-  final montantNum = double.tryParse(
-    RegExp(r'\d+(\.\d+)?').stringMatch(montantString) ?? '0'
-  ) ?? 0.0;
-  return montantNum;
-  }
+  //   // On prend le premier document trouvé
+  //   final data = snapshot.docs.first.data() as Map<String, dynamic>;
+  //   print('data trouvé: $data');
+  //   final montantString = data['totalAvecRemise'].toString();
+  //   final montantNum =
+  //       double.tryParse(
+  //         RegExp(r'\d+(\.\d+)?').stringMatch(montantString) ?? '0',
+  //       ) ??
+  //       0.0;
+  //   return montantNum;
+  // }
 
-  Future<double> sumOrderNum(String userEmail) async {
-    final snapshot =
-        await FirebaseFirestore.instance
-            .collection('orders')
-            .where('email', isEqualTo: userEmail)
-            .get();
+  // Future<double> sumOrderNum(String userEmail) async {
+  //   final snapshot =
+  //       await FirebaseFirestore.instance
+  //           .collection('orders')
+  //           .where('email', isEqualTo: userEmail)
+  //           .get();
 
-    double total = 0;
-    for (final doc in snapshot.docs) {
-      final data = doc.data();
-      final montant = (data["Quantité commandée"] ?? 0).toDouble();
-      total += montant;
-    }
-    return total;
-  }
+  //   double total = 0;
+  //   for (final doc in snapshot.docs) {
+  //     final data = doc.data();
+  //     final montant = (data["Quantité commandée"] ?? 0).toDouble();
+  //     total += montant;
+  //   }
+  //   return total;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -124,11 +127,6 @@ class CommandeDetailsScreen extends StatelessWidget {
                                   ? (data['createdAt'] as Timestamp).toDate()
                                   : DateTime.now();
                           final userEmail = data['email'];
-                          final articles =
-                              data['articles'] != null
-                                  ? (data['articles'] as List).join(', ')
-                                  : '---';
-                          final statut = data['statut'] ?? '---';
 
                           return DataRow(
                             cells: [
@@ -141,48 +139,197 @@ class CommandeDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                               DataCell(
-                                FutureBuilder<double>(
-                                  future: printUserTotal(userEmail),
+                                StreamBuilder<QuerySnapshot>(
+                                  stream:
+                                      FirebaseFirestore.instance
+                                          .collection('orders_total')
+                                          .where(
+                                            'email',
+                                            isEqualTo: userEmail,
+                                          ) // adapte le champ si besoin
+                                          .snapshots(),
                                   builder: (context, snapshot) {
-                                    if (!snapshot.hasData) {
-                                      return const Text('...');
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
                                     }
-                                    return Text(
-                                      '${snapshot.data!.toStringAsFixed(2)} FCFA',
+                                    if (!snapshot.hasData ||
+                                        snapshot.data!.docs.isEmpty) {
+                                      return Text('0');
+                                    }
+                                    // Exemple : somme des totaux pour cet utilisateur
+                                    double total = 0;
+                                    for (var doc in snapshot.data!.docs) {
+                                      total +=
+                                          double.tryParse(
+                                            doc['totalAvecRemise']
+                                                .toString()
+                                                .replaceAll(' FCFA', ''),
+                                          ) ??
+                                          0;
+                                    }
+                                    return Text('$total');
+                                  },
+                                ),
+                              ),
+                              DataCell(
+                                StreamBuilder<QuerySnapshot>(
+                                  stream:
+                                      FirebaseFirestore.instance
+                                          .collection('orders')
+                                          .where(
+                                            'email',
+                                            isEqualTo: userEmail,
+                                          ) // adapte le champ si besoin
+                                          .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
+                                    }
+                                    if (!snapshot.hasData ||
+                                        snapshot.data!.docs.isEmpty) {
+                                      return TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (builder) => OrdersListFirst(
+                                                    email: userEmail,
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text('0'),
+                                      );
+                                    }
+                                    // Exemple : somme des quantités pour cet utilisateur
+                                    int sum = 0;
+                                    for (var doc in snapshot.data!.docs) {
+                                      final data =
+                                          doc.data() as Map<String, dynamic>;
+                                      if (data.containsKey(
+                                        'Quantité commandée',
+                                      )) {
+                                        sum +=
+                                            int.tryParse(
+                                              data['Quantité commandée']
+                                                  .toString(),
+                                            ) ??
+                                            0;
+                                      }
+                                    }
+                                    return TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder:
+                                                (builder) => OrdersListFirst(
+                                                  email: userEmail,
+                                                ),
+                                          ),
+                                        );
+                                      },
+                                      child: Text('$sum'),
                                     );
                                   },
                                 ),
                               ),
                               DataCell(
-                                FutureBuilder<double>(
-                                  future: sumOrderNum(userEmail),
+                                StreamBuilder<DocumentSnapshot>(
+                                  stream:
+                                      FirebaseFirestore.instance
+                                          .collection('status')
+                                          .doc(
+                                            userEmail,
+                                          ) // ou adapte selon ton id de commande
+                                          .snapshots(),
                                   builder: (context, snapshot) {
-                                    if (!snapshot.hasData) {
-                                      return TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (builder) => OrdersListFirst(),
-                                      ),
-                                    );
-                                  },
-                                  child: Text('...',),
-                                );
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
                                     }
+                                    if (!snapshot.hasData ||
+                                        !snapshot.data!.exists) {
+                                      return TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (builder) => StatusMenu(
+                                                    email: userEmail,
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text('Aucun statut'),
+                                      );
+                                    }
+                                    final data =
+                                        snapshot.data!.data()
+                                            as Map<String, dynamic>;
+                                    final statuts =
+                                        data['statuts']
+                                            as Map<String, dynamic>?;
+
+                                    if (statuts == null || statuts.isEmpty) {
+                                      return TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (builder) => StatusMenu(
+                                                    email: userEmail,
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text('Aucun statut'),
+                                      );
+                                    }
+
+                                    // On récupère la liste des statuts activés (true)
+                                    final activeStatuts =
+                                        statuts.entries
+                                            .where((e) => e.value == true)
+                                            .map((e) => e.key)
+                                            .toList();
+
+                                    if (activeStatuts.isEmpty) {
+                                      return TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (builder) => StatusMenu(
+                                                    email: userEmail,
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text('Aucun statut'),
+                                      );
+                                    }
+
+                                    // On prend le dernier statut activé (le plus à droite dans la liste)
+                                    final lastActive = activeStatuts.last;
+
                                     return TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (builder) => OrdersListFirst(),
-                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder:
+                                                (builder) => StatusMenu(
+                                                  email: userEmail,
+                                                ),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(lastActive),
                                     );
-                                  },
-                                  child: Text('${snapshot.data!.toStringAsFixed(0)}',),
-                                );
                                   },
                                 ),
                               ),
-                              DataCell(Text('$statut')),
                               DataCell(
                                 Row(
                                   children: [
@@ -204,16 +351,6 @@ class CommandeDetailsScreen extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(width: 8),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          '/changer_statut',
-                                          arguments: docs[index].id,
-                                        );
-                                      },
-                                      child: const Text('Changer statut'),
-                                    ),
                                   ],
                                 ),
                               ),

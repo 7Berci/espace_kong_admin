@@ -1,26 +1,25 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:espace_kong_admin/auth_folder/function.dart';
 import 'package:espace_kong_admin/auth_folder/utils.dart';
-import 'package:espace_kong_admin/commandes_folder/cart_folder/database.dart';
 import 'package:espace_kong_admin/home_folder/home.dart';
 import 'package:flutter/material.dart';
 
 class OrdersListFirst extends StatefulWidget {
-  const OrdersListFirst({super.key});
+  final email;
+  const OrdersListFirst({super.key, required this.email});
 
   @override
   State<OrdersListFirst> createState() => _OrdersListFirstState();
 }
 
 class _OrdersListFirstState extends State<OrdersListFirst> {
-  late Stream<QuerySnapshot> _streamShoppingItems;
+  //late Stream<QuerySnapshot> _streamShoppingItems;
   final Utils utilsWidget = Utils();
 
   @override
   void initState() {
-    _streamShoppingItems =
-        DatabaseService(uid: user?.uid).ordersCollection.snapshots();
+    // _streamShoppingItems =
+    //     DatabaseService(uid: user?.uid).ordersCollection.snapshots();
     super.initState();
   }
 
@@ -36,17 +35,24 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
         child: Column(
           children: [
             StreamBuilder<QuerySnapshot>(
-              stream: _streamShoppingItems,
+              stream:
+                  FirebaseFirestore.instance
+                      .collection('orders')
+                      .where(
+                        'email',
+                        isEqualTo: widget.email,
+                      ) // ou this.email selon le contexte
+                      .snapshots(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasError) {
                   return Center(child: Text(snapshot.error.toString()));
                 }
-        
+
                 if (snapshot.connectionState == ConnectionState.active) {
                   QuerySnapshot querySnapshot = snapshot.data;
                   List<QueryDocumentSnapshot> listQueryDocumentSnapshot =
                       querySnapshot.docs;
-        
+
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -122,7 +128,7 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                     },
                   );
                 }
-        
+
                 return const Center(child: CircularProgressIndicator());
               },
             ),
@@ -130,6 +136,7 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
               stream:
                   FirebaseFirestore.instance
                       .collection('orders_total')
+                      .where('email', isEqualTo: widget.email)
                       .snapshots(),
               builder: (
                 BuildContext context,
@@ -138,16 +145,16 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 }
-        
+
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                   return Center(
-                    child: Text('No total orders found in orders_total.'),
+                    child: Text('Aucune commande trouvée dans orders_total.'),
                   );
                 }
-        
+
                 // Access the documents in the orders_total collection
                 final ordersTotal = snapshot.data!.docs;
-        
+
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
@@ -294,6 +301,18 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 21.0,
                                 ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(width: 10.0),
+                              const Text('Supprimer la facture'),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () async {
+                                  await document.reference.delete();
+                                },
                               ),
                             ],
                           ),
