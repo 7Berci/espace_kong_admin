@@ -20,13 +20,13 @@ class _CartBillState extends State<CartBill> {
   final CartController controller = Get.find();
 
   String nbrArticles = "0";
-  String totalSimple = "0";
-  String fraisLivraison = "0";
+  double totalSansLivraison = 0;
+  double fraisLivraison = 0;
   String totalWithLivraison = "0";
-  String remiseTen = "0";
-  String remiseTwenty = "0";
-  String remiseManuelle = "0";
-  String totalAvecRemise = "0";
+  double remiseTen = 0;
+  double remiseTwenty = 0;
+  double remiseManuelle = 0;
+  double totalFinal = 0;
 
   @override
   void initState() {
@@ -39,31 +39,35 @@ class _CartBillState extends State<CartBill> {
     //     nbrArticles = value.toString();
     //   });
     // });
-    totalSimple = "${controller.printTotal} FCFA";
+    totalSansLivraison = controller.printTotal;
     // controller.printTotal.listen((value) {
     //   setState(() {
     //     totalSimple = "${value} FCFA";
     //   });
     // });
 
-    fraisLivraison = "${controller.shipping} FCFA";
+    fraisLivraison = controller.shipping;
     totalWithLivraison = "${controller.shipping + controller.realTotal} FCFA";
 
-    remiseTen = "${controller.printTheRemiseTen} FCFA";
+    remiseTen = controller.printTheRemiseTen;
     // controller.printTheRemiseTen.listen((value) {
     //   setState(() {
     //     remiseTen = "${value} FCFA";
     //   });
     // });
-    remiseTwenty = "${controller.printTheRemiseTwenty} FCFA";
+    remiseTwenty = controller.printTheRemiseTwenty;
     // controller.printTheRemiseTwenty.listen((value) {
     //   setState(() {
     //     remiseTwenty = "${value} FCFA";
     //   });
     // });
-    remiseManuelle = "${controller.remiseManuelle.value} FCFA";
-    totalAvecRemise =
-        "${controller.realTotal - controller.theRemiseTen - controller.theRemiseTwenty + controller.shipping - controller.remiseManuelle.value} FCFA";
+    remiseManuelle = controller.remiseManuelle.value;
+    totalFinal =
+        controller.realTotal -
+        controller.theRemiseTen -
+        controller.theRemiseTwenty +
+        controller.shipping -
+        controller.remiseManuelle.value;
   }
 
   @override
@@ -100,6 +104,21 @@ class _CartBillState extends State<CartBill> {
                 ],
               ),
               const SizedBox(height: 20.0),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  const Text(
+                    "Article(s) Super Express ?",
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                  Text(
+                    "${controller.printIfCinqMilles} FCFA",
+                    style: const TextStyle(fontSize: 18.0),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -257,13 +276,13 @@ class _CartBillState extends State<CartBill> {
                           (builder) => Validation(
                             email: widget.email,
                             nbrArticles: nbrArticles,
-                            totalSimple: totalSimple,
+                            totalSansLivraison: totalSansLivraison,
                             fraisLivraison: fraisLivraison,
                             totalWithLivraison: totalWithLivraison,
                             remiseTen: remiseTen,
                             remiseTwenty: remiseTwenty,
                             remiseManuelle: remiseManuelle,
-                            totalAvecRemise: totalAvecRemise,
+                            totalFinal: totalFinal,
                           ),
                     ),
                   );

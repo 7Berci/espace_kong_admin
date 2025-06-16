@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:espace_kong_admin/home_folder/home.dart';
-import '../catalog_product/products_model_list.dart';
 import 'package:flutter/material.dart';
-import '../cart_folder/cart_controller.dart';
 import 'package:get/get.dart';
+
+import '../cart_folder/cart_controller.dart';
+import '../catalog_product/products_model_list.dart';
 
 class CatalogVetementsProductsSuperExpress extends StatelessWidget {
   const CatalogVetementsProductsSuperExpress({super.key});
@@ -12,25 +13,29 @@ class CatalogVetementsProductsSuperExpress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(
       child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('products')
-            .where('cat', isEqualTo: 'Clothes')
-            .where('type', isEqualTo: 'super express')
-            .snapshots(),
+        stream:
+            FirebaseFirestore.instance
+                .collection('products')
+                .where('cat', isEqualTo: 'Clothes')
+                .where('type', isEqualTo: 'super express')
+                .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
-          final products = snapshot.data!.docs
-              .map((doc) => Product.fromFirestore(doc.data() as Map<String, dynamic>))
-              .toList();
+          final products =
+              snapshot.data!.docs
+                  .map(
+                    (doc) => Product.fromFirestore(
+                      doc.data() as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList();
           return ListView.builder(
             shrinkWrap: true,
             itemCount: products.length,
             itemBuilder: (BuildContext context, int index) {
-              return CatalogProductsCardSuperExpress(
-                product: products[index],
-              );
+              return CatalogProductsCardSuperExpress(product: products[index]);
             },
           );
         },
@@ -91,14 +96,10 @@ class CatalogProductsCardSuperExpress extends StatelessWidget {
                         width: 200.0,
                         child: Text(
                           product.nameproduct,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
+                      const SizedBox(height: 8.0),
                       Row(
                         children: [
                           Container(
@@ -116,14 +117,19 @@ class CatalogProductsCardSuperExpress extends StatelessWidget {
                               onPressed: () {
                                 cartController.reduceClothesCounter(product);
                                 cartController.removeProductClothes(product);
-                                cartController.removeFromGeneralListing(product);
+                                cartController.removeFromGeneralListing(
+                                  product,
+                                );
+                                cartController.reduceSuExpressCounter(product);
                               },
                               iconSize: 15.0,
                               padding: const EdgeInsets.all(0.0),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                            ),
                             child: Obx(
                               () => Text(
                                 "${cartController.clothesCounterl(product)}",
@@ -151,6 +157,7 @@ class CatalogProductsCardSuperExpress extends StatelessWidget {
                                 cartController.addClothesCounter(product);
                                 cartController.addProductClothes(product);
                                 cartController.addToGeneralListing(product);
+                                cartController.addSuExpressCounter(product);
                               },
                               padding: const EdgeInsets.all(0.0),
                             ),

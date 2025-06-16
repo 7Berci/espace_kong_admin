@@ -21,130 +21,6 @@ final CartController controller = Get.find();
 //   final snapshot = await FirebaseFirestore.instance.collection('products').get();
 //   return snapshot.docs.map((doc) => Product.fromFirestore(doc.data() as Map<String, dynamic>)).toList();
 // }d
-void initAllCounters(List<Product> allProducts) {
-  final clothesNormalProducts =
-      allProducts
-          .where((p) => p.cat == 'Clothes' && p.type == 'normal')
-          .toList();
-  final clothesExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Clothes' && p.type == 'express')
-          .toList();
-  final clothesSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Clothes' && p.type == 'super express')
-          .toList();
-  final specialNormalProducts =
-      allProducts
-          .where((p) => p.cat == 'Special' && p.type == 'normal')
-          .toList();
-  final specialExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Special' && p.type == 'express')
-          .toList();
-  final specialSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Special' && p.type == 'super express')
-          .toList();
-  final accessoriesNormalProducts =
-      allProducts
-          .where((p) => p.cat == 'Accessories' && p.type == 'normal')
-          .toList();
-  final accessoriesExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Accessories' && p.type == 'express')
-          .toList();
-  final accessoriesSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Accessories' && p.type == 'super express')
-          .toList();
-  final beddingNormalProducts =
-      allProducts
-          .where((p) => p.cat == 'Bedding' && p.type == 'normal')
-          .toList();
-  final beddingExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Bedding' && p.type == 'express')
-          .toList();
-  final beddingSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Bedding' && p.type == 'super express')
-          .toList();
-  final othersNormalProducts =
-      allProducts
-          .where((p) => p.cat == 'Others' && p.type == 'normal')
-          .toList();
-  final othersExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Others' && p.type == 'express')
-          .toList();
-  final othersSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Others' && p.type == 'super express')
-          .toList();
-  final bathNormalProducts =
-      allProducts.where((p) => p.cat == 'Bath' && p.type == 'normal').toList();
-  final bathExpressProducts =
-      allProducts.where((p) => p.cat == 'Bath' && p.type == 'express').toList();
-  final bathSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Bath' && p.type == 'super express')
-          .toList();
-  for (final product in clothesNormalProducts) {
-    controller.clothesInitCounter(product);
-  }
-  for (final product in clothesExpressProducts) {
-    controller.clothesInitCounter(product);
-  }
-  for (final product in clothesSuperExpressProducts) {
-    controller.clothesInitCounter(product);
-  }
-  for (final product in specialNormalProducts) {
-    controller.specialInitCounter(product);
-  }
-  for (final product in specialExpressProducts) {
-    controller.specialInitCounter(product);
-  }
-  for (final product in specialSuperExpressProducts) {
-    controller.specialInitCounter(product);
-  }
-  for (final product in othersNormalProducts) {
-    controller.othersInitCounter(product);
-  }
-  for (final product in othersExpressProducts) {
-    controller.othersInitCounter(product);
-  }
-  for (final product in othersSuperExpressProducts) {
-    controller.othersInitCounter(product);
-  }
-  for (final product in beddingNormalProducts) {
-    controller.beddingInitCounter(product);
-  }
-  for (final product in beddingExpressProducts) {
-    controller.beddingInitCounter(product);
-  }
-  for (final product in beddingSuperExpressProducts) {
-    controller.beddingInitCounter(product);
-  }
-  for (final product in bathNormalProducts) {
-    controller.bathInitCounter(product);
-  }
-  for (final product in bathExpressProducts) {
-    controller.bathInitCounter(product);
-  }
-  for (final product in bathSuperExpressProducts) {
-    controller.bathInitCounter(product);
-  }
-  for (final product in accessoriesNormalProducts) {
-    controller.accessoriesInitCounter(product);
-  }
-  for (final product in accessoriesExpressProducts) {
-    controller.accessoriesInitCounter(product);
-  }
-  for (final product in accessoriesSuperExpressProducts) {
-    controller.accessoriesInitCounter(product);
-  }
-}
 
 void initAllrkValue(List<Product> allProducts) {
   final clothesNormalProducts =
@@ -268,131 +144,6 @@ void initAllrkValue(List<Product> allProducts) {
   }
   for (final product in accessoriesSuperExpressProducts) {
     controller.accessoriesInitrkvalue(product);
-  }
-}
-
-void initAllRealCounters(List<Product> allProducts) {
-  final clothesNormalProducts =
-      allProducts
-          .where((p) => p.cat == 'Clothes' && p.type == 'normal')
-          .toList();
-  final clothesExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Clothes' && p.type == 'express')
-          .toList();
-  final clothesSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Clothes' && p.type == 'super express')
-          .toList();
-  final specialNormalProducts =
-      allProducts
-          .where((p) => p.cat == 'Special' && p.type == 'normal')
-          .toList();
-  final specialExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Special' && p.type == 'express')
-          .toList();
-  final specialSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Special' && p.type == 'super express')
-          .toList();
-  final accessoriesNormalProducts =
-      allProducts
-          .where((p) => p.cat == 'Accessories' && p.type == 'normal')
-          .toList();
-  final accessoriesExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Accessories' && p.type == 'express')
-          .toList();
-  final accessoriesSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Accessories' && p.type == 'super express')
-          .toList();
-  final beddingNormalProducts =
-      allProducts
-          .where((p) => p.cat == 'Bedding' && p.type == 'normal')
-          .toList();
-  final beddingExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Bedding' && p.type == 'express')
-          .toList();
-  final beddingSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Bedding' && p.type == 'super express')
-          .toList();
-  final othersNormalProducts =
-      allProducts
-          .where((p) => p.cat == 'Others' && p.type == 'normal')
-          .toList();
-  final othersExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Others' && p.type == 'express')
-          .toList();
-  final othersSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Others' && p.type == 'super express')
-          .toList();
-  final bathNormalProducts =
-      allProducts.where((p) => p.cat == 'Bath' && p.type == 'normal').toList();
-  final bathExpressProducts =
-      allProducts.where((p) => p.cat == 'Bath' && p.type == 'express').toList();
-  final bathSuperExpressProducts =
-      allProducts
-          .where((p) => p.cat == 'Bath' && p.type == 'super express')
-          .toList();
-  for (final product in clothesNormalProducts) {
-    controller.clothesInitRealCounter(product);
-  }
-  for (final product in clothesExpressProducts) {
-    controller.clothesInitRealCounter(product);
-  }
-  for (final product in clothesSuperExpressProducts) {
-    controller.clothesInitRealCounter(product);
-  }
-  for (final product in specialNormalProducts) {
-    controller.specialInitRealCounter(product);
-  }
-  for (final product in specialExpressProducts) {
-    controller.specialInitRealCounter(product);
-  }
-  for (final product in specialSuperExpressProducts) {
-    controller.specialInitRealCounter(product);
-  }
-  for (final product in othersNormalProducts) {
-    controller.othersInitRealCounter(product);
-  }
-  for (final product in othersExpressProducts) {
-    controller.othersInitRealCounter(product);
-  }
-  for (final product in othersSuperExpressProducts) {
-    controller.othersInitRealCounter(product);
-  }
-  for (final product in beddingNormalProducts) {
-    controller.beddingInitRealCounter(product);
-  }
-  for (final product in beddingExpressProducts) {
-    controller.beddingInitRealCounter(product);
-  }
-  for (final product in beddingSuperExpressProducts) {
-    controller.beddingInitRealCounter(product);
-  }
-  for (final product in bathNormalProducts) {
-    controller.bathInitRealCounter(product);
-  }
-  for (final product in bathExpressProducts) {
-    controller.bathInitRealCounter(product);
-  }
-  for (final product in bathSuperExpressProducts) {
-    controller.bathInitRealCounter(product);
-  }
-  for (final product in accessoriesNormalProducts) {
-    controller.accessoriesInitRealCounter(product);
-  }
-  for (final product in accessoriesExpressProducts) {
-    controller.accessoriesInitRealCounter(product);
-  }
-  for (final product in accessoriesSuperExpressProducts) {
-    controller.accessoriesInitRealCounter(product);
   }
 }
 
@@ -624,7 +375,9 @@ class CartTotalSum extends StatelessWidget {
     }
 
     void goToShopPage() {
-      controller.initRemise;
+      //controller.initRemise;
+      controller.theRemiseTen = 0.0;
+      controller.theRemiseTwenty = 0.0;
 
       controller.productasclothes.clear();
       controller.productaspecial.clear();
@@ -641,7 +394,9 @@ class CartTotalSum extends StatelessWidget {
       controller.beddingnumber.clear();
       controller.accessoriesnumber.clear();
       controller.bathnumber.clear();
-      initAllRealCounters;
+
+      controller.addedSuExpress.clear();
+      //initAllRealCounters;
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (builder) => const HomeOrders()),
       );

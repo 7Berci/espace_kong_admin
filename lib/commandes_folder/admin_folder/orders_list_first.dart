@@ -1,11 +1,14 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:espace_kong_admin/auth_folder/utils.dart';
+import 'package:espace_kong_admin/commandes_folder/cart_folder/cart_validate_order_form.dart';
+import 'package:espace_kong_admin/commandes_folder/home_commandes_screen.dart';
 import 'package:espace_kong_admin/home_folder/home.dart';
 import 'package:flutter/material.dart';
 
 class OrdersListFirst extends StatefulWidget {
   final email;
+
   const OrdersListFirst({super.key, required this.email});
 
   @override
@@ -43,278 +46,121 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                         isEqualTo: widget.email,
                       ) // ou this.email selon le contexte
                       .snapshots(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
-                }
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return CircularProgressIndicator();
+                final commandes = snapshot.data!.docs;
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: commandes.length,
+                  itemBuilder: (context, index) {
+                    final commande = commandes[index];
+                    final data = commande.data() as Map<String, dynamic>;
+                    final articles = data['articles'] as List<dynamic>? ?? [];
+                    final remises =
+                        data['remises'] as Map<String, dynamic>? ?? {};
+                    final fraisLivraison = data['fraisLivraison'] ?? 0;
+                    final totalSansRemise = data['totalSansRemise'] ?? 0;
+                    final totalFinal = data['totalFinal'] ?? 0;
 
-                if (snapshot.connectionState == ConnectionState.active) {
-                  QuerySnapshot querySnapshot = snapshot.data;
-                  List<QueryDocumentSnapshot> listQueryDocumentSnapshot =
-                      querySnapshot.docs;
-
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: listQueryDocumentSnapshot.length,
-                    itemBuilder: (context, index) {
-                      QueryDocumentSnapshot document =
-                          listQueryDocumentSnapshot[index];
-                      DocumentReference documentReference = document.reference;
-                      // FirebaseFirestore.instance.collection('orders').doc(
-                      //     " - ${document["Quantité commandée"]} ${document["Nom de l'artcile"]}");
-                      return Column(
+                    return Card(
+                      margin: EdgeInsets.all(8),
+                      child: ExpansionTile(
+                        title: Text('Commande de ${data['email']}'),
+                        subtitle: Text('Total à payer : $totalFinal FCFA'),
                         children: [
-                          Card(
-                            margin: const EdgeInsets.fromLTRB(
-                              5.0,
-                              15.0,
-                              5.0,
-                              1.0,
-                            ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ListTile(
-                                  title: Text('No: $index'),
-                                  subtitle: Column(children: [
-                                        ],
-                                      ),
+                                Text(
+                                  'Détails des articles :',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
+                                ...articles.map(
+                                  (article) => ListTile(
+                                    title: Text(
+                                      '${article["Nom de l'article"]} (${article['Type']})',
+                                    ),
+                                    subtitle: Text(
+                                      'Quantité : ${article['Quantité commandée']}',
+                                    ),
+                                    trailing: Text(
+                                      '${article['Coût unitaire']} FCFA',
+                                    ),
+                                  ),
+                                ),
+                                Divider(),
+                                Text(
+                                  'Frais de livraison : $fraisLivraison FCFA',
+                                ),
+                                Text(
+                                  'Coût total des articles : $totalSansRemise FCFA',
+                                ),
+                                Text(
+                                  'Remise 10% : ${remises['ten'] ?? 0} FCFA',
+                                ),
+                                Text(
+                                  'Remise 20% : ${remises['twenty'] ?? 0} FCFA',
+                                ),
+                                Text(
+                                  'Remise manuelle : ${remises['manuelle'] ?? 0} FCFA',
+                                ),
+                                Divider(),
+                                Text(
+                                  'Total à payer : $totalFinal FCFA',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 16.0),
                                 Center(
-                                  child: ListTile(
-                                    leading: CircleAvatar(
-                                      radius: 25.0,
-                                      backgroundColor: eclatColor,
-                                      child: Image.asset(document["photoPath"]),
-                                    ),
-                                    title: Text(document["Nom de l'artcile"]),
-                                    subtitle: Column(
-                                      children: [
-                                        Text(
-                                          'Qté: ${document["Quantité commandée"]}',
-                                          style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16.0,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      final querySnapshot =
+                                          await FirebaseFirestore.instance
+                                              .collection('orders')
+                                              .where(
+                                                'email',
+                                                isEqualTo: widget.email,
+                                              ) // ou this.email selon le contexte
+                                              .get();
+
+                                      // 1. Récupérer les données du document à archiver
+                                      if (querySnapshot.docs.isNotEmpty) {
+                                        final doc = querySnapshot.docs.first;
+                                        final data = doc.data();
+
+                                        // 2. Copier dans la collection d'archives
+                                        await FirebaseFirestore.instance
+                                            .collection('orders_archive')
+                                            .doc(orderId)
+                                            .set(data);
+
+                                        // 3. Supprimer de la collection principale
+                                        await doc.reference.delete();
+
+                                        // 4. (Optionnel) Afficher un message ou naviguer
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Commande archivée !',
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          'Coût: ${document["Coût unitaire"]}',
-                                          style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16.0,
+                                        );
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: (builder) => HomeOrders(),
                                           ),
-                                        ),
-                                      ],
-                                    ),
+                                        );
+                                      }
+                                    },
+                                    child: Text('Archiver la commande'),
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(width: 10.0),
-                              const Text('Supprimer la commande'),
-                              IconButton(
-                                icon: const Icon(Icons.delete),
-                                onPressed: () {
-                                  documentReference.delete();
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-
-                return const Center(child: CircularProgressIndicator());
-              },
-            ),
-            StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance
-                      .collection('orders_total')
-                      .where('email', isEqualTo: widget.email)
-                      .snapshots(),
-              builder: (
-                BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot,
-              ) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-
-                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(
-                    child: Text('Aucune commande trouvée dans orders_total.'),
-                  );
-                }
-
-                // Access the documents in the orders_total collection
-                final ordersTotal = snapshot.data!.docs;
-
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: ordersTotal.length,
-                  itemBuilder: (context, index) {
-                    final document = ordersTotal[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 10.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Text(
-                                "Nombre d'articles",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0,
-                                ),
-                              ),
-                              Text(
-                                // "${controller.globalsom} FCFA",
-                                "${document["nbrArticles"]}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Text(
-                                "Total",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0,
-                                ),
-                              ),
-                              Text(
-                                // "${controller.globalsom} FCFA",
-                                "${document["totalSimple"]}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 4.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Text(
-                                "Frais de livraison",
-                                style: TextStyle(fontSize: 18.0),
-                              ),
-                              Text(
-                                "${document["fraisLivraison"]}",
-                                style: const TextStyle(fontSize: 18.0),
-                              ),
-                            ],
-                          ),
-                          const Divider(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Text(
-                                "Total + livraison",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19.0,
-                                ),
-                              ),
-                              Text(
-                                "${document["totalWithLivraison"]}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 4.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Text(
-                                "Remise +10 articles",
-                                style: TextStyle(fontSize: 19.0),
-                              ),
-                              Text(
-                                "${document["remiseTen"]}",
-                                style: const TextStyle(fontSize: 19.0),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 4.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Text(
-                                "Remise +20 articles",
-                                style: TextStyle(fontSize: 19.0),
-                              ),
-                              Text(
-                                "${document["remiseTwenty"]}",
-                                style: const TextStyle(fontSize: 19.0),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 4.0),
-                          // Champ de remise manuelle
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Remise manuelle",
-                                style: TextStyle(fontSize: 19.0),
-                              ),
-                              Text(
-                                "${document["remiseManuelle"]}",
-                                style: const TextStyle(fontSize: 19.0),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 4.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Total avec remise",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 21.0,
-                                ),
-                              ),
-                              Text(
-                                "${document["totalAvecRemise"]}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 21.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(width: 10.0),
-                              const Text('Supprimer la facture'),
-                              IconButton(
-                                icon: const Icon(Icons.delete),
-                                onPressed: () async {
-                                  await document.reference.delete();
-                                },
-                              ),
-                            ],
                           ),
                         ],
                       ),
@@ -323,6 +169,105 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                 );
               },
             ),
+
+            // StreamBuilder<QuerySnapshot>(
+            //   stream:
+            //       FirebaseFirestore.instance
+            //           .collection('orders')
+            //           .where(
+            //             'email',
+            //             isEqualTo: widget.email,
+            //           ) // ou this.email selon le contexte
+            //           .snapshots(),
+            //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+            //     if (snapshot.hasError) {
+            //       return Center(child: Text(snapshot.error.toString()));
+            //     }
+
+            //     if (snapshot.connectionState == ConnectionState.active) {
+            //       QuerySnapshot querySnapshot = snapshot.data;
+            //       List<QueryDocumentSnapshot> listQueryDocumentSnapshot =
+            //           querySnapshot.docs;
+
+            //       return ListView.builder(
+            //         shrinkWrap: true,
+            //         physics: NeverScrollableScrollPhysics(),
+            //         itemCount: listQueryDocumentSnapshot.length,
+            //         itemBuilder: (context, index) {
+            //           QueryDocumentSnapshot document =
+            //               listQueryDocumentSnapshot[index];
+            //           DocumentReference documentReference = document.reference;
+            //           // FirebaseFirestore.instance.collection('orders').doc(
+            //           //     " - ${document["Quantité commandée"]} ${document["Nom de l'artcile"]}");
+            //           return Column(
+            //             children: [
+            //               Card(
+            //                 margin: const EdgeInsets.fromLTRB(
+            //                   5.0,
+            //                   15.0,
+            //                   5.0,
+            //                   1.0,
+            //                 ),
+            //                 child: Column(
+            //                   children: [
+            //                     ListTile(
+            //                       title: Text('No: $index'),
+            //                       subtitle: Column(children: [
+            //                             ],
+            //                           ),
+            //                     ),
+            //                     Center(
+            //                       child: ListTile(
+            //                         leading: CircleAvatar(
+            //                           radius: 25.0,
+            //                           backgroundColor: eclatColor,
+            //                           child: Image.asset(document["photoPath"]),
+            //                         ),
+            //                         title: Text(document["Nom de l'artcile"]),
+            //                         subtitle: Column(
+            //                           children: [
+            //                             Text(
+            //                               'Qté: ${document["Quantité commandée"]}',
+            //                               style: const TextStyle(
+            //                                 color: Colors.black,
+            //                                 fontSize: 16.0,
+            //                               ),
+            //                             ),
+            //                             Text(
+            //                               'Coût: ${document["Coût unitaire"]}',
+            //                               style: const TextStyle(
+            //                                 color: Colors.black,
+            //                                 fontSize: 16.0,
+            //                               ),
+            //                             ),
+            //                           ],
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ),
+            //               Row(
+            //                 children: [
+            //                   const SizedBox(width: 10.0),
+            //                   const Text('Supprimer la commande'),
+            //                   IconButton(
+            //                     icon: const Icon(Icons.delete),
+            //                     onPressed: () {
+            //                       documentReference.delete();
+            //                     },
+            //                   ),
+            //                 ],
+            //               ),
+            //             ],
+            //           );
+            //         },
+            //       );
+            //     }
+
+            //     return const Center(child: CircularProgressIndicator());
+            //   },
+            // ),
           ],
         ),
       ),

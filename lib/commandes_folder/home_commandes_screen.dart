@@ -19,11 +19,12 @@ class HomeOrdersView extends State<HomeOrders> {
           children: [
             const SizedBox(height: 29.0),
             StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('orders_users')
-                  .where('archived', isEqualTo: false)
-                  .orderBy('createdAt', descending: true)
-                  .snapshots(),
+              stream:
+                  FirebaseFirestore.instance
+                      .collection('orders_users')
+                      .where('archived', isEqualTo: false)
+                      .orderBy('createdAt', descending: true)
+                      .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   print('Erreur : ${snapshot.error}');
@@ -38,7 +39,10 @@ class HomeOrdersView extends State<HomeOrders> {
                     padding: EdgeInsets.all(24.0),
                     child: Text(
                       'Pas de nouvelle commande',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   );
                 }
@@ -46,10 +50,16 @@ class HomeOrdersView extends State<HomeOrders> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 16.0,
+                        horizontal: 8.0,
+                      ),
                       child: Text(
                         'Nouvelle(s) commande(s) :',
-                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     SingleChildScrollView(
@@ -63,10 +73,12 @@ class HomeOrdersView extends State<HomeOrders> {
                           DataColumn(label: Text('Statut')),
                         ],
                         rows: List.generate(docs.length, (index) {
-                          final data = docs[index].data() as Map<String, dynamic>;
-                          final createdAt = data['createdAt'] is Timestamp
-                              ? (data['createdAt'] as Timestamp).toDate()
-                              : DateTime.now();
+                          final data =
+                              docs[index].data() as Map<String, dynamic>;
+                          final createdAt =
+                              data['createdAt'] is Timestamp
+                                  ? (data['createdAt'] as Timestamp).toDate()
+                                  : DateTime.now();
                           final statut = data['statut'] ?? '---';
                           return DataRow(
                             onSelectChanged: (_) async {
@@ -74,63 +86,94 @@ class HomeOrdersView extends State<HomeOrders> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CommandeDetailsScreen(
-                                    orderData: data,
-                                    orderId: docs[index].id,
-                                  ),
+                                  builder:
+                                      (context) => CommandeDetailsScreen(
+                                        orderData: data,
+                                        //orderId: docs[index].id,
+                                      ),
                                 ),
                               );
                             },
                             cells: [
                               DataCell(Text('${index + 1}')),
-                              DataCell(Text(DateFormat('dd/MM/yyyy HH:mm').format(createdAt))),
+                              DataCell(
+                                Text(
+                                  DateFormat(
+                                    'dd/MM/yyyy HH:mm',
+                                  ).format(createdAt),
+                                ),
+                              ),
                               DataCell(
                                 FutureBuilder<QuerySnapshot>(
-                                  future: data['email'] != null
-                                      ? FirebaseFirestore.instance
-                                          .collection('contacts')
-                                          .where('email', isEqualTo: data['email'])
-                                          .limit(1)
-                                          .get()
-                                      : FirebaseFirestore.instance
-                                        .collection('contacts')
-                                        .where('email', isEqualTo: '__no_email__')
-                                        .limit(1)
-                                        .get(),
+                                  future:
+                                      data['email'] != null
+                                          ? FirebaseFirestore.instance
+                                              .collection('contacts')
+                                              .where(
+                                                'email',
+                                                isEqualTo: data['email'],
+                                              )
+                                              .limit(1)
+                                              .get()
+                                          : FirebaseFirestore.instance
+                                              .collection('contacts')
+                                              .where(
+                                                'email',
+                                                isEqualTo: '__no_email__',
+                                              )
+                                              .limit(1)
+                                              .get(),
                                   builder: (context, contactSnapshot) {
-                                    if (contactSnapshot.connectionState == ConnectionState.waiting) {
+                                    if (contactSnapshot.connectionState ==
+                                        ConnectionState.waiting) {
                                       return const Text('...');
                                     }
-                                    if (!contactSnapshot.hasData || contactSnapshot.data!.docs.isEmpty) {
+                                    if (!contactSnapshot.hasData ||
+                                        contactSnapshot.data!.docs.isEmpty) {
                                       return const Text('---');
                                     }
-                                    final contactData = contactSnapshot.data!.docs.first.data() as Map<String, dynamic>;
+                                    final contactData =
+                                        contactSnapshot.data!.docs.first.data()
+                                            as Map<String, dynamic>;
                                     return Text(contactData['phone'] ?? '---');
                                   },
                                 ),
                               ),
                               DataCell(
                                 FutureBuilder<QuerySnapshot>(
-                                  future: data['email'] != null
-                                      ? FirebaseFirestore.instance
-                                          .collection('contacts')
-                                          .where('email', isEqualTo: data['email'])
-                                          .limit(1)
-                                          .get()
-                                      : FirebaseFirestore.instance
-                                        .collection('contacts')
-                                        .where('email', isEqualTo: '__no_email__')
-                                        .limit(1)
-                                        .get(),
+                                  future:
+                                      data['email'] != null
+                                          ? FirebaseFirestore.instance
+                                              .collection('contacts')
+                                              .where(
+                                                'email',
+                                                isEqualTo: data['email'],
+                                              )
+                                              .limit(1)
+                                              .get()
+                                          : FirebaseFirestore.instance
+                                              .collection('contacts')
+                                              .where(
+                                                'email',
+                                                isEqualTo: '__no_email__',
+                                              )
+                                              .limit(1)
+                                              .get(),
                                   builder: (context, contactSnapshot) {
-                                    if (contactSnapshot.connectionState == ConnectionState.waiting) {
+                                    if (contactSnapshot.connectionState ==
+                                        ConnectionState.waiting) {
                                       return const Text('...');
                                     }
-                                    if (!contactSnapshot.hasData || contactSnapshot.data!.docs.isEmpty) {
+                                    if (!contactSnapshot.hasData ||
+                                        contactSnapshot.data!.docs.isEmpty) {
                                       return const Text('---');
                                     }
-                                    final contactData = contactSnapshot.data!.docs.first.data() as Map<String, dynamic>;
-                                    return Text(contactData['quartier'] ?? '---');
+                                    final contactData =
+                                        contactSnapshot.data!.docs.first.data()
+                                            as Map<String, dynamic>;
+                                    return Text(
+                                      contactData['quartier'] ?? '---',
+                                    );
                                   },
                                 ),
                               ),

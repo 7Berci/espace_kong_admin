@@ -1,47 +1,48 @@
-import '../catalog_product/products_model_list.dart';
 import 'package:get/get.dart';
 
+import '../catalog_product/products_model_list.dart';
+
 class CartController extends GetxController {
-  
   int accessoriesCounterByProduct(Product? product) {
     return accessoriesnumber[product];
   }
 
-  int bathCountert(Product? product) { 
+  int bathCountert(Product? product) {
     return bathnumber[product] ?? 0; // Retourne 0 si la valeur est null
   }
 
   int beddingCounterl(Product? product) {
     return beddingnumber[product] ?? 0; // Retourne 0 si la valeur est null
   }
-int othersCounterl(Product? product) {
+
+  int othersCounterl(Product? product) {
     return othersnumber[product] ?? 0; // Retourne 0 si la valeur est null
   }
+
   int clothesCounterl(Product? product) {
     return clothesnumber[product] ?? 0; // Retourne 0 si la valeur est null
   }
-int accessoriesCounterl(Product? product) {
+
+  int accessoriesCounterl(Product? product) {
     return accessoriesnumber[product] ?? 0; // Retourne 0 si la valeur est null
   }
 
-
-//Les variables de la remise ______________________________________________
+  //Les variables de la remise ______________________________________________
   // final TextEditingController remiseController = TextEditingController();
   // final RxDouble remiseManuelle = 0.0.obs;
   RxDouble remiseManuelle = 0.0.obs;
-  void initRemiseManuel(){
+  void initRemiseManuel() {
     remiseManuelle = 0.0.obs;
   }
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
 
+  //bathnumber
 
-//bathnumber
-
- bool isCartEmpty() {
+  bool isCartEmpty() {
     return _generalListing.isEmpty;
   }
 
-  int shipping = 0;
+  double shipping = 0.0;
   int sign = 0;
   int sumup = 0;
 
@@ -55,16 +56,16 @@ int accessoriesCounterl(Product? product) {
     }
   }
 
-//   get fulsom => globalsom
-//       .map((fulsom) => fulsom as int);
-//
-//   int carttotal () {
-//     fulsom += shipping;
-//   return sumup;
-// }
+  //   get fulsom => globalsom
+  //       .map((fulsom) => fulsom as int);
+  //
+  //   int carttotal () {
+  //     fulsom += shipping;
+  //   return sumup;
+  // }
 
-//general listing
-   final _generalListing = {}.obs;
+  //general listing
+  final _generalListing = {}.obs;
   //ClothesCartSection
 
   //init real null key value
@@ -128,9 +129,12 @@ int accessoriesCounterl(Product? product) {
 
   get generalListing => _generalListing;
 
-  get generalListingSubtotal => _generalListing.entries
-      .map((generalListing) => generalListing.key.price * generalListing.value)
-      .toList();
+  get generalListingSubtotal =>
+      _generalListing.entries
+          .map(
+            (generalListing) => generalListing.key.price * generalListing.value,
+          )
+          .toList();
 
   get generalListingTotalPrice => _generalListing.entries
       .map((generalListing) => generalListing.key.price * generalListing.value)
@@ -302,9 +306,12 @@ int accessoriesCounterl(Product? product) {
 
   get productasclothes => _productas;
 
-  get productasclotheSubtotal => _productas.entries
-      .map((productaclothe) => productaclothe.key.price * productaclothe.value)
-      .toList();
+  get productasclotheSubtotal =>
+      _productas.entries
+          .map(
+            (productaclothe) => productaclothe.key.price * productaclothe.value,
+          )
+          .toList();
 
   get totalclothe => _productas.entries
       .map((productaclothe) => productaclothe.key.price * productaclothe.value)
@@ -456,14 +463,18 @@ int accessoriesCounterl(Product? product) {
 
   get productaspecial => _productaspe;
 
-  get productaspecialSubtotal => _productaspe.entries
-      .map((productaspecial) =>
-          productaspecial.key.price * productaspecial.value)
-      .toList();
+  get productaspecialSubtotal =>
+      _productaspe.entries
+          .map(
+            (productaspecial) =>
+                productaspecial.key.price * productaspecial.value,
+          )
+          .toList();
 
   get totalspecial => _productaspe.entries
-      .map((productaspecial) =>
-          productaspecial.key.price * productaspecial.value)
+      .map(
+        (productaspecial) => productaspecial.key.price * productaspecial.value,
+      )
       .toList()
       .reduce((value, element) => value + element);
   // .toStringAsFixed(2);
@@ -590,14 +601,19 @@ int accessoriesCounterl(Product? product) {
 
   get productasaccessories => _productasaccessories;
 
-  get productaaccessorySubtotal => _productasaccessories.entries
-      .map((productasaccessories) =>
-          productasaccessories.key.price * productasaccessories.value)
-      .toList();
+  get productaaccessorySubtotal =>
+      _productasaccessories.entries
+          .map(
+            (productasaccessories) =>
+                productasaccessories.key.price * productasaccessories.value,
+          )
+          .toList();
 
   get totalaccessory => _productasaccessories.entries
-      .map((productaaccessory) =>
-          productaaccessory.key.price * productaaccessory.value)
+      .map(
+        (productaaccessory) =>
+            productaaccessory.key.price * productaaccessory.value,
+      )
       .toList()
       .reduce((value, element) => value + element);
   // .toStringAsFixed(2);
@@ -607,7 +623,7 @@ int accessoriesCounterl(Product? product) {
       .map((numberOfAccessories) => numberOfAccessories.value)
       .toList()
       .reduce((value, element) => value + element);
-//__________________________________________________________________________
+  //__________________________________________________________________________
 
   //Bath__________________________________________________________________________
   //__________________________________________________________________________
@@ -723,9 +739,10 @@ int accessoriesCounterl(Product? product) {
 
   get productasbath => _productasbath;
 
-  get productabathSubtotal => _productasbath.entries
-      .map((productabath) => productabath.key.price * productabath.value)
-      .toList();
+  get productabathSubtotal =>
+      _productasbath.entries
+          .map((productabath) => productabath.key.price * productabath.value)
+          .toList();
 
   get totalbath => _productasbath.entries
       .map((productabath) => productabath.key.price * productabath.value)
@@ -738,7 +755,7 @@ int accessoriesCounterl(Product? product) {
       .map((numberOfBath) => numberOfBath.value)
       .toList()
       .reduce((value, element) => value + element);
-//__________________________________________________________________________
+  //__________________________________________________________________________
 
   //Bedding____________________________________________________________________
   //BeddingDictionnary
@@ -854,14 +871,18 @@ int accessoriesCounterl(Product? product) {
 
   get productasbedding => _productasbedding;
 
-  get productabeddingSubtotal => _productasbedding.entries
-      .map((productabedding) =>
-          productabedding.key.price * productabedding.value)
-      .toList();
+  get productabeddingSubtotal =>
+      _productasbedding.entries
+          .map(
+            (productabedding) =>
+                productabedding.key.price * productabedding.value,
+          )
+          .toList();
 
   get totalbedding => _productasbedding.entries
-      .map((productabedding) =>
-          productabedding.key.price * productabedding.value)
+      .map(
+        (productabedding) => productabedding.key.price * productabedding.value,
+      )
       .toList()
       .reduce((value, element) => value + element);
   // .toStringAsFixed(2);
@@ -871,30 +892,30 @@ int accessoriesCounterl(Product? product) {
       .map((numberOfBedding) => numberOfBedding.value)
       .toList()
       .reduce((value, element) => value + element);
-//______________________________________________________________________________________
+  //______________________________________________________________________________________
 
-//Take up the total of articles for the remise ______________________________________________________
+  //Take up the total of articles for the remise ______________________________________________________
   var printTotalOfArticles = 0.0;
   get listingOfArticles => [
-        printUpForRemiseBedding, printUpForRemiseBath, printUpForRemiseClothes,
-        printUpForRemiseSpecial, printUpForRemiseAccessories,
+    printUpForRemiseBedding, printUpForRemiseBath, printUpForRemiseClothes,
+    printUpForRemiseSpecial, printUpForRemiseAccessories,
 
-        // totalclothexpress, totalspecialexpress, totalbathexpress, totalbeddingexpress, totalaccessoryexpress, totalotherexpress,
-        // totalclothsuperexpress, totalspecialsuperexpress, totalbathesuperxpress, totalbeddingsuperexpress, totalaccessorysuperexpress, totalothersuperexpress
-      ];
+    // totalclothexpress, totalspecialexpress, totalbathexpress, totalbeddingexpress, totalaccessoryexpress, totalotherexpress,
+    // totalclothsuperexpress, totalspecialsuperexpress, totalbathesuperxpress, totalbeddingsuperexpress, totalaccessorysuperexpress, totalothersuperexpress
+  ];
 
   get totalOfArticles => [
         printUpForRemiseClothes, printUpForRemiseBedding, printUpForRemiseBath,
         printUpForRemiseSpecial, printUpForRemiseAccessories,
-        printUpForRemiseOthers
+        printUpForRemiseOthers,
 
         // totalclothexpress, totalspecialexpress, totalbathexpress, totalbeddingexpress, totalaccessoryexpress, totalotherexpress,
         // totalclothsuperexpress, totalspecialsuperexpress, totalbathesuperxpress, totalbeddingsuperexpress, totalaccessorysuperexpress, totalothersuperexpress
       ]
-          .map((listingOfArticles) => listingOfArticles as int)
-          //.map((listingOfArticles) => listingOfArticles)
-          .toList()
-          .reduce((value, element) => value + element);
+      .map((listingOfArticles) => listingOfArticles as int)
+      //.map((listingOfArticles) => listingOfArticles)
+      .toList()
+      .reduce((value, element) => value + element);
 
   // void printUpTotalOfArticles() {
   //   printTotalOfArticles = totalOfArticles;
@@ -909,7 +930,7 @@ int accessoriesCounterl(Product? product) {
   //OthersIncrement
   var othersnumber = {}.obs;
 
-//OthersCounterInitializing
+  //OthersCounterInitializing
   int othersInitCounter(Product? producta) {
     othersnumber[producta] = 0;
     return othersnumber[producta];
@@ -1018,9 +1039,10 @@ int accessoriesCounterl(Product? product) {
 
   get productasothers => _productasothers;
 
-  get productaotherSubtotal => _productasothers.entries
-      .map((productaother) => productaother.key.price * productaother.value)
-      .toList();
+  get productaotherSubtotal =>
+      _productasothers.entries
+          .map((productaother) => productaother.key.price * productaother.value)
+          .toList();
 
   get totalother => _productasothers.entries
       .map((productaother) => productaother.key.price * productaother.value)
@@ -1033,1392 +1055,1393 @@ int accessoriesCounterl(Product? product) {
       .map((numberOfOthers) => numberOfOthers.value)
       .toList()
       .reduce((value, element) => value + element);
-//
-//
-//
-//
-//
-//
-//
-//
-//   // Express zone___________________________________________________________________________________________
-//   // Clothes___________________________________________________________________________
-//   // ClothesDictionnary
-//
-//   //ClothesIncrement
-//   var _productaclothesexpress = {}.obs;
-//   var clothesnumberexpres = {}.obs;
-//
-//   //ClothesCounterInitializing
-//   int clothesInitCounterExpress(Product? producta) {
-//     clothesnumberexpres[producta]=0;
-//     return clothesnumberexpres[producta];
-//   }
-//
-//   //ClothesIncrementSection
-//   int clothesCounterExpress (Product? producta) {
-//     return clothesnumberexpres[producta];
-//   }
-//
-//   void addClothesCounterExpress(Product? producta) {
-//     if (clothesnumberexpres.containsKey(producta)) {
-//       clothesnumberexpres[producta] += 1;
-//     } else {
-//       clothesnumberexpres[producta] = 1;
-//     }
-//   }
-//
-//   void reduceClothesCounterExpress(Product? producta) {
-//     if (clothesnumberexpres.containsKey(producta)  && clothesnumberexpres[producta] == 1) {
-//       // number.removeWhere((key, value) => key == producta);
-//       clothesnumberexpres[producta] = 0;
-//     }
-//     if (clothesnumberexpres[producta] == 0) {
-//       // number.removeWhere((key, value) => key == producta);
-//     }
-//     else {
-//       clothesnumberexpres[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllClothesCounterExpress(Product? producta) {
-//     if (clothesnumberexpres.containsKey(producta) && clothesnumberexpres[producta] == 1) {
-//       clothesnumberexpres.removeWhere((key, value) => key == producta);
-//     } else {
-//       clothesnumberexpres.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //ClothesCartSection
-//
-//   //init real null key value
-//   void clothesInitrkvalueExpress(Product? producta) {
-//     if (_productaclothesexpress.containsKey(producta)) {
-//       _productaclothesexpress[producta] += 0;
-//     }
-//     else {_productaclothesexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   //init real null key value
-//   void clothesDropOutInitrkvalueExpress(Product? producta) {
-//     if (_productaclothesexpress[producta] == 0) {
-//       _productaclothesexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productaclothesexpress[producta]+=0;}
-//   }
-//
-//   //init clothe real key
-//   int clothesInitRealCounterExpress(Product? producta) {
-//     _productaclothesexpress[producta]=0;
-//     return _productaclothesexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?ClothesExpress(Product? producta) {
-//     if (_productaclothesexpress.containsKey(producta)) {
-//       _productaclothesexpress[producta] += 1;
-//     } else {
-//       _productaclothesexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?ClothesExpress(Product? producta) {
-//     if (_productaclothesexpress.containsKey(producta) && _productaclothesexpress[producta] == 1) {
-//       _productaclothesexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productaclothesexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?ClothesExpress (Product? producta) {
-//     if (_productaclothesexpress.containsKey(producta) && _productaclothesexpress[producta] == 1) {
-//       _productaclothesexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productaclothesexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productasclothesexpress => _productaclothesexpress;
-//
-//   get productasclotheSubtotalExpress => _productaclothesexpress.entries
-//       .map((productasclothesexpress) => productasclothesexpress.key.price * productasclothesexpress.value)
-//       .toList();
-//
-//   get totalclothexpress => _productaclothesexpress.entries
-//       .map((productasclothesexpress) => productasclothesexpress.key.price * productasclothesexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-//   // .toStringAsFixed(2);
-//
-//
-//   //Special__________________________________________________________________
-//   //SpecialDictionnary
-//   var _productaspecialexpress = {}.obs;
-//   //SpecialIncrement
-//   var specialnumberexpress = {}.obs;
-//
-//   //SpecialCounterInitializing
-//   int specialInitCounterExpress(Product? producta) {
-//     specialnumberexpress[producta]=0;
-//     return specialnumberexpress[producta];
-//   }
-//
-//   //SpecialIncrementSection
-//   int specialCounterExpress (Product? producta) {
-//     return specialnumberexpress[producta];
-//   }
-//
-//   void addSpecialCounterExpress(Product? producta) {
-//     if (specialnumberexpress.containsKey(producta)) {
-//       specialnumberexpress[producta] += 1;
-//     } else {
-//       specialnumberexpress[producta] = 1;
-//     }
-//   }
-//
-//   void reduceSpecialCounterExpress(Product? producta) {
-//     if (specialnumberexpress.containsKey(producta)  && specialnumberexpress[producta] == 1) {
-//       // number.removeWhere((key, value) => key == producta);
-//       specialnumberexpress[producta] = 0;
-//     }
-//     if (specialnumberexpress[producta] == 0) {
-//       // number.removeWhere((key, value) => key == producta);
-//     }
-//     else {
-//       specialnumberexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllSpecialCounterExpress(Product? producta) {
-//     if (specialnumberexpress.containsKey(producta) && specialnumberexpress[producta] == 1) {
-//       specialnumberexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       specialnumberexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //SpecialCartSection
-//
-//   //init real key value
-//   void specialInitrkvalueExpress(Product? producta) {
-//     if (_productaspecialexpress.containsKey(producta)) {
-//       _productaspecialexpress[producta] += 0;
-//     }
-//     else {_productaspecialexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   void specialDropOutInitrkvalueExpress(Product? producta) {
-//     if (_productaspecialexpress[producta] == 0) {
-//       _productaspecialexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productaspecialexpress[producta]+=0;}
-//   }
-//
-//   int specialInitRealCounterExpress(Product? producta) {
-//     _productaspecialexpress[producta]=0;
-//     return _productaspecialexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?SpecialExpress(Product? producta) {
-//     if (_productaspecialexpress.containsKey(producta)) {
-//       _productaspecialexpress[producta] += 1;
-//     } else {
-//       _productaspecialexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?SpecialExpress (Product? producta) {
-//     if (_productaspecialexpress.containsKey(producta) && _productaspecialexpress[producta] == 1) {
-//       _productaspecialexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productaspecialexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?SpecialExpress (Product? producta) {
-//     if (_productaspecialexpress.containsKey(producta) && _productaspecialexpress[producta] == 1) {
-//       _productaspecialexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productaspecialexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productaspecialexpress => _productaspecialexpress;
-//
-//   get productaspecialSubtotalexpress => _productaspecialexpress.entries
-//       .map((productaspecialexpress) => productaspecialexpress.key.price * productaspecialexpress.value)
-//       .toList();
-//
-//   get totalspecialexpress => _productaspecialexpress.entries
-//       .map((productaspecialexpress) => productaspecialexpress.key.price * productaspecialexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-// //   // .toStringAsFixed(2);
-//
-//
-//   //Accessories__________________________________________________________________
-//   //AccessoriesDictionary
-//   var _productasaccessoriesexpress = {}.obs;
-//   //AccessoriesIncrement
-//   var accessoriesnumberexpress = {}.obs;
-//
-//   //AccessoriesCounterInitializing
-//   int accessoriesInitCounterExpress(Product? producta) {
-//     accessoriesnumberexpress[producta]=0;
-//     return accessoriesnumberexpress[producta];
-//   }
-//
-//   //AccessoriesIncrementSection
-//   int accessoriesCounterExpress (Product? producta) {
-//     return accessoriesnumberexpress[producta];
-//   }
-//
-//   void addAccessoriesCounterExpress(Product? producta) {
-//     if (accessoriesnumberexpress.containsKey(producta)) {
-//       accessoriesnumberexpress[producta] += 1;
-//     } else {
-//       accessoriesnumberexpress[producta] = 1;
-//     }
-//   }
-//
-//   void reduceAccessoriesCounterExpress(Product? producta) {
-//     if (accessoriesnumberexpress.containsKey(producta)  && accessoriesnumberexpress[producta] == 1) {
-//       accessoriesnumberexpress[producta] = 0;
-//     }
-//     if (accessoriesnumberexpress[producta] == 0) {
-//     }
-//     else {
-//       accessoriesnumberexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllAccessoriesCounterExpress(Product? producta) {
-//     if (accessoriesnumberexpress.containsKey(producta) && accessoriesnumberexpress[producta] == 1) {
-//       accessoriesnumberexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       accessoriesnumberexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //AccessoiresCartSection
-//
-//   //init real key value
-//   void accessoriesInitrkvalueExpress(Product? producta) {
-//     if (_productasaccessoriesexpress.containsKey(producta)) {
-//       _productasaccessoriesexpress[producta] += 0;
-//     }
-//     else {_productasaccessoriesexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   void accessoriesDropOutInitrkvalueExpress(Product? producta) {
-//     if (_productasaccessoriesexpress[producta] == 0) {
-//       _productasaccessoriesexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productasaccessoriesexpress[producta]+=0;}
-//   }
-//
-//   int accessoriesInitRealCounterExpress(Product? producta) {
-//     _productasaccessoriesexpress[producta]=0;
-//     return _productasaccessoriesexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?AccessoriesExpress(Product? producta) {
-//     if (_productasaccessoriesexpress.containsKey(producta)) {
-//       _productasaccessoriesexpress[producta] += 1;
-//     } else {
-//       _productasaccessoriesexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?AccessoriesExpress (Product? producta) {
-//     if (_productasaccessoriesexpress.containsKey(producta) && _productasaccessoriesexpress[producta] == 1) {
-//       _productasaccessoriesexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasaccessoriesexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?AccessoriesExpress (Product? producta) {
-//     if (_productasaccessoriesexpress.containsKey(producta) && _productasaccessoriesexpress[producta] == 1) {
-//       _productasaccessoriesexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasaccessoriesexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productasaccessoriesexpress => _productasaccessoriesexpress;
-//
-//   get productaaccessorySubtotalexpress => _productasaccessoriesexpress.entries
-//       .map((productasaccessoriesexpress) => productasaccessoriesexpress.key.price * productasaccessoriesexpress.value)
-//       .toList();
-//
-//   get totalaccessoryexpress => _productasaccessoriesexpress.entries
-//       .map((productasaccessoriesexpress) => productasaccessoriesexpress.key.price * productasaccessoriesexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-// //   // .toStringAsFixed(2);
-//
-//   //Bath__________________________________________________________________________
-//   //BathDictionary
-//   var _productasbathexpress = {}.obs;
-//   //BathIncrement
-//   var bathnumberexpress = {}.obs;
-//
-//   //BathCounterInitializing
-//   int bathInitCounterExpress(Product? producta) {
-//     bathnumberexpress[producta]=0;
-//     return bathnumberexpress[producta];
-//   }
-//
-//   //BathIncrementSection
-//   int bathCounterExpress (Product? producta) {
-//     return bathnumberexpress[producta];
-//   }
-//
-//   void addBathCounterExpress(Product? producta) {
-//     if (bathnumberexpress.containsKey(producta)) {
-//       bathnumberexpress[producta] += 1;
-//     } else {
-//       bathnumberexpress[producta] = 1;
-//     }
-//   }
-//
-//   void reduceBathCounterExpress(Product? producta) {
-//     if (bathnumberexpress.containsKey(producta)  && bathnumberexpress[producta] == 1) {
-//       bathnumberexpress[producta] = 0;
-//     }
-//     if (bathnumberexpress[producta] == 0) {
-//     }
-//     else {
-//       bathnumberexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllBathCounterExpress(Product? producta) {
-//     if (bathnumberexpress.containsKey(producta) && bathnumberexpress[producta] == 1) {
-//       bathnumberexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       bathnumberexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //BathCartSection
-//
-//   //init real key value
-//   void bathInitrkvalueExpress(Product? producta) {
-//     if (_productasbathexpress.containsKey(producta)) {
-//       _productasbathexpress[producta] += 0;
-//     }
-//     else {_productasbathexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   void bathDropOutInitrkvalueExpress(Product? producta) {
-//     if (_productasbathexpress[producta] == 0) {
-//       _productasbathexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productasbathexpress[producta]+=0;}
-//   }
-//
-//   //BathRealCounterInitializing
-//   int bathInitRealCounterExpress(Product? producta) {
-//     _productasbathexpress[producta]=0;
-//     return _productasbathexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?BathExpress(Product? producta) {
-//     if (_productasbathexpress.containsKey(producta)) {
-//       _productasbathexpress[producta] += 1;
-//     } else {
-//       _productasbathexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?BathExpress (Product? producta) {
-//     if (_productasbathexpress.containsKey(producta) && _productasbathexpress[producta] == 1) {
-//       _productasbathexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasbathexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?BathExpress (Product? producta) {
-//     if (_productasbathexpress.containsKey(producta) && _productasbathexpress[producta] == 1) {
-//       _productasbathexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasbathexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productasbathexpress => _productasbathexpress;
-//
-//   get productabathSubtotalexpress => _productasbathexpress.entries
-//       .map((productasbathexpress) => productasbathexpress.key.price * productasbathexpress.value)
-//       .toList();
-//
-//   get totalbathexpress => _productasbathexpress.entries
-//       .map((productabathexpress) => productabathexpress.key.price * productabathexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-//   // .toStringAsFixed(2);
-// //
-// //
-// //
-//   //Bedding____________________________________________________________________
-//   //BeddingDictionnary
-//   var _productasbeddingexpress = {}.obs;
-//   //BeddingIncrement
-//   var beddingnumberexpress = {}.obs;
-//
-//   //BeddingCounterInitializing
-//   int beddingInitCounterExpress(Product? producta) {
-//     beddingnumberexpress[producta]=0;
-//     return beddingnumberexpress[producta];
-//   }
-//
-//   //BathIncrementSection
-//   int beddingCounterExpress (Product? producta) {
-//     return beddingnumberexpress[producta];
-//   }
-//
-//   void addBeddingCounterExpress(Product? producta) {
-//     if (beddingnumberexpress.containsKey(producta)) {
-//       beddingnumberexpress[producta] += 1;
-//     } else {
-//       beddingnumberexpress[producta] = 1;
-//     }
-//   }
-//
-//   void reduceBeddingCounterExpress(Product? producta) {
-//     if (beddingnumberexpress.containsKey(producta)  && beddingnumberexpress[producta] == 1) {
-//       beddingnumberexpress[producta] = 0;
-//     }
-//     if (beddingnumberexpress[producta] == 0) {
-//     }
-//     else {
-//       beddingnumberexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllBeddingCounterExpress(Product? producta) {
-//     if (beddingnumberexpress.containsKey(producta) && beddingnumberexpress[producta] == 1) {
-//       beddingnumberexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       beddingnumberexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //BeddingCartSection
-//
-//   //init real key value
-//   void beddingInitrkvalueExpress(Product? producta) {
-//     if (_productasbeddingexpress.containsKey(producta)) {
-//       _productasbeddingexpress[producta] += 0;
-//     }
-//     else {_productasbeddingexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   void beddingDropOutInitrkvalueExpress(Product? producta) {
-//     if (_productasbeddingexpress[producta] == 0) {
-//       _productasbeddingexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productasbeddingexpress[producta]+=0;}
-//   }
-//
-//   int beddingInitRealCounterExpress(Product? producta) {
-//     _productasbeddingexpress[producta]=0;
-//     return _productasbeddingexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?BeddingExpress(Product? producta) {
-//     if (_productasbeddingexpress.containsKey(producta)) {
-//       _productasbeddingexpress[producta] += 1;
-//     } else {
-//       _productasbeddingexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?BeddingExpress (Product? producta) {
-//     if (_productasbeddingexpress.containsKey(producta) && _productasbeddingexpress[producta] == 1) {
-//       _productasbeddingexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasbeddingexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?BeddingExpress (Product? producta) {
-//     if (_productasbeddingexpress.containsKey(producta) && _productasbeddingexpress[producta] == 1) {
-//       _productasbeddingexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasbeddingexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productasbeddingexpress => _productasbeddingexpress;
-//
-//   get productabeddingSubtotalexpress => _productasbeddingexpress.entries
-//       .map((productabeddingexpress) => productabeddingexpress.key.price * productabeddingexpress.value)
-//       .toList();
-//
-//   get totalbeddingexpress => _productasbeddingexpress.entries
-//       .map((productabeddingexpress) => productabeddingexpress.key.price * productabeddingexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-// //   // .toStringAsFixed(2);
-// //
-// //
-//   //Others___________________________________________________________________
-//   //OthersDictionary
-//   var _productasothersexpress = {}.obs;
-//   //OthersIncrement
-//   var othersnumberexpress = {}.obs;
-//
-// //OthersCounterInitializing
-//   int othersInitCounterExpress(Product? producta) {
-//     othersnumberexpress[producta]=0;
-//     return othersnumberexpress[producta];
-//   }
-//
-//   //OthersIncrementSection
-//   int othersCounterExpress (Product? producta) {
-//     return othersnumberexpress[producta];
-//   }
-//
-//   void addOthersCounterExpress(Product? producta) {
-//     if (othersnumberexpress.containsKey(producta)) {
-//       othersnumberexpress[producta] += 1;
-//     } else {
-//       othersnumberexpress[producta] = 1;
-//     }
-//   }
-//
-//   void reduceOthersCounterExpress(Product? producta) {
-//     if (othersnumberexpress.containsKey(producta)  && othersnumberexpress[producta] == 1) {
-//       othersnumberexpress[producta] = 0;
-//     }
-//     if (othersnumberexpress[producta] == 0) {
-//     }
-//     else {
-//       othersnumberexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllOthersCounterExpress(Product? producta) {
-//     if (othersnumberexpress.containsKey(producta) && othersnumberexpress[producta] == 1) {
-//       othersnumberexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       othersnumberexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //OthersCartSection
-//
-//   //init real key value
-//   void othersInitrkvalueExpress(Product? producta) {
-//     if (_productasothersexpress.containsKey(producta)) {
-//       _productasothersexpress[producta] += 0;
-//     }
-//     else {_productasothersexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   void othersDropOutInitrkvalueExpress(Product? producta) {
-//     if (_productasothersexpress[producta] == 0) {
-//       _productasothersexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productasothersexpress[producta]+=0;}
-//   }
-//
-//   //OthersRealCounterInitializing
-//   int othersInitRealCounterExpress(Product? producta) {
-//     _productasothersexpress[producta]=0;
-//     return _productasothersexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?OthersExpress(Product? producta) {
-//     if (_productasothersexpress.containsKey(producta)) {
-//       _productasothersexpress[producta] += 1;
-//     } else {
-//       _productasothersexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?OthersExpress(Product? producta) {
-//     if (_productasothersexpress.containsKey(producta) && _productasothersexpress[producta] == 1) {
-//       _productasothersexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasothersexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?OthersExpress (Product? producta) {
-//     if (_productasothersexpress.containsKey(producta) && _productasothersexpress[producta] == 1) {
-//       _productasothersexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasothersexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productasothersexpress => _productasothersexpress;
-//
-//   get productaotherSubtotalexpress => _productasothersexpress.entries
-//       .map((productaotherexpress) => productaotherexpress.key.price * productaotherexpress.value)
-//       .toList();
-//
-//   get totalotherexpress => _productasothersexpress.entries
-//       .map((productaotherexpress) => productaotherexpress.key.price * productaotherexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-// // .toStringAsFixed(2);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// //Super express zone___________________________________________________________________________________________
-//   // Clothes___________________________________________________________________________
-//   // ClothesDictionnary
-//
-//   //ClothesIncrement
-//   var _productaclothessuperexpress = {}.obs;
-//   var clothesnumbersuperexpres = {}.obs;
-//
-//   //ClothesCounterInitializing
-//   int clothesInitCounterSuperExpress(Product? producta) {
-//     clothesnumbersuperexpres[producta]=0;
-//     return clothesnumbersuperexpres[producta];
-//   }
-//
-//   //ClothesIncrementSection
-//   int clothesCounterSuperExpress (Product? producta) {
-//     return clothesnumbersuperexpres[producta];
-//   }
-//
-//   void addClothesCounterSuperExpress(Product? producta) {
-//     if (clothesnumbersuperexpres.containsKey(producta)) {
-//       clothesnumbersuperexpres[producta] += 1;
-//     } else {
-//       clothesnumbersuperexpres[producta] = 1;
-//     }
-//   }
-//
-//   void reduceClothesCounterSuperExpress(Product? producta) {
-//     if (clothesnumbersuperexpres.containsKey(producta)  && clothesnumbersuperexpres[producta] == 1) {
-//       // number.removeWhere((key, value) => key == producta);
-//       clothesnumbersuperexpres[producta] = 0;
-//     }
-//     if (clothesnumbersuperexpres[producta] == 0) {
-//       // number.removeWhere((key, value) => key == producta);
-//     }
-//     else {
-//       clothesnumbersuperexpres[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllClothesCounterSuperExpress(Product? producta) {
-//     if (clothesnumbersuperexpres.containsKey(producta) && clothesnumbersuperexpres[producta] == 1) {
-//       clothesnumbersuperexpres.removeWhere((key, value) => key == producta);
-//     } else {
-//       clothesnumbersuperexpres.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //ClothesCartSection
-//
-//   //init real null key value
-//   void clothesInitrkvalueSuperExpress(Product? producta) {
-//     if (_productaclothessuperexpress.containsKey(producta)) {
-//       _productaclothessuperexpress[producta] += 0;
-//     }
-//     else {_productaclothessuperexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   //init real null key value
-//   void clothesDropOutInitrkvalueSuperExpress(Product? producta) {
-//     if (_productaclothessuperexpress[producta] == 0) {
-//       _productaclothessuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productaclothessuperexpress[producta]+=0;}
-//   }
-//
-//   //init clothe real key
-//   int clothesInitRealCounterSuperExpess(Product? producta) {
-//     _productaclothessuperexpress[producta]=0;
-//     return _productaclothessuperexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?ClothesSuperExpress(Product? producta) {
-//     if (_productaclothessuperexpress.containsKey(producta)) {
-//       _productaclothessuperexpress[producta] += 1;
-//     } else {
-//       _productaclothessuperexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?ClothesSuperExpress(Product? producta) {
-//     if (_productaclothessuperexpress.containsKey(producta) && _productaclothessuperexpress[producta] == 1) {
-//       _productaclothessuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productaclothessuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?ClothesSuperExpress (Product? producta) {
-//     if (_productaclothessuperexpress.containsKey(producta) && _productaclothessuperexpress[producta] == 1) {
-//       _productaclothessuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productaclothessuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productasclothessuperexpress => _productaclothessuperexpress;
-//
-//   get productasclotheSubtotalSuperExpress => _productaclothessuperexpress.entries
-//       .map((productasclothessuperexpress) => productasclothessuperexpress.key.price * productasclothessuperexpress.value)
-//       .toList();
-//
-//   get totalclothsuperexpress => _productaclothessuperexpress.entries
-//       .map((productasclothessuperexpress) => productasclothessuperexpress.key.price * productasclothessuperexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-//   // .toStringAsFixed(2);
-//
-//
-//   //Special__________________________________________________________________
-//   //SpecialDictionnary
-//   var _productaspecialsuperexpress = {}.obs;
-//   //SpecialIncrement
-//   var specialnumbersuperexpress = {}.obs;
-//
-//   //SpecialCounterInitializing
-//   int specialInitCounterSuperExpress(Product? producta) {
-//     specialnumbersuperexpress[producta]=0;
-//     return specialnumbersuperexpress[producta];
-//   }
-//
-//   //SpecialIncrementSection
-//   int specialCounterSuperExpress (Product? producta) {
-//     return specialnumbersuperexpress[producta];
-//   }
-//
-//   void addSpecialCounterSuperExpress(Product? producta) {
-//     if (specialnumbersuperexpress.containsKey(producta)) {
-//       specialnumbersuperexpress[producta] += 1;
-//     } else {
-//       specialnumbersuperexpress[producta] = 1;
-//     }
-//   }
-//
-//   void reduceSpecialCounterSuperExpress(Product? producta) {
-//     if (specialnumbersuperexpress.containsKey(producta)  && specialnumbersuperexpress[producta] == 1) {
-//       // number.removeWhere((key, value) => key == producta);
-//       specialnumbersuperexpress[producta] = 0;
-//     }
-//     if (specialnumbersuperexpress[producta] == 0) {
-//       // number.removeWhere((key, value) => key == producta);
-//     }
-//     else {
-//       specialnumbersuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllSpecialCounterSuperExpress(Product? producta) {
-//     if (specialnumbersuperexpress.containsKey(producta) && specialnumbersuperexpress[producta] == 1) {
-//       specialnumbersuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       specialnumbersuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //SpecialCartSection
-//
-//   //init real key value
-//   void specialInitrkvalueSuperExpress(Product? producta) {
-//     if (_productaspecialsuperexpress.containsKey(producta)) {
-//       _productaspecialsuperexpress[producta] += 0;
-//     }
-//     else {_productaspecialsuperexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   void specialDropOutInitrkvalueSuperExpress(Product? producta) {
-//     if (_productaspecialsuperexpress[producta] == 0) {
-//       _productaspecialsuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productaspecialexpress[producta]+=0;}
-//   }
-//
-//   int specialInitRealCounterSuperExpress(Product? producta) {
-//     _productaspecialsuperexpress[producta]=0;
-//     return _productaspecialsuperexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?SpecialSuperExpress(Product? producta) {
-//     if (_productaspecialsuperexpress.containsKey(producta)) {
-//       _productaspecialsuperexpress[producta] += 1;
-//     } else {
-//       _productaspecialsuperexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?SpecialSuperExpress (Product? producta) {
-//     if (_productaspecialsuperexpress.containsKey(producta) && _productaspecialsuperexpress[producta] == 1) {
-//       _productaspecialsuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productaspecialsuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?SpecialSuperExpress (Product? producta) {
-//     if (_productaspecialsuperexpress.containsKey(producta) && _productaspecialsuperexpress[producta] == 1) {
-//       _productaspecialsuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productaspecialexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productaspecialsuperexpress => _productaspecialsuperexpress;
-//
-//   get productaspecialSubtotalsuperexpress => _productaspecialsuperexpress.entries
-//       .map((productaspecialsuperexpress) => productaspecialsuperexpress.key.price * productaspecialsuperexpress.value)
-//       .toList();
-//
-//   get totalspecialsuperexpress => _productaspecialsuperexpress.entries
-//       .map((productaspecialsuperexpress) => productaspecialsuperexpress.key.price * productaspecialsuperexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-// //   // .toStringAsFixed(2);
-//
-//
-//   //Accessories__________________________________________________________________
-//   //AccessoriesDictionary
-//   var _productasaccessoriessuperexpress = {}.obs;
-//   //AccessoriesIncrement
-//   var accessoriesnumbersuperexpress = {}.obs;
-//
-//   //AccessoriesCounterInitializing
-//   int accessoriesInitCounterSuperExpress(Product? producta) {
-//     accessoriesnumbersuperexpress[producta]=0;
-//     return accessoriesnumbersuperexpress[producta];
-//   }
-//
-//   //AccessoriesIncrementSection
-//   int accessoriesCounterSuperExpress (Product? producta) {
-//     return accessoriesnumbersuperexpress[producta];
-//   }
-//
-//   void addAccessoriesCounterSuperExpress(Product? producta) {
-//     if (accessoriesnumbersuperexpress.containsKey(producta)) {
-//       accessoriesnumbersuperexpress[producta] += 1;
-//     } else {
-//       accessoriesnumbersuperexpress[producta] = 1;
-//     }
-//   }
-//
-//   void reduceAccessoriesCounterSuperExpress(Product? producta) {
-//     if (accessoriesnumbersuperexpress.containsKey(producta)  && accessoriesnumbersuperexpress[producta] == 1) {
-//       accessoriesnumbersuperexpress[producta] = 0;
-//     }
-//     if (accessoriesnumbersuperexpress[producta] == 0) {
-//     }
-//     else {
-//       accessoriesnumbersuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllAccessoriesCounterSuperExpress(Product? producta) {
-//     if (accessoriesnumbersuperexpress.containsKey(producta) && accessoriesnumbersuperexpress[producta] == 1) {
-//       accessoriesnumbersuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       accessoriesnumbersuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //AccessoiresCartSection
-//
-//   //init real key value
-//   void accessoriesInitrkvalueSuperExpress(Product? producta) {
-//     if (_productasaccessoriessuperexpress.containsKey(producta)) {
-//       _productasaccessoriessuperexpress[producta] += 0;
-//     }
-//     else {_productasaccessoriessuperexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   void accessoriesDropOutInitrkvalueSuperExpress(Product? producta) {
-//     if (_productasaccessoriessuperexpress[producta] == 0) {
-//       _productasaccessoriessuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productasaccessoriessuperexpress[producta]+=0;}
-//   }
-//
-//   int accessoriesInitRealCounterSuperExpress(Product? producta) {
-//     _productasaccessoriessuperexpress[producta]=0;
-//     return _productasaccessoriessuperexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?AccessoriesSuperExpress(Product? producta) {
-//     if (_productasaccessoriessuperexpress.containsKey(producta)) {
-//       _productasaccessoriessuperexpress[producta] += 1;
-//     } else {
-//       _productasaccessoriessuperexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?AccessoriesSuperExpress (Product? producta) {
-//     if (_productasaccessoriessuperexpress.containsKey(producta) && _productasaccessoriessuperexpress[producta] == 1) {
-//       _productasaccessoriessuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasaccessoriessuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?AccessoriesSuperExpress (Product? producta) {
-//     if (_productasaccessoriessuperexpress.containsKey(producta) && _productasaccessoriessuperexpress[producta] == 1) {
-//       _productasaccessoriessuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasaccessoriessuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productasaccessoriessuperexpress => _productasaccessoriessuperexpress;
-//
-//   get productaaccessorySubtotalsuperexpress => _productasaccessoriessuperexpress.entries
-//       .map((productasaccessoriessuperexpress) => productasaccessoriessuperexpress.key.price * productasaccessoriessuperexpress.value)
-//       .toList();
-//
-//   get totalaccessorysuperexpress => _productasaccessoriessuperexpress.entries
-//       .map((productasaccessoriessuperexpress) => productasaccessoriessuperexpress.key.price * productasaccessoriessuperexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-// //   // .toStringAsFixed(2);
-//
-//   //Bath__________________________________________________________________________
-//   //BathDictionary
-//   var _productasbathsuperexpress = {}.obs;
-//   //BathIncrement
-//   var bathnumbersuperexpress = {}.obs;
-//
-//   //BathCounterInitializing
-//   int bathInitCounterSuperExpress(Product? producta) {
-//     bathnumbersuperexpress[producta]=0;
-//     return bathnumbersuperexpress[producta];
-//   }
-//
-//   //BathIncrementSection
-//   int bathCounterSuperExpress (Product? producta) {
-//     return bathnumbersuperexpress[producta];
-//   }
-//
-//   void addBathCounterSuperExpress(Product? producta) {
-//     if (bathnumbersuperexpress.containsKey(producta)) {
-//       bathnumbersuperexpress[producta] += 1;
-//     } else {
-//       bathnumbersuperexpress[producta] = 1;
-//     }
-//   }
-//
-//   void reduceBathCounterSuperExpress(Product? producta) {
-//     if (bathnumbersuperexpress.containsKey(producta)  && bathnumbersuperexpress[producta] == 1) {
-//       bathnumbersuperexpress[producta] = 0;
-//     }
-//     if (bathnumbersuperexpress[producta] == 0) {
-//     }
-//     else {
-//       bathnumbersuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllBathCounterSuperExpress(Product? producta) {
-//     if (bathnumbersuperexpress.containsKey(producta) && bathnumbersuperexpress[producta] == 1) {
-//       bathnumbersuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       bathnumbersuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //BathCartSection
-//
-//   //init real key value
-//   void bathInitrkvalueSuperExpress(Product? producta) {
-//     if (_productasbathsuperexpress.containsKey(producta)) {
-//       _productasbathsuperexpress[producta] += 0;
-//     }
-//     else {_productasbathsuperexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   void bathDropOutInitrkvalueSuperExpress(Product? producta) {
-//     if (_productasbathsuperexpress[producta] == 0) {
-//       _productasbathsuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productasbathsuperexpress[producta]+=0;}
-//   }
-//
-//   //BathRealCounterInitializing
-//   int bathInitRealCounterSuperExpress(Product? producta) {
-//     _productasbathsuperexpress[producta]=0;
-//     return _productasbathsuperexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?BathSuperExpress(Product? producta) {
-//     if (_productasbathsuperexpress.containsKey(producta)) {
-//       _productasbathsuperexpress[producta] += 1;
-//     } else {
-//       _productasbathsuperexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?BathSuperExpress (Product? producta) {
-//     if (_productasbathsuperexpress.containsKey(producta) && _productasbathsuperexpress[producta] == 1) {
-//       _productasbathsuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasbathsuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?BathSuperExpress (Product? producta) {
-//     if (_productasbathsuperexpress.containsKey(producta) && _productasbathsuperexpress[producta] == 1) {
-//       _productasbathsuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasbathsuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productasbathsuperexpress => _productasbathsuperexpress;
-//
-//   get productabathSubtotalsuperexpress => _productasbathsuperexpress.entries
-//       .map((productasbathsuperexpress) => productasbathsuperexpress.key.price * productasbathsuperexpress.value)
-//       .toList();
-//
-//   get totalbathesuperxpress => _productasbathsuperexpress.entries
-//       .map((productabathsuperexpress) => productabathsuperexpress.key.price * productabathsuperexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-//   // .toStringAsFixed(2);
-// //
-// //
-// //
-//   //Bedding____________________________________________________________________
-//   //BeddingDictionnary
-//   var _productasbeddingsuperexpress = {}.obs;
-//   //BeddingIncrement
-//   var beddingnumbersuperexpress = {}.obs;
-//
-//   //BeddingCounterInitializing
-//   int beddingInitCounterSuperExpress(Product? producta) {
-//     beddingnumbersuperexpress[producta]=0;
-//     return beddingnumbersuperexpress[producta];
-//   }
-//
-//   //BathIncrementSection
-//   int beddingCounterSuperExpress (Product? producta) {
-//     return beddingnumbersuperexpress[producta];
-//   }
-//
-//   void addBeddingCounterSuperExpress(Product? producta) {
-//     if (beddingnumbersuperexpress.containsKey(producta)) {
-//       beddingnumbersuperexpress[producta] += 1;
-//     } else {
-//       beddingnumbersuperexpress[producta] = 1;
-//     }
-//   }
-//
-//   void reduceBeddingCounterSuperExpress(Product? producta) {
-//     if (beddingnumbersuperexpress.containsKey(producta)  && beddingnumbersuperexpress[producta] == 1) {
-//       beddingnumbersuperexpress[producta] = 0;
-//     }
-//     if (beddingnumbersuperexpress[producta] == 0) {
-//     }
-//     else {
-//       beddingnumbersuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllBeddingCounterSuperExpress(Product? producta) {
-//     if (beddingnumbersuperexpress.containsKey(producta) && beddingnumbersuperexpress[producta] == 1) {
-//       beddingnumbersuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       beddingnumbersuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //BeddingCartSection
-//
-//   //init real key value
-//   void beddingInitrkvalueSuperExpress(Product? producta) {
-//     if (_productasbeddingsuperexpress.containsKey(producta)) {
-//       _productasbeddingsuperexpress[producta] += 0;
-//     }
-//     else {_productasbeddingsuperexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   void beddingDropOutInitrkvalueSuperExpress(Product? producta) {
-//     if (_productasbeddingsuperexpress[producta] == 0) {
-//       _productasbeddingsuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productasbeddingsuperexpress[producta]+=0;}
-//   }
-//
-//   int beddingInitRealCounterSuperExpress(Product? producta) {
-//     _productasbeddingsuperexpress[producta]=0;
-//     return _productasbeddingsuperexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?BeddingSuperExpress(Product? producta) {
-//     if (_productasbeddingsuperexpress.containsKey(producta)) {
-//       _productasbeddingsuperexpress[producta] += 1;
-//     } else {
-//       _productasbeddingsuperexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?BeddingSuperExpress (Product? producta) {
-//     if (_productasbeddingsuperexpress.containsKey(producta) && _productasbeddingsuperexpress[producta] == 1) {
-//       _productasbeddingsuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasbeddingsuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?BeddingSuperExpress (Product? producta) {
-//     if (_productasbeddingsuperexpress.containsKey(producta) && _productasbeddingsuperexpress[producta] == 1) {
-//       _productasbeddingsuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasbeddingsuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productasbeddingsuperexpress => _productasbeddingsuperexpress;
-//
-//   get productabeddingSubtotalsuperexpress => _productasbeddingsuperexpress.entries
-//       .map((productabeddingsuperexpress) => productabeddingsuperexpress.key.price * productabeddingsuperexpress.value)
-//       .toList();
-//
-//   get totalbeddingsuperexpress => _productasbeddingsuperexpress.entries
-//       .map((productabeddingsuperexpress) => productabeddingsuperexpress.key.price * productabeddingsuperexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-// //   // .toStringAsFixed(2);
-// //
-// //
-//   //Others___________________________________________________________________
-//   //OthersDictionary
-//   var _productasotherssuperexpress = {}.obs;
-//   //OthersIncrement
-//   var othersnumbersuperexpress = {}.obs;
-//
-// //OthersCounterInitializing
-//   int othersInitCounterSuperExpress(Product? producta) {
-//     othersnumbersuperexpress[producta]=0;
-//     return othersnumbersuperexpress[producta];
-//   }
-//
-//   //OthersIncrementSection
-//   int othersCounterSuperExpress (Product? producta) {
-//     return othersnumbersuperexpress[producta];
-//   }
-//
-//   void addOthersCounterSuperExpress(Product? producta) {
-//     if (othersnumbersuperexpress.containsKey(producta)) {
-//       othersnumbersuperexpress[producta] += 1;
-//     } else {
-//       othersnumbersuperexpress[producta] = 1;
-//     }
-//   }
-//
-//   void reduceOthersCounterSuperExpress(Product? producta) {
-//     if (othersnumbersuperexpress.containsKey(producta)  && othersnumbersuperexpress[producta] == 1) {
-//       othersnumbersuperexpress[producta] = 0;
-//     }
-//     if (othersnumbersuperexpress[producta] == 0) {
-//     }
-//     else {
-//       othersnumbersuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void reduceAllOthersCounterSuperExpress(Product? producta) {
-//     if (othersnumbersuperexpress.containsKey(producta) && othersnumbersuperexpress[producta] == 1) {
-//       othersnumbersuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       othersnumbersuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   //OthersCartSection
-//
-//   //init real key value
-//   void othersInitrkvalueSuperExpress(Product? producta) {
-//     if (_productasothersexpress.containsKey(producta)) {
-//       _productasothersexpress[producta] += 0;
-//     }
-//     else {_productasothersexpress[producta]=0;}
-//     // return _productasclothes[producta];
-//   }
-//
-//   void othersDropOutInitrkvalueSuperExpress(Product? producta) {
-//     if (_productasothersexpress[producta] == 0) {
-//       _productasothersexpress.removeWhere((key, value) => key == producta);
-//     }
-//     else {_productasothersexpress[producta]+=0;}
-//   }
-//
-//   //OthersRealCounterInitializing
-//   int othersInitRealCounterSuperExpress(Product? producta) {
-//     _productasotherssuperexpress[producta]=0;
-//     return _productasotherssuperexpress[producta];
-//   }
-//
-//   //Add productas
-//   void addProduct?OthersSuperExpress(Product? producta) {
-//     if (_productasotherssuperexpress.containsKey(producta)) {
-//       _productasotherssuperexpress[producta] += 1;
-//     } else {
-//       _productasotherssuperexpress[producta] = 1;
-//     }
-//
-//     Get.snackbar(
-//       "Produit ajouté",
-//       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
-//       snackPosition: SnackPosition.BOTTOM,
-//       duration: Duration(seconds: 2),
-//     );
-//   }
-//
-//   void removeProduct?OthersSuperExpress(Product? producta) {
-//     if (_productasotherssuperexpress.containsKey(producta) && _productasotherssuperexpress[producta] == 1) {
-//       _productasotherssuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasotherssuperexpress[producta] -= 1;
-//     }
-//   }
-//
-//   void removeAllProduct?OthersSuperExpress (Product? producta) {
-//     if (_productasotherssuperexpress.containsKey(producta) && _productasotherssuperexpress[producta] == 1) {
-//       _productasotherssuperexpress.removeWhere((key, value) => key == producta);
-//     } else {
-//       _productasotherssuperexpress.removeWhere((key, value) => key == producta);
-//     }
-//   }
-//
-//   get productasotherssuperexpress => _productasotherssuperexpress;
-//
-//   get productaotherSubtotalsuperexpress => _productasotherssuperexpress.entries
-//       .map((productaothersuperexpress) => productaothersuperexpress.key.price * productaothersuperexpress.value)
-//       .toList();
-//
-//   get totalothersuperexpress => _productasotherssuperexpress.entries
-//       .map((productaothersuperexpress) => productaothersuperexpress.key.price * productaothersuperexpress.value)
-//       .toList()
-//       .reduce((value, element) => value + element);
-// // .toStringAsFixed(2);
-//
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //   // Express zone___________________________________________________________________________________________
+  //   // Clothes___________________________________________________________________________
+  //   // ClothesDictionnary
+  //
+  //   //ClothesIncrement
+  //   var _productaclothesexpress = {}.obs;
+  //   var clothesnumberexpres = {}.obs;
+  //
+  //   //ClothesCounterInitializing
+  //   int clothesInitCounterExpress(Product? producta) {
+  //     clothesnumberexpres[producta]=0;
+  //     return clothesnumberexpres[producta];
+  //   }
+  //
+  //   //ClothesIncrementSection
+  //   int clothesCounterExpress (Product? producta) {
+  //     return clothesnumberexpres[producta];
+  //   }
+  //
+  //   void addClothesCounterExpress(Product? producta) {
+  //     if (clothesnumberexpres.containsKey(producta)) {
+  //       clothesnumberexpres[producta] += 1;
+  //     } else {
+  //       clothesnumberexpres[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceClothesCounterExpress(Product? producta) {
+  //     if (clothesnumberexpres.containsKey(producta)  && clothesnumberexpres[producta] == 1) {
+  //       // number.removeWhere((key, value) => key == producta);
+  //       clothesnumberexpres[producta] = 0;
+  //     }
+  //     if (clothesnumberexpres[producta] == 0) {
+  //       // number.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {
+  //       clothesnumberexpres[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllClothesCounterExpress(Product? producta) {
+  //     if (clothesnumberexpres.containsKey(producta) && clothesnumberexpres[producta] == 1) {
+  //       clothesnumberexpres.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       clothesnumberexpres.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //ClothesCartSection
+  //
+  //   //init real null key value
+  //   void clothesInitrkvalueExpress(Product? producta) {
+  //     if (_productaclothesexpress.containsKey(producta)) {
+  //       _productaclothesexpress[producta] += 0;
+  //     }
+  //     else {_productaclothesexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   //init real null key value
+  //   void clothesDropOutInitrkvalueExpress(Product? producta) {
+  //     if (_productaclothesexpress[producta] == 0) {
+  //       _productaclothesexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productaclothesexpress[producta]+=0;}
+  //   }
+  //
+  //   //init clothe real key
+  //   int clothesInitRealCounterExpress(Product? producta) {
+  //     _productaclothesexpress[producta]=0;
+  //     return _productaclothesexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?ClothesExpress(Product? producta) {
+  //     if (_productaclothesexpress.containsKey(producta)) {
+  //       _productaclothesexpress[producta] += 1;
+  //     } else {
+  //       _productaclothesexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?ClothesExpress(Product? producta) {
+  //     if (_productaclothesexpress.containsKey(producta) && _productaclothesexpress[producta] == 1) {
+  //       _productaclothesexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productaclothesexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?ClothesExpress (Product? producta) {
+  //     if (_productaclothesexpress.containsKey(producta) && _productaclothesexpress[producta] == 1) {
+  //       _productaclothesexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productaclothesexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productasclothesexpress => _productaclothesexpress;
+  //
+  //   get productasclotheSubtotalExpress => _productaclothesexpress.entries
+  //       .map((productasclothesexpress) => productasclothesexpress.key.price * productasclothesexpress.value)
+  //       .toList();
+  //
+  //   get totalclothexpress => _productaclothesexpress.entries
+  //       .map((productasclothesexpress) => productasclothesexpress.key.price * productasclothesexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  //   // .toStringAsFixed(2);
+  //
+  //
+  //   //Special__________________________________________________________________
+  //   //SpecialDictionnary
+  //   var _productaspecialexpress = {}.obs;
+  //   //SpecialIncrement
+  //   var specialnumberexpress = {}.obs;
+  //
+  //   //SpecialCounterInitializing
+  //   int specialInitCounterExpress(Product? producta) {
+  //     specialnumberexpress[producta]=0;
+  //     return specialnumberexpress[producta];
+  //   }
+  //
+  //   //SpecialIncrementSection
+  //   int specialCounterExpress (Product? producta) {
+  //     return specialnumberexpress[producta];
+  //   }
+  //
+  //   void addSpecialCounterExpress(Product? producta) {
+  //     if (specialnumberexpress.containsKey(producta)) {
+  //       specialnumberexpress[producta] += 1;
+  //     } else {
+  //       specialnumberexpress[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceSpecialCounterExpress(Product? producta) {
+  //     if (specialnumberexpress.containsKey(producta)  && specialnumberexpress[producta] == 1) {
+  //       // number.removeWhere((key, value) => key == producta);
+  //       specialnumberexpress[producta] = 0;
+  //     }
+  //     if (specialnumberexpress[producta] == 0) {
+  //       // number.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {
+  //       specialnumberexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllSpecialCounterExpress(Product? producta) {
+  //     if (specialnumberexpress.containsKey(producta) && specialnumberexpress[producta] == 1) {
+  //       specialnumberexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       specialnumberexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //SpecialCartSection
+  //
+  //   //init real key value
+  //   void specialInitrkvalueExpress(Product? producta) {
+  //     if (_productaspecialexpress.containsKey(producta)) {
+  //       _productaspecialexpress[producta] += 0;
+  //     }
+  //     else {_productaspecialexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   void specialDropOutInitrkvalueExpress(Product? producta) {
+  //     if (_productaspecialexpress[producta] == 0) {
+  //       _productaspecialexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productaspecialexpress[producta]+=0;}
+  //   }
+  //
+  //   int specialInitRealCounterExpress(Product? producta) {
+  //     _productaspecialexpress[producta]=0;
+  //     return _productaspecialexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?SpecialExpress(Product? producta) {
+  //     if (_productaspecialexpress.containsKey(producta)) {
+  //       _productaspecialexpress[producta] += 1;
+  //     } else {
+  //       _productaspecialexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?SpecialExpress (Product? producta) {
+  //     if (_productaspecialexpress.containsKey(producta) && _productaspecialexpress[producta] == 1) {
+  //       _productaspecialexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productaspecialexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?SpecialExpress (Product? producta) {
+  //     if (_productaspecialexpress.containsKey(producta) && _productaspecialexpress[producta] == 1) {
+  //       _productaspecialexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productaspecialexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productaspecialexpress => _productaspecialexpress;
+  //
+  //   get productaspecialSubtotalexpress => _productaspecialexpress.entries
+  //       .map((productaspecialexpress) => productaspecialexpress.key.price * productaspecialexpress.value)
+  //       .toList();
+  //
+  //   get totalspecialexpress => _productaspecialexpress.entries
+  //       .map((productaspecialexpress) => productaspecialexpress.key.price * productaspecialexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  // //   // .toStringAsFixed(2);
+  //
+  //
+  //   //Accessories__________________________________________________________________
+  //   //AccessoriesDictionary
+  //   var _productasaccessoriesexpress = {}.obs;
+  //   //AccessoriesIncrement
+  //   var accessoriesnumberexpress = {}.obs;
+  //
+  //   //AccessoriesCounterInitializing
+  //   int accessoriesInitCounterExpress(Product? producta) {
+  //     accessoriesnumberexpress[producta]=0;
+  //     return accessoriesnumberexpress[producta];
+  //   }
+  //
+  //   //AccessoriesIncrementSection
+  //   int accessoriesCounterExpress (Product? producta) {
+  //     return accessoriesnumberexpress[producta];
+  //   }
+  //
+  //   void addAccessoriesCounterExpress(Product? producta) {
+  //     if (accessoriesnumberexpress.containsKey(producta)) {
+  //       accessoriesnumberexpress[producta] += 1;
+  //     } else {
+  //       accessoriesnumberexpress[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceAccessoriesCounterExpress(Product? producta) {
+  //     if (accessoriesnumberexpress.containsKey(producta)  && accessoriesnumberexpress[producta] == 1) {
+  //       accessoriesnumberexpress[producta] = 0;
+  //     }
+  //     if (accessoriesnumberexpress[producta] == 0) {
+  //     }
+  //     else {
+  //       accessoriesnumberexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllAccessoriesCounterExpress(Product? producta) {
+  //     if (accessoriesnumberexpress.containsKey(producta) && accessoriesnumberexpress[producta] == 1) {
+  //       accessoriesnumberexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       accessoriesnumberexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //AccessoiresCartSection
+  //
+  //   //init real key value
+  //   void accessoriesInitrkvalueExpress(Product? producta) {
+  //     if (_productasaccessoriesexpress.containsKey(producta)) {
+  //       _productasaccessoriesexpress[producta] += 0;
+  //     }
+  //     else {_productasaccessoriesexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   void accessoriesDropOutInitrkvalueExpress(Product? producta) {
+  //     if (_productasaccessoriesexpress[producta] == 0) {
+  //       _productasaccessoriesexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productasaccessoriesexpress[producta]+=0;}
+  //   }
+  //
+  //   int accessoriesInitRealCounterExpress(Product? producta) {
+  //     _productasaccessoriesexpress[producta]=0;
+  //     return _productasaccessoriesexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?AccessoriesExpress(Product? producta) {
+  //     if (_productasaccessoriesexpress.containsKey(producta)) {
+  //       _productasaccessoriesexpress[producta] += 1;
+  //     } else {
+  //       _productasaccessoriesexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?AccessoriesExpress (Product? producta) {
+  //     if (_productasaccessoriesexpress.containsKey(producta) && _productasaccessoriesexpress[producta] == 1) {
+  //       _productasaccessoriesexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasaccessoriesexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?AccessoriesExpress (Product? producta) {
+  //     if (_productasaccessoriesexpress.containsKey(producta) && _productasaccessoriesexpress[producta] == 1) {
+  //       _productasaccessoriesexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasaccessoriesexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productasaccessoriesexpress => _productasaccessoriesexpress;
+  //
+  //   get productaaccessorySubtotalexpress => _productasaccessoriesexpress.entries
+  //       .map((productasaccessoriesexpress) => productasaccessoriesexpress.key.price * productasaccessoriesexpress.value)
+  //       .toList();
+  //
+  //   get totalaccessoryexpress => _productasaccessoriesexpress.entries
+  //       .map((productasaccessoriesexpress) => productasaccessoriesexpress.key.price * productasaccessoriesexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  // //   // .toStringAsFixed(2);
+  //
+  //   //Bath__________________________________________________________________________
+  //   //BathDictionary
+  //   var _productasbathexpress = {}.obs;
+  //   //BathIncrement
+  //   var bathnumberexpress = {}.obs;
+  //
+  //   //BathCounterInitializing
+  //   int bathInitCounterExpress(Product? producta) {
+  //     bathnumberexpress[producta]=0;
+  //     return bathnumberexpress[producta];
+  //   }
+  //
+  //   //BathIncrementSection
+  //   int bathCounterExpress (Product? producta) {
+  //     return bathnumberexpress[producta];
+  //   }
+  //
+  //   void addBathCounterExpress(Product? producta) {
+  //     if (bathnumberexpress.containsKey(producta)) {
+  //       bathnumberexpress[producta] += 1;
+  //     } else {
+  //       bathnumberexpress[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceBathCounterExpress(Product? producta) {
+  //     if (bathnumberexpress.containsKey(producta)  && bathnumberexpress[producta] == 1) {
+  //       bathnumberexpress[producta] = 0;
+  //     }
+  //     if (bathnumberexpress[producta] == 0) {
+  //     }
+  //     else {
+  //       bathnumberexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllBathCounterExpress(Product? producta) {
+  //     if (bathnumberexpress.containsKey(producta) && bathnumberexpress[producta] == 1) {
+  //       bathnumberexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       bathnumberexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //BathCartSection
+  //
+  //   //init real key value
+  //   void bathInitrkvalueExpress(Product? producta) {
+  //     if (_productasbathexpress.containsKey(producta)) {
+  //       _productasbathexpress[producta] += 0;
+  //     }
+  //     else {_productasbathexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   void bathDropOutInitrkvalueExpress(Product? producta) {
+  //     if (_productasbathexpress[producta] == 0) {
+  //       _productasbathexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productasbathexpress[producta]+=0;}
+  //   }
+  //
+  //   //BathRealCounterInitializing
+  //   int bathInitRealCounterExpress(Product? producta) {
+  //     _productasbathexpress[producta]=0;
+  //     return _productasbathexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?BathExpress(Product? producta) {
+  //     if (_productasbathexpress.containsKey(producta)) {
+  //       _productasbathexpress[producta] += 1;
+  //     } else {
+  //       _productasbathexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?BathExpress (Product? producta) {
+  //     if (_productasbathexpress.containsKey(producta) && _productasbathexpress[producta] == 1) {
+  //       _productasbathexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasbathexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?BathExpress (Product? producta) {
+  //     if (_productasbathexpress.containsKey(producta) && _productasbathexpress[producta] == 1) {
+  //       _productasbathexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasbathexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productasbathexpress => _productasbathexpress;
+  //
+  //   get productabathSubtotalexpress => _productasbathexpress.entries
+  //       .map((productasbathexpress) => productasbathexpress.key.price * productasbathexpress.value)
+  //       .toList();
+  //
+  //   get totalbathexpress => _productasbathexpress.entries
+  //       .map((productabathexpress) => productabathexpress.key.price * productabathexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  //   // .toStringAsFixed(2);
+  // //
+  // //
+  // //
+  //   //Bedding____________________________________________________________________
+  //   //BeddingDictionnary
+  //   var _productasbeddingexpress = {}.obs;
+  //   //BeddingIncrement
+  //   var beddingnumberexpress = {}.obs;
+  //
+  //   //BeddingCounterInitializing
+  //   int beddingInitCounterExpress(Product? producta) {
+  //     beddingnumberexpress[producta]=0;
+  //     return beddingnumberexpress[producta];
+  //   }
+  //
+  //   //BathIncrementSection
+  //   int beddingCounterExpress (Product? producta) {
+  //     return beddingnumberexpress[producta];
+  //   }
+  //
+  //   void addBeddingCounterExpress(Product? producta) {
+  //     if (beddingnumberexpress.containsKey(producta)) {
+  //       beddingnumberexpress[producta] += 1;
+  //     } else {
+  //       beddingnumberexpress[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceBeddingCounterExpress(Product? producta) {
+  //     if (beddingnumberexpress.containsKey(producta)  && beddingnumberexpress[producta] == 1) {
+  //       beddingnumberexpress[producta] = 0;
+  //     }
+  //     if (beddingnumberexpress[producta] == 0) {
+  //     }
+  //     else {
+  //       beddingnumberexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllBeddingCounterExpress(Product? producta) {
+  //     if (beddingnumberexpress.containsKey(producta) && beddingnumberexpress[producta] == 1) {
+  //       beddingnumberexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       beddingnumberexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //BeddingCartSection
+  //
+  //   //init real key value
+  //   void beddingInitrkvalueExpress(Product? producta) {
+  //     if (_productasbeddingexpress.containsKey(producta)) {
+  //       _productasbeddingexpress[producta] += 0;
+  //     }
+  //     else {_productasbeddingexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   void beddingDropOutInitrkvalueExpress(Product? producta) {
+  //     if (_productasbeddingexpress[producta] == 0) {
+  //       _productasbeddingexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productasbeddingexpress[producta]+=0;}
+  //   }
+  //
+  //   int beddingInitRealCounterExpress(Product? producta) {
+  //     _productasbeddingexpress[producta]=0;
+  //     return _productasbeddingexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?BeddingExpress(Product? producta) {
+  //     if (_productasbeddingexpress.containsKey(producta)) {
+  //       _productasbeddingexpress[producta] += 1;
+  //     } else {
+  //       _productasbeddingexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?BeddingExpress (Product? producta) {
+  //     if (_productasbeddingexpress.containsKey(producta) && _productasbeddingexpress[producta] == 1) {
+  //       _productasbeddingexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasbeddingexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?BeddingExpress (Product? producta) {
+  //     if (_productasbeddingexpress.containsKey(producta) && _productasbeddingexpress[producta] == 1) {
+  //       _productasbeddingexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasbeddingexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productasbeddingexpress => _productasbeddingexpress;
+  //
+  //   get productabeddingSubtotalexpress => _productasbeddingexpress.entries
+  //       .map((productabeddingexpress) => productabeddingexpress.key.price * productabeddingexpress.value)
+  //       .toList();
+  //
+  //   get totalbeddingexpress => _productasbeddingexpress.entries
+  //       .map((productabeddingexpress) => productabeddingexpress.key.price * productabeddingexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  // //   // .toStringAsFixed(2);
+  // //
+  // //
+  //   //Others___________________________________________________________________
+  //   //OthersDictionary
+  //   var _productasothersexpress = {}.obs;
+  //   //OthersIncrement
+  //   var othersnumberexpress = {}.obs;
+  //
+  // //OthersCounterInitializing
+  //   int othersInitCounterExpress(Product? producta) {
+  //     othersnumberexpress[producta]=0;
+  //     return othersnumberexpress[producta];
+  //   }
+  //
+  //   //OthersIncrementSection
+  //   int othersCounterExpress (Product? producta) {
+  //     return othersnumberexpress[producta];
+  //   }
+  //
+  //   void addOthersCounterExpress(Product? producta) {
+  //     if (othersnumberexpress.containsKey(producta)) {
+  //       othersnumberexpress[producta] += 1;
+  //     } else {
+  //       othersnumberexpress[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceOthersCounterExpress(Product? producta) {
+  //     if (othersnumberexpress.containsKey(producta)  && othersnumberexpress[producta] == 1) {
+  //       othersnumberexpress[producta] = 0;
+  //     }
+  //     if (othersnumberexpress[producta] == 0) {
+  //     }
+  //     else {
+  //       othersnumberexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllOthersCounterExpress(Product? producta) {
+  //     if (othersnumberexpress.containsKey(producta) && othersnumberexpress[producta] == 1) {
+  //       othersnumberexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       othersnumberexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //OthersCartSection
+  //
+  //   //init real key value
+  //   void othersInitrkvalueExpress(Product? producta) {
+  //     if (_productasothersexpress.containsKey(producta)) {
+  //       _productasothersexpress[producta] += 0;
+  //     }
+  //     else {_productasothersexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   void othersDropOutInitrkvalueExpress(Product? producta) {
+  //     if (_productasothersexpress[producta] == 0) {
+  //       _productasothersexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productasothersexpress[producta]+=0;}
+  //   }
+  //
+  //   //OthersRealCounterInitializing
+  //   int othersInitRealCounterExpress(Product? producta) {
+  //     _productasothersexpress[producta]=0;
+  //     return _productasothersexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?OthersExpress(Product? producta) {
+  //     if (_productasothersexpress.containsKey(producta)) {
+  //       _productasothersexpress[producta] += 1;
+  //     } else {
+  //       _productasothersexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?OthersExpress(Product? producta) {
+  //     if (_productasothersexpress.containsKey(producta) && _productasothersexpress[producta] == 1) {
+  //       _productasothersexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasothersexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?OthersExpress (Product? producta) {
+  //     if (_productasothersexpress.containsKey(producta) && _productasothersexpress[producta] == 1) {
+  //       _productasothersexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasothersexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productasothersexpress => _productasothersexpress;
+  //
+  //   get productaotherSubtotalexpress => _productasothersexpress.entries
+  //       .map((productaotherexpress) => productaotherexpress.key.price * productaotherexpress.value)
+  //       .toList();
+  //
+  //   get totalotherexpress => _productasothersexpress.entries
+  //       .map((productaotherexpress) => productaotherexpress.key.price * productaotherexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  // // .toStringAsFixed(2);
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  // //Super express zone___________________________________________________________________________________________
+  //   // Clothes___________________________________________________________________________
+  //   // ClothesDictionnary
+  //
+  //   //ClothesIncrement
+  //   var _productaclothessuperexpress = {}.obs;
+  //   var clothesnumbersuperexpres = {}.obs;
+  //
+  //   //ClothesCounterInitializing
+  //   int clothesInitCounterSuperExpress(Product? producta) {
+  //     clothesnumbersuperexpres[producta]=0;
+  //     return clothesnumbersuperexpres[producta];
+  //   }
+  //
+  //   //ClothesIncrementSection
+  //   int clothesCounterSuperExpress (Product? producta) {
+  //     return clothesnumbersuperexpres[producta];
+  //   }
+  //
+  //   void addClothesCounterSuperExpress(Product? producta) {
+  //     if (clothesnumbersuperexpres.containsKey(producta)) {
+  //       clothesnumbersuperexpres[producta] += 1;
+  //     } else {
+  //       clothesnumbersuperexpres[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceClothesCounterSuperExpress(Product? producta) {
+  //     if (clothesnumbersuperexpres.containsKey(producta)  && clothesnumbersuperexpres[producta] == 1) {
+  //       // number.removeWhere((key, value) => key == producta);
+  //       clothesnumbersuperexpres[producta] = 0;
+  //     }
+  //     if (clothesnumbersuperexpres[producta] == 0) {
+  //       // number.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {
+  //       clothesnumbersuperexpres[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllClothesCounterSuperExpress(Product? producta) {
+  //     if (clothesnumbersuperexpres.containsKey(producta) && clothesnumbersuperexpres[producta] == 1) {
+  //       clothesnumbersuperexpres.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       clothesnumbersuperexpres.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //ClothesCartSection
+  //
+  //   //init real null key value
+  //   void clothesInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productaclothessuperexpress.containsKey(producta)) {
+  //       _productaclothessuperexpress[producta] += 0;
+  //     }
+  //     else {_productaclothessuperexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   //init real null key value
+  //   void clothesDropOutInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productaclothessuperexpress[producta] == 0) {
+  //       _productaclothessuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productaclothessuperexpress[producta]+=0;}
+  //   }
+  //
+  //   //init clothe real key
+  //   int clothesInitRealCounterSuperExpess(Product? producta) {
+  //     _productaclothessuperexpress[producta]=0;
+  //     return _productaclothessuperexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?ClothesSuperExpress(Product? producta) {
+  //     if (_productaclothessuperexpress.containsKey(producta)) {
+  //       _productaclothessuperexpress[producta] += 1;
+  //     } else {
+  //       _productaclothessuperexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?ClothesSuperExpress(Product? producta) {
+  //     if (_productaclothessuperexpress.containsKey(producta) && _productaclothessuperexpress[producta] == 1) {
+  //       _productaclothessuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productaclothessuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?ClothesSuperExpress (Product? producta) {
+  //     if (_productaclothessuperexpress.containsKey(producta) && _productaclothessuperexpress[producta] == 1) {
+  //       _productaclothessuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productaclothessuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productasclothessuperexpress => _productaclothessuperexpress;
+  //
+  //   get productasclotheSubtotalSuperExpress => _productaclothessuperexpress.entries
+  //       .map((productasclothessuperexpress) => productasclothessuperexpress.key.price * productasclothessuperexpress.value)
+  //       .toList();
+  //
+  //   get totalclothsuperexpress => _productaclothessuperexpress.entries
+  //       .map((productasclothessuperexpress) => productasclothessuperexpress.key.price * productasclothessuperexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  //   // .toStringAsFixed(2);
+  //
+  //
+  //   //Special__________________________________________________________________
+  //   //SpecialDictionnary
+  //   var _productaspecialsuperexpress = {}.obs;
+  //   //SpecialIncrement
+  //   var specialnumbersuperexpress = {}.obs;
+  //
+  //   //SpecialCounterInitializing
+  //   int specialInitCounterSuperExpress(Product? producta) {
+  //     specialnumbersuperexpress[producta]=0;
+  //     return specialnumbersuperexpress[producta];
+  //   }
+  //
+  //   //SpecialIncrementSection
+  //   int specialCounterSuperExpress (Product? producta) {
+  //     return specialnumbersuperexpress[producta];
+  //   }
+  //
+  //   void addSpecialCounterSuperExpress(Product? producta) {
+  //     if (specialnumbersuperexpress.containsKey(producta)) {
+  //       specialnumbersuperexpress[producta] += 1;
+  //     } else {
+  //       specialnumbersuperexpress[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceSpecialCounterSuperExpress(Product? producta) {
+  //     if (specialnumbersuperexpress.containsKey(producta)  && specialnumbersuperexpress[producta] == 1) {
+  //       // number.removeWhere((key, value) => key == producta);
+  //       specialnumbersuperexpress[producta] = 0;
+  //     }
+  //     if (specialnumbersuperexpress[producta] == 0) {
+  //       // number.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {
+  //       specialnumbersuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllSpecialCounterSuperExpress(Product? producta) {
+  //     if (specialnumbersuperexpress.containsKey(producta) && specialnumbersuperexpress[producta] == 1) {
+  //       specialnumbersuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       specialnumbersuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //SpecialCartSection
+  //
+  //   //init real key value
+  //   void specialInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productaspecialsuperexpress.containsKey(producta)) {
+  //       _productaspecialsuperexpress[producta] += 0;
+  //     }
+  //     else {_productaspecialsuperexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   void specialDropOutInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productaspecialsuperexpress[producta] == 0) {
+  //       _productaspecialsuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productaspecialexpress[producta]+=0;}
+  //   }
+  //
+  //   int specialInitRealCounterSuperExpress(Product? producta) {
+  //     _productaspecialsuperexpress[producta]=0;
+  //     return _productaspecialsuperexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?SpecialSuperExpress(Product? producta) {
+  //     if (_productaspecialsuperexpress.containsKey(producta)) {
+  //       _productaspecialsuperexpress[producta] += 1;
+  //     } else {
+  //       _productaspecialsuperexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?SpecialSuperExpress (Product? producta) {
+  //     if (_productaspecialsuperexpress.containsKey(producta) && _productaspecialsuperexpress[producta] == 1) {
+  //       _productaspecialsuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productaspecialsuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?SpecialSuperExpress (Product? producta) {
+  //     if (_productaspecialsuperexpress.containsKey(producta) && _productaspecialsuperexpress[producta] == 1) {
+  //       _productaspecialsuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productaspecialexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productaspecialsuperexpress => _productaspecialsuperexpress;
+  //
+  //   get productaspecialSubtotalsuperexpress => _productaspecialsuperexpress.entries
+  //       .map((productaspecialsuperexpress) => productaspecialsuperexpress.key.price * productaspecialsuperexpress.value)
+  //       .toList();
+  //
+  //   get totalspecialsuperexpress => _productaspecialsuperexpress.entries
+  //       .map((productaspecialsuperexpress) => productaspecialsuperexpress.key.price * productaspecialsuperexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  // //   // .toStringAsFixed(2);
+  //
+  //
+  //   //Accessories__________________________________________________________________
+  //   //AccessoriesDictionary
+  //   var _productasaccessoriessuperexpress = {}.obs;
+  //   //AccessoriesIncrement
+  //   var accessoriesnumbersuperexpress = {}.obs;
+  //
+  //   //AccessoriesCounterInitializing
+  //   int accessoriesInitCounterSuperExpress(Product? producta) {
+  //     accessoriesnumbersuperexpress[producta]=0;
+  //     return accessoriesnumbersuperexpress[producta];
+  //   }
+  //
+  //   //AccessoriesIncrementSection
+  //   int accessoriesCounterSuperExpress (Product? producta) {
+  //     return accessoriesnumbersuperexpress[producta];
+  //   }
+  //
+  //   void addAccessoriesCounterSuperExpress(Product? producta) {
+  //     if (accessoriesnumbersuperexpress.containsKey(producta)) {
+  //       accessoriesnumbersuperexpress[producta] += 1;
+  //     } else {
+  //       accessoriesnumbersuperexpress[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceAccessoriesCounterSuperExpress(Product? producta) {
+  //     if (accessoriesnumbersuperexpress.containsKey(producta)  && accessoriesnumbersuperexpress[producta] == 1) {
+  //       accessoriesnumbersuperexpress[producta] = 0;
+  //     }
+  //     if (accessoriesnumbersuperexpress[producta] == 0) {
+  //     }
+  //     else {
+  //       accessoriesnumbersuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllAccessoriesCounterSuperExpress(Product? producta) {
+  //     if (accessoriesnumbersuperexpress.containsKey(producta) && accessoriesnumbersuperexpress[producta] == 1) {
+  //       accessoriesnumbersuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       accessoriesnumbersuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //AccessoiresCartSection
+  //
+  //   //init real key value
+  //   void accessoriesInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productasaccessoriessuperexpress.containsKey(producta)) {
+  //       _productasaccessoriessuperexpress[producta] += 0;
+  //     }
+  //     else {_productasaccessoriessuperexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   void accessoriesDropOutInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productasaccessoriessuperexpress[producta] == 0) {
+  //       _productasaccessoriessuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productasaccessoriessuperexpress[producta]+=0;}
+  //   }
+  //
+  //   int accessoriesInitRealCounterSuperExpress(Product? producta) {
+  //     _productasaccessoriessuperexpress[producta]=0;
+  //     return _productasaccessoriessuperexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?AccessoriesSuperExpress(Product? producta) {
+  //     if (_productasaccessoriessuperexpress.containsKey(producta)) {
+  //       _productasaccessoriessuperexpress[producta] += 1;
+  //     } else {
+  //       _productasaccessoriessuperexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?AccessoriesSuperExpress (Product? producta) {
+  //     if (_productasaccessoriessuperexpress.containsKey(producta) && _productasaccessoriessuperexpress[producta] == 1) {
+  //       _productasaccessoriessuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasaccessoriessuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?AccessoriesSuperExpress (Product? producta) {
+  //     if (_productasaccessoriessuperexpress.containsKey(producta) && _productasaccessoriessuperexpress[producta] == 1) {
+  //       _productasaccessoriessuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasaccessoriessuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productasaccessoriessuperexpress => _productasaccessoriessuperexpress;
+  //
+  //   get productaaccessorySubtotalsuperexpress => _productasaccessoriessuperexpress.entries
+  //       .map((productasaccessoriessuperexpress) => productasaccessoriessuperexpress.key.price * productasaccessoriessuperexpress.value)
+  //       .toList();
+  //
+  //   get totalaccessorysuperexpress => _productasaccessoriessuperexpress.entries
+  //       .map((productasaccessoriessuperexpress) => productasaccessoriessuperexpress.key.price * productasaccessoriessuperexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  // //   // .toStringAsFixed(2);
+  //
+  //   //Bath__________________________________________________________________________
+  //   //BathDictionary
+  //   var _productasbathsuperexpress = {}.obs;
+  //   //BathIncrement
+  //   var bathnumbersuperexpress = {}.obs;
+  //
+  //   //BathCounterInitializing
+  //   int bathInitCounterSuperExpress(Product? producta) {
+  //     bathnumbersuperexpress[producta]=0;
+  //     return bathnumbersuperexpress[producta];
+  //   }
+  //
+  //   //BathIncrementSection
+  //   int bathCounterSuperExpress (Product? producta) {
+  //     return bathnumbersuperexpress[producta];
+  //   }
+  //
+  //   void addBathCounterSuperExpress(Product? producta) {
+  //     if (bathnumbersuperexpress.containsKey(producta)) {
+  //       bathnumbersuperexpress[producta] += 1;
+  //     } else {
+  //       bathnumbersuperexpress[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceBathCounterSuperExpress(Product? producta) {
+  //     if (bathnumbersuperexpress.containsKey(producta)  && bathnumbersuperexpress[producta] == 1) {
+  //       bathnumbersuperexpress[producta] = 0;
+  //     }
+  //     if (bathnumbersuperexpress[producta] == 0) {
+  //     }
+  //     else {
+  //       bathnumbersuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllBathCounterSuperExpress(Product? producta) {
+  //     if (bathnumbersuperexpress.containsKey(producta) && bathnumbersuperexpress[producta] == 1) {
+  //       bathnumbersuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       bathnumbersuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //BathCartSection
+  //
+  //   //init real key value
+  //   void bathInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productasbathsuperexpress.containsKey(producta)) {
+  //       _productasbathsuperexpress[producta] += 0;
+  //     }
+  //     else {_productasbathsuperexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   void bathDropOutInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productasbathsuperexpress[producta] == 0) {
+  //       _productasbathsuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productasbathsuperexpress[producta]+=0;}
+  //   }
+  //
+  //   //BathRealCounterInitializing
+  //   int bathInitRealCounterSuperExpress(Product? producta) {
+  //     _productasbathsuperexpress[producta]=0;
+  //     return _productasbathsuperexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?BathSuperExpress(Product? producta) {
+  //     if (_productasbathsuperexpress.containsKey(producta)) {
+  //       _productasbathsuperexpress[producta] += 1;
+  //     } else {
+  //       _productasbathsuperexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?BathSuperExpress (Product? producta) {
+  //     if (_productasbathsuperexpress.containsKey(producta) && _productasbathsuperexpress[producta] == 1) {
+  //       _productasbathsuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasbathsuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?BathSuperExpress (Product? producta) {
+  //     if (_productasbathsuperexpress.containsKey(producta) && _productasbathsuperexpress[producta] == 1) {
+  //       _productasbathsuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasbathsuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productasbathsuperexpress => _productasbathsuperexpress;
+  //
+  //   get productabathSubtotalsuperexpress => _productasbathsuperexpress.entries
+  //       .map((productasbathsuperexpress) => productasbathsuperexpress.key.price * productasbathsuperexpress.value)
+  //       .toList();
+  //
+  //   get totalbathesuperxpress => _productasbathsuperexpress.entries
+  //       .map((productabathsuperexpress) => productabathsuperexpress.key.price * productabathsuperexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  //   // .toStringAsFixed(2);
+  // //
+  // //
+  // //
+  //   //Bedding____________________________________________________________________
+  //   //BeddingDictionnary
+  //   var _productasbeddingsuperexpress = {}.obs;
+  //   //BeddingIncrement
+  //   var beddingnumbersuperexpress = {}.obs;
+  //
+  //   //BeddingCounterInitializing
+  //   int beddingInitCounterSuperExpress(Product? producta) {
+  //     beddingnumbersuperexpress[producta]=0;
+  //     return beddingnumbersuperexpress[producta];
+  //   }
+  //
+  //   //BathIncrementSection
+  //   int beddingCounterSuperExpress (Product? producta) {
+  //     return beddingnumbersuperexpress[producta];
+  //   }
+  //
+  //   void addBeddingCounterSuperExpress(Product? producta) {
+  //     if (beddingnumbersuperexpress.containsKey(producta)) {
+  //       beddingnumbersuperexpress[producta] += 1;
+  //     } else {
+  //       beddingnumbersuperexpress[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceBeddingCounterSuperExpress(Product? producta) {
+  //     if (beddingnumbersuperexpress.containsKey(producta)  && beddingnumbersuperexpress[producta] == 1) {
+  //       beddingnumbersuperexpress[producta] = 0;
+  //     }
+  //     if (beddingnumbersuperexpress[producta] == 0) {
+  //     }
+  //     else {
+  //       beddingnumbersuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllBeddingCounterSuperExpress(Product? producta) {
+  //     if (beddingnumbersuperexpress.containsKey(producta) && beddingnumbersuperexpress[producta] == 1) {
+  //       beddingnumbersuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       beddingnumbersuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //BeddingCartSection
+  //
+  //   //init real key value
+  //   void beddingInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productasbeddingsuperexpress.containsKey(producta)) {
+  //       _productasbeddingsuperexpress[producta] += 0;
+  //     }
+  //     else {_productasbeddingsuperexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   void beddingDropOutInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productasbeddingsuperexpress[producta] == 0) {
+  //       _productasbeddingsuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productasbeddingsuperexpress[producta]+=0;}
+  //   }
+  //
+  //   int beddingInitRealCounterSuperExpress(Product? producta) {
+  //     _productasbeddingsuperexpress[producta]=0;
+  //     return _productasbeddingsuperexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?BeddingSuperExpress(Product? producta) {
+  //     if (_productasbeddingsuperexpress.containsKey(producta)) {
+  //       _productasbeddingsuperexpress[producta] += 1;
+  //     } else {
+  //       _productasbeddingsuperexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?BeddingSuperExpress (Product? producta) {
+  //     if (_productasbeddingsuperexpress.containsKey(producta) && _productasbeddingsuperexpress[producta] == 1) {
+  //       _productasbeddingsuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasbeddingsuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?BeddingSuperExpress (Product? producta) {
+  //     if (_productasbeddingsuperexpress.containsKey(producta) && _productasbeddingsuperexpress[producta] == 1) {
+  //       _productasbeddingsuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasbeddingsuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productasbeddingsuperexpress => _productasbeddingsuperexpress;
+  //
+  //   get productabeddingSubtotalsuperexpress => _productasbeddingsuperexpress.entries
+  //       .map((productabeddingsuperexpress) => productabeddingsuperexpress.key.price * productabeddingsuperexpress.value)
+  //       .toList();
+  //
+  //   get totalbeddingsuperexpress => _productasbeddingsuperexpress.entries
+  //       .map((productabeddingsuperexpress) => productabeddingsuperexpress.key.price * productabeddingsuperexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  // //   // .toStringAsFixed(2);
+  // //
+  // //
+  //   //Others___________________________________________________________________
+  //   //OthersDictionary
+  //   var _productasotherssuperexpress = {}.obs;
+  //   //OthersIncrement
+  //   var othersnumbersuperexpress = {}.obs;
+  //
+  // //OthersCounterInitializing
+  //   int othersInitCounterSuperExpress(Product? producta) {
+  //     othersnumbersuperexpress[producta]=0;
+  //     return othersnumbersuperexpress[producta];
+  //   }
+  //
+  //   //OthersIncrementSection
+  //   int othersCounterSuperExpress (Product? producta) {
+  //     return othersnumbersuperexpress[producta];
+  //   }
+  //
+  //   void addOthersCounterSuperExpress(Product? producta) {
+  //     if (othersnumbersuperexpress.containsKey(producta)) {
+  //       othersnumbersuperexpress[producta] += 1;
+  //     } else {
+  //       othersnumbersuperexpress[producta] = 1;
+  //     }
+  //   }
+  //
+  //   void reduceOthersCounterSuperExpress(Product? producta) {
+  //     if (othersnumbersuperexpress.containsKey(producta)  && othersnumbersuperexpress[producta] == 1) {
+  //       othersnumbersuperexpress[producta] = 0;
+  //     }
+  //     if (othersnumbersuperexpress[producta] == 0) {
+  //     }
+  //     else {
+  //       othersnumbersuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void reduceAllOthersCounterSuperExpress(Product? producta) {
+  //     if (othersnumbersuperexpress.containsKey(producta) && othersnumbersuperexpress[producta] == 1) {
+  //       othersnumbersuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       othersnumbersuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   //OthersCartSection
+  //
+  //   //init real key value
+  //   void othersInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productasothersexpress.containsKey(producta)) {
+  //       _productasothersexpress[producta] += 0;
+  //     }
+  //     else {_productasothersexpress[producta]=0;}
+  //     // return _productasclothes[producta];
+  //   }
+  //
+  //   void othersDropOutInitrkvalueSuperExpress(Product? producta) {
+  //     if (_productasothersexpress[producta] == 0) {
+  //       _productasothersexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //     else {_productasothersexpress[producta]+=0;}
+  //   }
+  //
+  //   //OthersRealCounterInitializing
+  //   int othersInitRealCounterSuperExpress(Product? producta) {
+  //     _productasotherssuperexpress[producta]=0;
+  //     return _productasotherssuperexpress[producta];
+  //   }
+  //
+  //   //Add productas
+  //   void addProduct?OthersSuperExpress(Product? producta) {
+  //     if (_productasotherssuperexpress.containsKey(producta)) {
+  //       _productasotherssuperexpress[producta] += 1;
+  //     } else {
+  //       _productasotherssuperexpress[producta] = 1;
+  //     }
+  //
+  //     Get.snackbar(
+  //       "Produit ajouté",
+  //       "Vous avez ajouté un(e) ${producta.nameproducta} au panier",
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       duration: Duration(seconds: 2),
+  //     );
+  //   }
+  //
+  //   void removeProduct?OthersSuperExpress(Product? producta) {
+  //     if (_productasotherssuperexpress.containsKey(producta) && _productasotherssuperexpress[producta] == 1) {
+  //       _productasotherssuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasotherssuperexpress[producta] -= 1;
+  //     }
+  //   }
+  //
+  //   void removeAllProduct?OthersSuperExpress (Product? producta) {
+  //     if (_productasotherssuperexpress.containsKey(producta) && _productasotherssuperexpress[producta] == 1) {
+  //       _productasotherssuperexpress.removeWhere((key, value) => key == producta);
+  //     } else {
+  //       _productasotherssuperexpress.removeWhere((key, value) => key == producta);
+  //     }
+  //   }
+  //
+  //   get productasotherssuperexpress => _productasotherssuperexpress;
+  //
+  //   get productaotherSubtotalsuperexpress => _productasotherssuperexpress.entries
+  //       .map((productaothersuperexpress) => productaothersuperexpress.key.price * productaothersuperexpress.value)
+  //       .toList();
+  //
+  //   get totalothersuperexpress => _productasotherssuperexpress.entries
+  //       .map((productaothersuperexpress) => productaothersuperexpress.key.price * productaothersuperexpress.value)
+  //       .toList()
+  //       .reduce((value, element) => value + element);
+  // // .toStringAsFixed(2);
+  //
 
-  get globalprint => [
-        totalclothe, totalspecial, totalbath, totalbedding, totalaccessory,
-        totalother,
-        // totalclothexpress, totalspecialexpress, totalbathexpress, totalbeddingexpress, totalaccessoryexpress, totalotherexpress,
-        // totalclothsuperexpress, totalspecialsuperexpress, totalbathesuperxpress, totalbeddingsuperexpress, totalaccessorysuperexpress, totalothersuperexpress
-      ]
+  get globalprint =>
+      [
+            totalclothe, totalspecial, totalbath, totalbedding, totalaccessory,
+            totalother,
+            // totalclothexpress, totalspecialexpress, totalbathexpress, totalbeddingexpress, totalaccessoryexpress, totalotherexpress,
+            // totalclothsuperexpress, totalspecialsuperexpress, totalbathesuperxpress, totalbeddingsuperexpress, totalaccessorysuperexpress, totalothersuperexpress
+          ]
           // .map((globalsom) => globalsom as double)
           .toList();
 
@@ -2428,14 +2451,14 @@ int accessoriesCounterl(Product? product) {
         // totalclothexpress, totalspecialexpress, totalbathexpress, totalbeddingexpress, totalaccessoryexpress, totalotherexpress,
         // totalclothsuperexpress, totalspecialsuperexpress, totalbathesuperxpress, totalbeddingsuperexpress, totalaccessorysuperexpress, totalothersuperexpress
       ]
-          .map((globalsom) => globalsom as double)
-          .toList()
-          .reduce((value, element) => value + element);
+      .map((globalsom) => globalsom as double)
+      .toList()
+      .reduce((value, element) => value + element);
   // .toStringAsFixed(0);
 
-// void getTheLength() {
+  // void getTheLength() {
 
-// }
+  // }
 
   // void ifRemise() {
   //   for (i = 0;
@@ -2456,126 +2479,126 @@ int accessoriesCounterl(Product? product) {
   //   }
   // }
 
-//   int i = 0;
-//   var aVar = 0.0;
-//   var aVarClothes = 0.0;
-//   var aVarSpe = 0.0;
-//   var aVarAcc = 0.0;
-//   var aVarBath = 0.0;
-//   var aVarBedding = 0.0;
-//   var aVarOthers = 0.0;
+  //   int i = 0;
+  //   var aVar = 0.0;
+  //   var aVarClothes = 0.0;
+  //   var aVarSpe = 0.0;
+  //   var aVarAcc = 0.0;
+  //   var aVarBath = 0.0;
+  //   var aVarBedding = 0.0;
+  //   var aVarOthers = 0.0;
 
-//   get getClothes =>
-//       _productas.entries.map((productaclothe) => productaclothe.value);
+  //   get getClothes =>
+  //       _productas.entries.map((productaclothe) => productaclothe.value);
 
-//   get getListClothes =>
-//       _productas.entries.map((productaclothe) => productaclothe.value).toList();
+  //   get getListClothes =>
+  //       _productas.entries.map((productaclothe) => productaclothe.value).toList();
 
-//   get getLengthClothes => _productas.entries
-//       .map((productaclothe) => productaclothe.value)
-//       .toList()
-//       .length;
+  //   get getLengthClothes => _productas.entries
+  //       .map((productaclothe) => productaclothe.value)
+  //       .toList()
+  //       .length;
 
-//   get getOneElement => getListClothes[0];
+  //   get getOneElement => getListClothes[0];
 
-// //&& must use the following function for the remise
-//   void ifRemiseClothes() {
-//     for (i = 0; i < getLengthClothes + 1; i++) {
-//       aVarClothes += getListClothes[i];
-//     }
-//   }
+  // //&& must use the following function for the remise
+  //   void ifRemiseClothes() {
+  //     for (i = 0; i < getLengthClothes + 1; i++) {
+  //       aVarClothes += getListClothes[i];
+  //     }
+  //   }
 
-//   get expVarClothes => aVarClothes;
+  //   get expVarClothes => aVarClothes;
 
-// //---
-//   get getListSpe => _productaspe.entries
-//       .map((productaspecial) => productaspecial.value)
-//       .toList();
+  // //---
+  //   get getListSpe => _productaspe.entries
+  //       .map((productaspecial) => productaspecial.value)
+  //       .toList();
 
-//   get getLengthSpe => _productaspe.entries
-//       .map((productaspecial) => productaspecial.value)
-//       .toList()
-//       .length;
+  //   get getLengthSpe => _productaspe.entries
+  //       .map((productaspecial) => productaspecial.value)
+  //       .toList()
+  //       .length;
 
-//   void ifRemiseSpe() {
-//     for (i = 0; i < getLengthSpe + 1; i++) {
-//       aVarSpe += getListSpe[i];
-//     }
-//   }
+  //   void ifRemiseSpe() {
+  //     for (i = 0; i < getLengthSpe + 1; i++) {
+  //       aVarSpe += getListSpe[i];
+  //     }
+  //   }
 
-//   get expVarSpe => aVarSpe;
+  //   get expVarSpe => aVarSpe;
 
-// //---
-//   get getListAcc => _productasaccessories.entries
-//       .map((productasaccessories) => productasaccessories.value)
-//       .toList();
+  // //---
+  //   get getListAcc => _productasaccessories.entries
+  //       .map((productasaccessories) => productasaccessories.value)
+  //       .toList();
 
-//   get getLengthAcc => _productasaccessories.entries
-//       .map((productasaccessories) => productasaccessories.value)
-//       .toList()
-//       .length;
+  //   get getLengthAcc => _productasaccessories.entries
+  //       .map((productasaccessories) => productasaccessories.value)
+  //       .toList()
+  //       .length;
 
-//   void ifRemiseAcc() {
-//     for (i = 0; i < getLengthAcc + 1; i++) {
-//       aVarAcc += getListAcc[i];
-//     }
-//   }
+  //   void ifRemiseAcc() {
+  //     for (i = 0; i < getLengthAcc + 1; i++) {
+  //       aVarAcc += getListAcc[i];
+  //     }
+  //   }
 
-//   get expVarAcc => aVarAcc;
+  //   get expVarAcc => aVarAcc;
 
-// //---
-//   get getListBath => _productasbath.entries
-//       .map((productasbath) => productasbath.value)
-//       .toList();
+  // //---
+  //   get getListBath => _productasbath.entries
+  //       .map((productasbath) => productasbath.value)
+  //       .toList();
 
-//   get getLengthBath => _productasbath.entries
-//       .map((productasbath) => productasbath.value)
-//       .toList()
-//       .length;
+  //   get getLengthBath => _productasbath.entries
+  //       .map((productasbath) => productasbath.value)
+  //       .toList()
+  //       .length;
 
-//   void ifRemiseBath() {
-//     for (i = 0; i < getLengthBath + 1; i++) {
-//       aVarBath += getListBath[i];
-//     }
-//   }
+  //   void ifRemiseBath() {
+  //     for (i = 0; i < getLengthBath + 1; i++) {
+  //       aVarBath += getListBath[i];
+  //     }
+  //   }
 
-//   get expVarBath => aVarBath;
+  //   get expVarBath => aVarBath;
 
-// //---
-//   get getListBedding => _productasbedding.entries
-//       .map((productasbedding) => productasbedding.value)
-//       .toList();
+  // //---
+  //   get getListBedding => _productasbedding.entries
+  //       .map((productasbedding) => productasbedding.value)
+  //       .toList();
 
-//   get getLengthBedding => _productasbedding.entries
-//       .map((productasbedding) => productasbedding.value)
-//       .toList()
-//       .length;
+  //   get getLengthBedding => _productasbedding.entries
+  //       .map((productasbedding) => productasbedding.value)
+  //       .toList()
+  //       .length;
 
-//   void ifRemiseBedding() {
-//     for (i = 0; i < getLengthBedding + 1; i++) {
-//       aVarBedding += getListBedding[i];
-//     }
-//   }
+  //   void ifRemiseBedding() {
+  //     for (i = 0; i < getLengthBedding + 1; i++) {
+  //       aVarBedding += getListBedding[i];
+  //     }
+  //   }
 
-//   get expVarBedding => aVarBedding;
+  //   get expVarBedding => aVarBedding;
 
-// //---
-//   get getListOthers => _productasothers.entries
-//       .map((productaother) => productaother.value)
-//       .toList();
+  // //---
+  //   get getListOthers => _productasothers.entries
+  //       .map((productaother) => productaother.value)
+  //       .toList();
 
-//   get getLengthOthers => _productasothers.entries
-//       .map((productaother) => productaother.value)
-//       .toList()
-//       .length;
+  //   get getLengthOthers => _productasothers.entries
+  //       .map((productaother) => productaother.value)
+  //       .toList()
+  //       .length;
 
-//   void ifRemiseOthers() {
-//     for (i = 0; i < getLengthOthers + 1; i++) {
-//       aVarOthers += getListOthers[i];
-//     }
-//   }
+  //   void ifRemiseOthers() {
+  //     for (i = 0; i < getLengthOthers + 1; i++) {
+  //       aVarOthers += getListOthers[i];
+  //     }
+  //   }
 
-//   get expVarOthers => aVarOthers;
+  //   get expVarOthers => aVarOthers;
 
   // void ifRemise() {
   //   for (i = 0; i < 17; i++) {
@@ -2655,10 +2678,10 @@ int accessoriesCounterl(Product? product) {
   // get expVarAll =>
   //     aVarOthers + aVarClothes + aVarSpe + aVarAcc + aVarBath + aVarBedding;
   //get getOneElement => getLengthi[0];
-//____________________________________________________________________________________
+  //____________________________________________________________________________________
 
-//Add 5000 if super express____________________________________________________________________________________
-//____________________________________________________________________________________
+  //Add 5000 if super express____________________________________________________________________________________
+  //____________________________________________________________________________________
   var addedSuExpress = {}.obs;
   var realTotal = 0.0;
   var ifCinqMilles = 0.0;
@@ -2699,21 +2722,30 @@ int accessoriesCounterl(Product? product) {
 
   get productSuExpress => addedSuExpress;
 
-  get productSuExpressSubtotal => addedSuExpress.entries
-      .map((productaclothe) => productaclothe.key.price * productaclothe.value)
-      .toList();
+  get productSuExpressSubtotal =>
+      addedSuExpress.entries
+          .map(
+            (productaclothe) => productaclothe.key.price * productaclothe.value,
+          )
+          .toList();
 
   get totalSuExpress {
-    final list = addedSuExpress.entries
-      .map((productaclothe) => productaclothe.key.price * productaclothe.value)
-      .toList();
-    return list.isEmpty ? 0.0 : list.reduce((value, element) => value + element);
-  // .toStringAsFixed(2);
+    final list =
+        addedSuExpress.entries
+            .map(
+              (productaclothe) =>
+                  productaclothe.key.price * productaclothe.value,
+            )
+            .toList();
+    return list.isEmpty
+        ? 0.0
+        : list.reduce((value, element) => value + element);
+    // .toStringAsFixed(2);
   }
 
   void ifSuExpress() {
     if (totalSuExpress != 0) {
-      ifCinqMilles = 5000.0;
+      ifCinqMilles = 3000.0;
       // _productas[producta] = 1;
     } else {
       ifCinqMilles = 0.0;
@@ -2757,6 +2789,5 @@ int accessoriesCounterl(Product? product) {
   get printTheRemiseTen => theRemiseTen;
   get printTheRemiseTwenty => theRemiseTwenty;
   get printTotal => realTotal;
-
-  
+  get printIfCinqMilles => ifCinqMilles;
 }

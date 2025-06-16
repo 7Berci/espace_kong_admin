@@ -4,6 +4,7 @@ import 'package:espace_kong_admin/home_folder/home.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
+
 import 'cart_controller.dart';
 
 class Buy extends StatelessWidget {
@@ -17,15 +18,18 @@ class Buy extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: eclatColor,
         title: const Center(
-            // child: Text('Que voulez-vous laver ?')
-            child: Text('Commande passée')),
+          // child: Text('Que voulez-vous laver ?')
+          child: Text('Commande passée'),
+        ),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => Buy()));
-              },
-              icon: const Icon(Icons.call)),
+            onPressed: () {
+              Navigator.of(
+                context,
+              ).pushReplacement(MaterialPageRoute(builder: (context) => Buy()));
+            },
+            icon: const Icon(Icons.call),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -69,9 +73,13 @@ class Buy extends StatelessWidget {
                     controller.accessoriesnumber.clear();
                     controller.bathnumber.clear();
                     cartController.initRemiseManuel;
-                    initAllRealCounters;
+
+                    controller.addedSuExpress.clear();
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (builder) => const HomeOrders()));
+                      MaterialPageRoute(
+                        builder: (builder) => const HomeOrders(),
+                      ),
+                    );
                   },
                   // onPressed: () => Get.to(() => CartScreen()),
                   color: Colors.yellow,
@@ -86,9 +94,7 @@ class Buy extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              )
+              const SizedBox(height: 20),
             ],
           ),
         ),

@@ -7,12 +7,11 @@ import 'package:intl/intl.dart';
 
 class CommandeDetailsScreen extends StatelessWidget {
   final Map<String, dynamic> orderData;
-  final String orderId;
 
   const CommandeDetailsScreen({
     super.key,
     required this.orderData,
-    required this.orderId,
+    //required this.orderId,
   });
 
   // Future<double> printUserTotal(String userEmail) async {
@@ -142,7 +141,7 @@ class CommandeDetailsScreen extends StatelessWidget {
                                 StreamBuilder<QuerySnapshot>(
                                   stream:
                                       FirebaseFirestore.instance
-                                          .collection('orders_total')
+                                          .collection('orders')
                                           .where(
                                             'email',
                                             isEqualTo: userEmail,
@@ -162,13 +161,13 @@ class CommandeDetailsScreen extends StatelessWidget {
                                     for (var doc in snapshot.data!.docs) {
                                       total +=
                                           double.tryParse(
-                                            doc['totalAvecRemise']
+                                            doc['totalFinal']
                                                 .toString()
                                                 .replaceAll(' FCFA', ''),
                                           ) ??
                                           0;
                                     }
-                                    return Text('$total');
+                                    return Text('$total FCFA');
                                   },
                                 ),
                               ),
@@ -203,17 +202,19 @@ class CommandeDetailsScreen extends StatelessWidget {
                                         child: Text('0'),
                                       );
                                     }
-                                    // Exemple : somme des quantités pour cet utilisateur
-                                    int sum = 0;
-                                    for (var doc in snapshot.data!.docs) {
+                                    final docs = snapshot.data!.docs;
+                                    int totalQuantite = 0;
+                                    for (var doc in docs) {
                                       final data =
                                           doc.data() as Map<String, dynamic>;
-                                      if (data.containsKey(
-                                        'Quantité commandée',
-                                      )) {
-                                        sum +=
+                                      final articles =
+                                          data['articles'] as List<dynamic>? ??
+                                          [];
+
+                                      for (var article in articles) {
+                                        totalQuantite +=
                                             int.tryParse(
-                                              data['Quantité commandée']
+                                              article['Quantité commandée']
                                                   .toString(),
                                             ) ??
                                             0;
@@ -230,7 +231,7 @@ class CommandeDetailsScreen extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                      child: Text('$sum'),
+                                      child: Text('$totalQuantite'),
                                     );
                                   },
                                 ),
