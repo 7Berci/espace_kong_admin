@@ -113,51 +113,115 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 16.0),
-                                Center(
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      final querySnapshot =
-                                          await FirebaseFirestore.instance
-                                              .collection('orders')
-                                              .where(
-                                                'email',
-                                                isEqualTo: widget.email,
-                                              ) // ou this.email selon le contexte
-                                              .get();
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text("S'il y a une erreur :"),
+                                        ElevatedButton(
+                                          onPressed: () async {
+                                            final querySnapshot =
+                                                await FirebaseFirestore.instance
+                                                    .collection('orders')
+                                                    .where(
+                                                      'email',
+                                                      isEqualTo: widget.email,
+                                                    ) // ou this.email selon le contexte
+                                                    .get();
 
-                                      // 1. Récupérer les données du document à archiver
-                                      if (querySnapshot.docs.isNotEmpty) {
-                                        final doc = querySnapshot.docs.first;
-                                        final data = doc.data();
+                                            // 1. Récupérer les données du document à archiver
+                                            if (querySnapshot.docs.isNotEmpty) {
+                                              final doc =
+                                                  querySnapshot.docs.first;
+                                              final data = doc.data();
 
-                                        // 2. Copier dans la collection d'archives
-                                        await FirebaseFirestore.instance
-                                            .collection('orders_archive')
-                                            .doc(orderId)
-                                            .set(data);
+                                              // 2. Copier dans la collection d'archives
+                                              await FirebaseFirestore.instance
+                                                  .collection('deleted_orders')
+                                                  .doc(orderId)
+                                                  .set(data);
 
-                                        // 3. Supprimer de la collection principale
-                                        await doc.reference.delete();
+                                              // 3. Supprimer de la collection principale
+                                              await doc.reference.delete();
 
-                                        // 4. (Optionnel) Afficher un message ou naviguer
-                                        ScaffoldMessenger.of(
-                                          context,
-                                        ).showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Commande archivée !',
-                                            ),
-                                          ),
-                                        );
-                                        Navigator.of(context).pushReplacement(
-                                          MaterialPageRoute(
-                                            builder: (builder) => HomeOrders(),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    child: Text('Archiver la commande'),
-                                  ),
+                                              // 4. (Optionnel) Afficher un message ou naviguer
+                                              ScaffoldMessenger.of(
+                                                context,
+                                              ).showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Commande supprimée !',
+                                                  ),
+                                                ),
+                                              );
+                                              Navigator.of(
+                                                context,
+                                              ).pushReplacement(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (builder) => HomeOrders(),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          child: Text('Supprimer la commande'),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text("Si la commande est achevée :"),
+                                        ElevatedButton(
+                                          onPressed: () async {
+                                            final querySnapshot =
+                                                await FirebaseFirestore.instance
+                                                    .collection('orders')
+                                                    .where(
+                                                      'email',
+                                                      isEqualTo: widget.email,
+                                                    ) // ou this.email selon le contexte
+                                                    .get();
+
+                                            // 1. Récupérer les données du document à archiver
+                                            if (querySnapshot.docs.isNotEmpty) {
+                                              final doc =
+                                                  querySnapshot.docs.first;
+                                              final data = doc.data();
+
+                                              // 2. Copier dans la collection d'archives
+                                              await FirebaseFirestore.instance
+                                                  .collection('orders_archive')
+                                                  .doc(orderId)
+                                                  .set(data);
+
+                                              // 3. Supprimer de la collection principale
+                                              await doc.reference.delete();
+
+                                              // 4. (Optionnel) Afficher un message ou naviguer
+                                              ScaffoldMessenger.of(
+                                                context,
+                                              ).showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Commande archivée !',
+                                                  ),
+                                                ),
+                                              );
+                                              Navigator.of(
+                                                context,
+                                              ).pushReplacement(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (builder) => HomeOrders(),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          child: Text('Archiver la commande'),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -169,105 +233,6 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                 );
               },
             ),
-
-            // StreamBuilder<QuerySnapshot>(
-            //   stream:
-            //       FirebaseFirestore.instance
-            //           .collection('orders')
-            //           .where(
-            //             'email',
-            //             isEqualTo: widget.email,
-            //           ) // ou this.email selon le contexte
-            //           .snapshots(),
-            //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-            //     if (snapshot.hasError) {
-            //       return Center(child: Text(snapshot.error.toString()));
-            //     }
-
-            //     if (snapshot.connectionState == ConnectionState.active) {
-            //       QuerySnapshot querySnapshot = snapshot.data;
-            //       List<QueryDocumentSnapshot> listQueryDocumentSnapshot =
-            //           querySnapshot.docs;
-
-            //       return ListView.builder(
-            //         shrinkWrap: true,
-            //         physics: NeverScrollableScrollPhysics(),
-            //         itemCount: listQueryDocumentSnapshot.length,
-            //         itemBuilder: (context, index) {
-            //           QueryDocumentSnapshot document =
-            //               listQueryDocumentSnapshot[index];
-            //           DocumentReference documentReference = document.reference;
-            //           // FirebaseFirestore.instance.collection('orders').doc(
-            //           //     " - ${document["Quantité commandée"]} ${document["Nom de l'artcile"]}");
-            //           return Column(
-            //             children: [
-            //               Card(
-            //                 margin: const EdgeInsets.fromLTRB(
-            //                   5.0,
-            //                   15.0,
-            //                   5.0,
-            //                   1.0,
-            //                 ),
-            //                 child: Column(
-            //                   children: [
-            //                     ListTile(
-            //                       title: Text('No: $index'),
-            //                       subtitle: Column(children: [
-            //                             ],
-            //                           ),
-            //                     ),
-            //                     Center(
-            //                       child: ListTile(
-            //                         leading: CircleAvatar(
-            //                           radius: 25.0,
-            //                           backgroundColor: eclatColor,
-            //                           child: Image.asset(document["photoPath"]),
-            //                         ),
-            //                         title: Text(document["Nom de l'artcile"]),
-            //                         subtitle: Column(
-            //                           children: [
-            //                             Text(
-            //                               'Qté: ${document["Quantité commandée"]}',
-            //                               style: const TextStyle(
-            //                                 color: Colors.black,
-            //                                 fontSize: 16.0,
-            //                               ),
-            //                             ),
-            //                             Text(
-            //                               'Coût: ${document["Coût unitaire"]}',
-            //                               style: const TextStyle(
-            //                                 color: Colors.black,
-            //                                 fontSize: 16.0,
-            //                               ),
-            //                             ),
-            //                           ],
-            //                         ),
-            //                       ),
-            //                     ),
-            //                   ],
-            //                 ),
-            //               ),
-            //               Row(
-            //                 children: [
-            //                   const SizedBox(width: 10.0),
-            //                   const Text('Supprimer la commande'),
-            //                   IconButton(
-            //                     icon: const Icon(Icons.delete),
-            //                     onPressed: () {
-            //                       documentReference.delete();
-            //                     },
-            //                   ),
-            //                 ],
-            //               ),
-            //             ],
-            //           );
-            //         },
-            //       );
-            //     }
-
-            //     return const Center(child: CircularProgressIndicator());
-            //   },
-            // ),
           ],
         ),
       ),
