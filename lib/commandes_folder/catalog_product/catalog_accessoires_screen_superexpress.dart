@@ -7,10 +7,14 @@ import 'catalog_accessoires_products_superexpress.dart';
 class AccessoriesSuperExpress extends StatelessWidget {
   final String email;
   final String id;
+  final ville;
+  final quartier;
   const AccessoriesSuperExpress({
     super.key,
     required this.id,
     required this.email,
+    required this.ville,
+    required this.quartier,
   });
 
   @override
@@ -25,9 +29,9 @@ class AccessoriesSuperExpress extends StatelessWidget {
         child: Column(
           children: [
             CatalogAccessoriesProductsSuperExpress(),
-            CartButton(email: email),
+            CartButton(email: email, ville: ville, quartier: quartier),
             SizedBox(height: 10),
-            CartButtonPco(id: id, email: email),
+            CartButtonPco(id: id, email: email, ville: ville, quartier: quartier),
           ],
         ),
       ),

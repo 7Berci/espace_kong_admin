@@ -8,7 +8,14 @@ import 'cart_total.dart';
 
 class CartScreen extends StatelessWidget {
   final email;
-  CartScreen({super.key, required this.email});
+  final ville;
+  final quartier;
+  CartScreen({
+    super.key,
+    required this.email,
+    required this.ville,
+    required this.quartier,
+  });
 
   final cartController = Get.put(CartController());
 
@@ -20,14 +27,26 @@ class CartScreen extends StatelessWidget {
         title: const Center(child: Text('Mon panier')),
         backgroundColor: const Color(0xFF5ACC80),
       ),
-      body: Column(children: [CartProduts(), CartTotalSum(email: email)]),
+      body: Column(
+        children: [
+          CartProduts(),
+          CartTotalSum(email: email, ville: ville, quartier: quartier),
+        ],
+      ),
     );
   }
 }
 
 class CartButton extends StatefulWidget {
   final String email;
-  const CartButton({super.key, required this.email});
+  final ville;
+  final quartier;
+  const CartButton({
+    super.key,
+    required this.email,
+    required this.ville,
+    required this.quartier,
+  });
 
   @override
   State<CartButton> createState() => _CartButtonState();
@@ -99,7 +118,12 @@ class _CartButtonState extends State<CartButton> {
               } else {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (builder) => CartScreen(email: widget.email),
+                    builder:
+                        (builder) => CartScreen(
+                          email: widget.email,
+                          ville: widget.ville,
+                          quartier: widget.quartier,
+                        ),
                   ),
                 );
                 activateOnPressed();

@@ -356,7 +356,14 @@ Future<List<Product>> fetchAllProducts() async {
 
 class CartTotalSum extends StatelessWidget {
   final email;
-  const CartTotalSum({super.key, required this.email});
+  final ville;
+  final quartier;
+  const CartTotalSum({
+    super.key,
+    required this.ville,
+    required this.quartier,
+    required this.email,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -365,9 +372,13 @@ class CartTotalSum extends StatelessWidget {
         replaceAllZeroValue(allProducts);
         controller.ifSuExpress();
         controller.ifRemise();
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (builder) => CartBill(email: email)));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder:
+                (builder) =>
+                    CartBill(email: email, ville: ville, quartier: quartier),
+          ),
+        );
       } catch (e, s) {
         print('Error in goToCartBill: $e\n$s');
         // Optionally show a snackbar or dialog

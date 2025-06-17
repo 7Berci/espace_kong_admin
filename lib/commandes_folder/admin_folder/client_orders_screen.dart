@@ -15,7 +15,14 @@ import '../catalog_product/products_model_list.dart';
 
 class ClientOrdersScreen extends StatelessWidget {
   final String email;
-  ClientOrdersScreen({super.key, required this.email});
+  final String ville;
+  final String quartier;
+  ClientOrdersScreen({
+    super.key,
+    required this.email,
+    required this.ville,
+    required this.quartier,
+  });
 
   final cartController = Get.put(CartController());
 
@@ -63,7 +70,11 @@ class ClientOrdersScreen extends StatelessWidget {
             AdminCartProduct(),
             Padding(
               padding: const EdgeInsets.all(20),
-              child: CartTotalSum(email: email),
+              child: CartTotalSum(
+                email: email,
+                ville: ville,
+                quartier: quartier,
+              ),
             ),
           ],
         ),

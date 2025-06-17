@@ -7,8 +7,16 @@ import 'package:flutter/material.dart';
 class Articles extends StatefulWidget {
   final String id;
   final String email;
+  final ville;
+  final quartier;
 
-  const Articles({super.key, required this.id, required this.email});
+  const Articles({
+    super.key,
+    required this.id,
+    required this.email,
+    required this.ville,
+    required this.quartier,
+  });
 
   @override
   ArticlesView createState() => ArticlesView();
@@ -27,9 +35,24 @@ class ArticlesView extends State<Articles> {
   void initState() {
     super.initState();
     screens = [
-      AjouterNormal(id: widget.id, email: widget.email),
-      AjouterExpress(id: widget.id, email: widget.email),
-      AjouterSuperExpress(id: widget.id, email: widget.email),
+      AjouterNormal(
+        id: widget.id,
+        email: widget.email,
+        ville: widget.ville,
+        quartier: widget.quartier,
+      ),
+      AjouterExpress(
+        id: widget.id,
+        email: widget.email,
+        ville: widget.ville,
+        quartier: widget.quartier,
+      ),
+      AjouterSuperExpress(
+        id: widget.id,
+        email: widget.email,
+        ville: widget.ville,
+        quartier: widget.quartier,
+      ),
     ];
     // Vous pouvez utiliser widget.email ici si nécessaire
     print('Email reçu : ${widget.email}');

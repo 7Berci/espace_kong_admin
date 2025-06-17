@@ -7,7 +7,11 @@ import 'catalog_special_products_express.dart';
 class SpecialExpress extends StatelessWidget {
   final String email;
   final String id;
-  const SpecialExpress({super.key, required this.id, required this.email});
+  final ville;
+  final quartier;
+  const SpecialExpress({super.key, 
+    required this.ville,
+    required this.quartier,required this.id, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +25,9 @@ class SpecialExpress extends StatelessWidget {
         child: Column(
           children: [
             CatalogSpecialProductsExpress(),
-            CartButton(email: email),
+            CartButton(email: email, ville: ville, quartier: quartier),
             SizedBox(height: 10),
-            CartButtonPco(id: id, email: email),
+            CartButtonPco(id: id, email: email, ville: ville, quartier: quartier),
           ],
         ),
       ),

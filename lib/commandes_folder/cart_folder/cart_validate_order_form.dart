@@ -24,6 +24,8 @@ final orderId = Uuid().v4();
 
 class Validation extends StatelessWidget {
   final email;
+  final ville;
+  final quartier;
   final nbrArticles;
   final totalSansLivraison;
   final fraisLivraison;
@@ -35,6 +37,8 @@ class Validation extends StatelessWidget {
   const Validation({
     super.key,
     required this.nbrArticles,
+    required this.ville,
+    required this.quartier,
     required this.email,
     required this.totalSansLivraison,
     required this.fraisLivraison,
@@ -63,6 +67,8 @@ class Validation extends StatelessWidget {
               //CartTotalSum(),
               ValidateOrder(
                 email: email,
+                ville: ville,
+                quartier: quartier,
                 nbrArticles: nbrArticles,
                 totalSimple: totalSansLivraison,
                 fraisLivraison: fraisLivraison,
@@ -82,6 +88,8 @@ class Validation extends StatelessWidget {
 
 class ValidateOrder extends StatefulWidget {
   final email;
+  final ville;
+  final quartier;
   final nbrArticles;
   final totalSimple;
   final fraisLivraison;
@@ -93,6 +101,8 @@ class ValidateOrder extends StatefulWidget {
   const ValidateOrder({
     super.key,
     required this.email,
+    required this.ville,
+    required this.quartier,
     required this.nbrArticles,
     required this.totalSimple,
     required this.fraisLivraison,
@@ -175,6 +185,8 @@ class _ValidateOrderState extends State<ValidateOrder> {
       try {
         await FirebaseFirestore.instance.collection('orders').doc(orderId).set({
           'email': widget.email,
+          'ville': widget.ville,
+          'quartier': widget.quartier,
           'articles': articles,
           'fraisLivraison': widget.fraisLivraison,
           'remises': {

@@ -5,8 +5,16 @@ import 'package:flutter/material.dart';
 class CartButtonPco extends StatefulWidget {
   final String id;
   final String email;
+  final ville;
+  final quartier;
 
-  const CartButtonPco({super.key, required this.id, required this.email});
+  const CartButtonPco({
+    super.key,
+    required this.id,
+    required this.email,
+    required this.ville,
+    required this.quartier,
+  });
 
   @override
   State<CartButtonPco> createState() => _CartButtonState();
@@ -50,7 +58,12 @@ class _CartButtonState extends State<CartButtonPco> {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder:
-                      (builder) => Articles(id: widget.id, email: widget.email),
+                      (builder) => Articles(
+                        id: widget.id,
+                        email: widget.email,
+                        ville: widget.ville,
+                        quartier: widget.quartier,
+                      ),
                 ),
               );
               activateOnPressed();

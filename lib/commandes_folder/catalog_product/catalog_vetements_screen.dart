@@ -7,7 +7,15 @@ import 'catalog_vetements_products.dart';
 class Clothes extends StatefulWidget {
   final String id;
   final String email;
-  const Clothes({super.key, required this.id, required this.email});
+  final ville;
+  final quartier;
+  const Clothes({
+    super.key,
+    required this.ville,
+    required this.quartier,
+    required this.id,
+    required this.email,
+  });
 
   @override
   State<Clothes> createState() => _ClothesState();
@@ -29,9 +37,18 @@ class _ClothesState extends State<Clothes> {
           children: [
             CatalogVetementsProducts(),
             const SizedBox(height: 10),
-            CartButton(email: widget.email),
+            CartButton(
+              email: widget.email,
+              ville: widget.ville,
+              quartier: widget.quartier,
+            ),
             const SizedBox(height: 10),
-            CartButtonPco(id: widget.id, email: widget.email),
+            CartButtonPco(
+              id: widget.id,
+              email: widget.email,
+              ville: widget.ville,
+              quartier: widget.quartier,
+            ),
           ],
         ),
       ),

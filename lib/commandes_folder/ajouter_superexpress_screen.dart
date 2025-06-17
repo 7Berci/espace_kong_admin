@@ -15,8 +15,16 @@ import 'catalog_product/products_model_list.dart';
 class AjouterSuperExpress extends StatefulWidget {
   final String id;
   final String email;
+  final ville;
+  final quartier;
 
-  const AjouterSuperExpress({super.key, required this.id, required this.email});
+  const AjouterSuperExpress({
+    super.key,
+    required this.id,
+    required this.email,
+    required this.ville,
+    required this.quartier,
+  });
 
   @override
   AjouterSuperExpressView createState() => AjouterSuperExpressView();
@@ -121,6 +129,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                               (builder) => ClothesSuperExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -151,6 +161,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                                     (builder) => ClothesSuperExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -170,6 +182,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                               (builder) => SpecialSuperExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -201,6 +215,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                                     (builder) => SpecialSuperExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -219,6 +235,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                               (builder) => AccessoriesSuperExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -250,6 +268,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                                     (builder) => AccessoriesSuperExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -268,6 +288,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                               (builder) => BainSuperExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -299,6 +321,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                                     (builder) => BainSuperExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -317,6 +341,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                               (builder) => LiterieSuperExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -348,6 +374,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                                     (builder) => LiterieSuperExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -366,6 +394,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                               (builder) => AutreSuperExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -397,6 +427,8 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
                                     (builder) => AutreSuperExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -411,7 +443,11 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
               ),
             ),
             Text('Commandes du client : ${widget.email}'),
-            CartButton(email: widget.email),
+            CartButton(
+              email: widget.email,
+              ville: widget.ville,
+              quartier: widget.quartier,
+            ),
             SizedBox(height: 29.0),
           ],
         ),

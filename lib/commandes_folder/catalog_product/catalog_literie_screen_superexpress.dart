@@ -11,7 +11,11 @@ import 'catalog_literie_products_superexpress.dart';
 class LiterieSuperExpress extends StatelessWidget {
   final String email;
   final String id;
-  const LiterieSuperExpress({super.key, required this.id, required this.email});
+  final ville;
+  final quartier;
+  const LiterieSuperExpress({super.key, 
+    required this.ville,
+    required this.quartier,required this.id, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +29,9 @@ class LiterieSuperExpress extends StatelessWidget {
         child: Column(
           children: [
             CatalogBeddingProductsSuperExpress(),
-            CartButton(email: email),
+            CartButton(email: email, ville: ville, quartier: quartier),
             SizedBox(height: 10),
-            CartButtonPco(id: id, email: email),
+            CartButtonPco(id: id, email: email, ville: ville, quartier: quartier),
           ],
         ),
       ),

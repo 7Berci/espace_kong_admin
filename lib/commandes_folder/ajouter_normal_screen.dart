@@ -15,8 +15,16 @@ import 'catalog_product/products_model_list.dart';
 class AjouterNormal extends StatefulWidget {
   final String id;
   final String email;
+  final ville;
+  final quartier;
 
-  const AjouterNormal({super.key, required this.id, required this.email});
+  const AjouterNormal({
+    super.key,
+    required this.id,
+    required this.email,
+    required this.ville,
+    required this.quartier,
+  });
 
   @override
   AjouterNormalView createState() => AjouterNormalView();
@@ -118,8 +126,12 @@ class AjouterNormalView extends State<AjouterNormal> {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) =>
-                                  Clothes(id: widget.id, email: widget.email),
+                              (builder) => Clothes(
+                                id: widget.id,
+                                email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
+                              ),
                         ),
                       );
                     },
@@ -149,6 +161,8 @@ class AjouterNormalView extends State<AjouterNormal> {
                                     (builder) => Clothes(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -165,8 +179,12 @@ class AjouterNormalView extends State<AjouterNormal> {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) =>
-                                  Special(id: widget.id, email: widget.email),
+                              (builder) => Special(
+                                id: widget.id,
+                                email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
+                              ),
                         ),
                       );
                     },
@@ -197,6 +215,8 @@ class AjouterNormalView extends State<AjouterNormal> {
                                     (builder) => Special(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -215,6 +235,8 @@ class AjouterNormalView extends State<AjouterNormal> {
                               (builder) => Accessories(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -246,6 +268,8 @@ class AjouterNormalView extends State<AjouterNormal> {
                                     (builder) => Accessories(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -261,8 +285,12 @@ class AjouterNormalView extends State<AjouterNormal> {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) =>
-                                  Bain(id: widget.id, email: widget.email),
+                              (builder) => Bain(
+                                id: widget.id,
+                                email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
+                              ),
                         ),
                       );
                     },
@@ -293,6 +321,8 @@ class AjouterNormalView extends State<AjouterNormal> {
                                     (builder) => Bain(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -308,8 +338,12 @@ class AjouterNormalView extends State<AjouterNormal> {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) =>
-                                  Literie(id: widget.id, email: widget.email),
+                              (builder) => Literie(
+                                id: widget.id,
+                                email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
+                              ),
                         ),
                       );
                     },
@@ -340,6 +374,8 @@ class AjouterNormalView extends State<AjouterNormal> {
                                     (builder) => Literie(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -355,8 +391,12 @@ class AjouterNormalView extends State<AjouterNormal> {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) =>
-                                  Autre(id: widget.id, email: widget.email),
+                              (builder) => Autre(
+                                id: widget.id,
+                                email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
+                              ),
                         ),
                       );
                     },
@@ -387,6 +427,8 @@ class AjouterNormalView extends State<AjouterNormal> {
                                     (builder) => Autre(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -401,7 +443,11 @@ class AjouterNormalView extends State<AjouterNormal> {
               ),
             ),
             Text('Commandes du client : ${widget.email}'),
-            CartButton(email: widget.email),
+            CartButton(
+              email: widget.email,
+              ville: widget.ville,
+              quartier: widget.quartier,
+            ),
             SizedBox(height: 29.0),
           ],
         ),

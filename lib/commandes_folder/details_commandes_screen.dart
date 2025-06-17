@@ -7,53 +7,16 @@ import 'package:intl/intl.dart';
 
 class CommandeDetailsScreen extends StatelessWidget {
   final Map<String, dynamic> orderData;
+  final ville;
+  final quartier;
 
   const CommandeDetailsScreen({
     super.key,
     required this.orderData,
+    required this.ville,
+    required this.quartier,
     //required this.orderId,
   });
-
-  // Future<double> printUserTotal(String userEmail) async {
-  //   print('Recherche orders_total pour email: $userEmail');
-  //   final snapshot =
-  //       await FirebaseFirestore.instance
-  //           .collection('orders_total')
-  //           .where('email', isEqualTo: userEmail)
-  //           .get();
-
-  //   print('Nb de docs trouvés: ${snapshot.docs.length}');
-  //   if (snapshot.docs.isEmpty) {
-  //     return 0.0;
-  //   }
-
-  //   // On prend le premier document trouvé
-  //   final data = snapshot.docs.first.data() as Map<String, dynamic>;
-  //   print('data trouvé: $data');
-  //   final montantString = data['totalAvecRemise'].toString();
-  //   final montantNum =
-  //       double.tryParse(
-  //         RegExp(r'\d+(\.\d+)?').stringMatch(montantString) ?? '0',
-  //       ) ??
-  //       0.0;
-  //   return montantNum;
-  // }
-
-  // Future<double> sumOrderNum(String userEmail) async {
-  //   final snapshot =
-  //       await FirebaseFirestore.instance
-  //           .collection('orders')
-  //           .where('email', isEqualTo: userEmail)
-  //           .get();
-
-  //   double total = 0;
-  //   for (final doc in snapshot.docs) {
-  //     final data = doc.data();
-  //     final montant = (data["Quantité commandée"] ?? 0).toDouble();
-  //     total += montant;
-  //   }
-  //   return total;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -342,6 +305,8 @@ class CommandeDetailsScreen extends StatelessWidget {
                                                 (builder) => Articles(
                                                   id: docs[index].id,
                                                   email: data['email'],
+                                                  ville: ville,
+                                                  quartier: quartier,
                                                 ),
                                           ),
                                         );

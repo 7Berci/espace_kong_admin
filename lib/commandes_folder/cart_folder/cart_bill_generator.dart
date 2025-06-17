@@ -10,7 +10,14 @@ import 'cart_controller.dart';
 
 class BillGenertor extends StatelessWidget {
   final email;
-  BillGenertor({super.key, required this.email});
+  final ville;
+  final quartier;
+  BillGenertor({
+    super.key,
+    required this.ville,
+    required this.quartier,
+    required this.email,
+  });
 
   //final CartController controller = Get.find();
   final controller = Get.find<CartController>();
@@ -38,7 +45,14 @@ class BillGenertor extends StatelessWidget {
             onPressed: () {
               controller.ifRemise();
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (builder) => CartBill(email: email)),
+                MaterialPageRoute(
+                  builder:
+                      (builder) => CartBill(
+                        email: email,
+                        ville: ville,
+                        quartier: quartier,
+                      ),
+                ),
               );
               replaceAllZeroValue;
             },

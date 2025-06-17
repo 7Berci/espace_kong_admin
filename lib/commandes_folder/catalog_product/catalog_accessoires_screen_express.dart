@@ -7,7 +7,15 @@ import 'catalog_accessoires_products_express.dart';
 class AccessoriesExpress extends StatelessWidget {
   final String email;
   final String id;
-  const AccessoriesExpress({super.key, required this.id, required this.email});
+  final ville;
+  final quartier;
+  const AccessoriesExpress({
+    super.key,
+    required this.id,
+    required this.email,
+    required this.ville,
+    required this.quartier,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +29,14 @@ class AccessoriesExpress extends StatelessWidget {
         child: Column(
           children: [
             CatalogAccessoriesProductsExpress(),
-            CartButton(email: email),
+            CartButton(email: email, ville: ville, quartier: quartier),
             SizedBox(height: 10),
-            CartButtonPco(id: id, email: email),
+            CartButtonPco(
+              id: id,
+              email: email,
+              ville: ville,
+              quartier: quartier,
+            ),
           ],
         ),
       ),

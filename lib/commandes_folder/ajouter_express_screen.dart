@@ -15,8 +15,16 @@ import 'catalog_product/products_model_list.dart';
 class AjouterExpress extends StatefulWidget {
   final String id;
   final String email;
+  final ville;
+  final quartier;
 
-  const AjouterExpress({super.key, required this.id, required this.email});
+  const AjouterExpress({
+    super.key,
+    required this.id,
+    required this.email,
+    required this.ville,
+    required this.quartier,
+  });
 
   @override
   AjouterExpressView createState() => AjouterExpressView();
@@ -121,6 +129,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                               (builder) => ClothesExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -151,6 +161,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                                     (builder) => ClothesExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -170,6 +182,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                               (builder) => SpecialExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -201,6 +215,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                                     (builder) => SpecialExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -219,6 +235,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                               (builder) => AccessoriesExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -250,6 +268,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                                     (builder) => AccessoriesExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -268,6 +288,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                               (builder) => BainExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -299,6 +321,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                                     (builder) => BainExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -317,6 +341,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                               (builder) => LiterieExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -348,6 +374,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                                     (builder) => LiterieExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -366,6 +394,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                               (builder) => AutreExpress(
                                 id: widget.id,
                                 email: widget.email,
+                                ville: widget.ville,
+                                quartier: widget.quartier,
                               ),
                         ),
                       );
@@ -397,6 +427,8 @@ class AjouterExpressView extends State<AjouterExpress> {
                                     (builder) => AutreExpress(
                                       id: widget.id,
                                       email: widget.email,
+                                      ville: widget.ville,
+                                      quartier: widget.quartier,
                                     ),
                               ),
                             );
@@ -411,7 +443,11 @@ class AjouterExpressView extends State<AjouterExpress> {
               ),
             ),
             Text('Commandes du client : ${widget.email}'),
-            CartButton(email: widget.email),
+            CartButton(
+              email: widget.email,
+              ville: widget.ville,
+              quartier: widget.quartier,
+            ),
             SizedBox(height: 29.0),
           ],
         ),

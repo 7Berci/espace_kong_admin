@@ -7,7 +7,11 @@ import 'catalog_bain_products_express.dart';
 class BainExpress extends StatelessWidget {
   final String email;
   final String id;
-  const BainExpress({super.key, required this.id, required this.email});
+  final ville;
+  final quartier;
+  const BainExpress({super.key,
+    required this.ville,
+    required this.quartier, required this.id, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +25,9 @@ class BainExpress extends StatelessWidget {
         child: Column(
           children: [
             CatalogBathProductsExpress(),
-            CartButton(email: email),
+            CartButton(email: email, ville: ville, quartier: quartier),
             SizedBox(height: 10),
-            CartButtonPco(id: id, email: email),
+            CartButtonPco(id: id, email: email, ville: ville, quartier: quartier),
           ],
         ),
       ),
