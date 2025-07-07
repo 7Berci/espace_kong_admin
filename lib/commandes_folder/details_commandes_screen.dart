@@ -30,7 +30,6 @@ class CommandeDetailsScreen extends StatelessWidget {
               stream:
                   FirebaseFirestore.instance
                       .collection('orders_users')
-                      .where('archived', isEqualTo: false)
                       .orderBy('createdAt', descending: true)
                       .snapshots(),
               builder: (context, snapshot) {
@@ -217,7 +216,7 @@ class CommandeDetailsScreen extends StatelessWidget {
                                         !snapshot.data!.exists) {
                                       return TextButton(
                                         onPressed: () {
-                                          Navigator.of(context).pushReplacement(
+                                          Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder:
                                                   (builder) => StatusMenu(
@@ -239,7 +238,7 @@ class CommandeDetailsScreen extends StatelessWidget {
                                     if (statuts == null || statuts.isEmpty) {
                                       return TextButton(
                                         onPressed: () {
-                                          Navigator.of(context).pushReplacement(
+                                          Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder:
                                                   (builder) => StatusMenu(
@@ -258,11 +257,22 @@ class CommandeDetailsScreen extends StatelessWidget {
                                             .where((e) => e.value == true)
                                             .map((e) => e.key)
                                             .toList();
+                                    // final List<String> statutOrder = [
+                                    //   'Commande passée!',
+                                    //   'Habits récupérés!',
+                                    //   'Facture envoyée/reçue!',
+                                    //   'Habits en cours de lavage!',
+                                    //   'Lavage terminé!',
+                                    //   'Livraison retour en cours!',
+                                    //   'Habits livrés!',
+                                    //   'Terminé!',
+                                    // ];
+                                    //final activeStatuts = statutOrder.where((statut) => statuts[statut] == true).toList();
 
                                     if (activeStatuts.isEmpty) {
                                       return TextButton(
                                         onPressed: () {
-                                          Navigator.of(context).pushReplacement(
+                                          Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder:
                                                   (builder) => StatusMenu(
@@ -280,7 +290,7 @@ class CommandeDetailsScreen extends StatelessWidget {
 
                                     return TextButton(
                                       onPressed: () {
-                                        Navigator.of(context).pushReplacement(
+                                        Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder:
                                                 (builder) => StatusMenu(
@@ -299,10 +309,10 @@ class CommandeDetailsScreen extends StatelessWidget {
                                   children: [
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.of(context).pushReplacement(
+                                        Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder:
-                                                (builder) => Articles(
+                                                (builder) => AddHome(
                                                   id: docs[index].id,
                                                   email: data['email'],
                                                   ville: ville,

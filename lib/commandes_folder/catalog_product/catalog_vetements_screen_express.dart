@@ -1,4 +1,4 @@
-import 'package:espace_kong_admin/commandes_folder/cart_folder/btnpagN.dart';
+import 'package:espace_kong_admin/commandes_folder/catalog_product/btnpagN.dart';
 import 'package:espace_kong_admin/commandes_folder/cart_folder/cart_screen.dart';
 import 'package:flutter/material.dart';
 

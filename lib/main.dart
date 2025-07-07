@@ -4,14 +4,14 @@ import 'package:espace_kong_admin/home_folder/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../auth_folder/utils.dart';
 import 'themes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await initializeDateFormatting('fr_FR');
   try {
     // Initialize Firebase directly here
     if (Firebase.apps.isEmpty) {

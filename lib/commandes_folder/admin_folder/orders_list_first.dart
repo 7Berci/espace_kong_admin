@@ -2,7 +2,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:espace_kong_admin/auth_folder/utils.dart';
 import 'package:espace_kong_admin/commandes_folder/cart_folder/cart_validate_order_form.dart';
-import 'package:espace_kong_admin/commandes_folder/home_commandes_screen.dart';
 import 'package:espace_kong_admin/home_folder/home.dart';
 import 'package:flutter/material.dart';
 
@@ -114,58 +113,62 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                                 ),
                                 const SizedBox(height: 16.0),
                                 Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text("S'il y a une erreur :"),
-                                        ElevatedButton(
-                                          onPressed: () async {
-                                            final querySnapshot =
+                                  mainAxisAlignment: MainAxisAlignment.center, // <-- centre horizontalement
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Text("S'il y a une erreur :"),
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              final querySnapshot =
+                                                  await FirebaseFirestore.instance
+                                                      .collection('orders')
+                                                      .where(
+                                                        'email',
+                                                        isEqualTo: widget.email,
+                                                      ) // ou this.email selon le contexte
+                                                      .get();
+
+                                              // 1. Récupérer les données du document à archiver
+                                              if (querySnapshot.docs.isNotEmpty) {
+                                                final doc =
+                                                    querySnapshot.docs.first;
+                                                final data = doc.data();
+
+                                                // 2. Copier dans la collection d'archives
                                                 await FirebaseFirestore.instance
-                                                    .collection('orders')
-                                                    .where(
-                                                      'email',
-                                                      isEqualTo: widget.email,
-                                                    ) // ou this.email selon le contexte
-                                                    .get();
+                                                    .collection('deleted_orders')
+                                                    .doc(orderId)
+                                                    .set(data);
 
-                                            // 1. Récupérer les données du document à archiver
-                                            if (querySnapshot.docs.isNotEmpty) {
-                                              final doc =
-                                                  querySnapshot.docs.first;
-                                              final data = doc.data();
+                                                // 3. Supprimer de la collection principale
+                                                await doc.reference.delete();
 
-                                              // 2. Copier dans la collection d'archives
-                                              await FirebaseFirestore.instance
-                                                  .collection('deleted_orders')
-                                                  .doc(orderId)
-                                                  .set(data);
-
-                                              // 3. Supprimer de la collection principale
-                                              await doc.reference.delete();
-
-                                              // 4. (Optionnel) Afficher un message ou naviguer
-                                              ScaffoldMessenger.of(
-                                                context,
-                                              ).showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Commande supprimée !',
+                                                // 4. (Optionnel) Afficher un message ou naviguer
+                                                ScaffoldMessenger.of(
+                                                  context,
+                                                ).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Commande supprimée !',
+                                                    ),
                                                   ),
-                                                ),
-                                              );
-                                              Navigator.of(
-                                                context,
-                                              ).pushReplacement(
-                                                MaterialPageRoute(
-                                                  builder:
-                                                      (builder) => HomeOrders(),
-                                                ),
-                                              );
-                                            }
-                                          },
-                                          child: Text('Supprimer la commande'),
-                                        ),
+                                                );
+                                                Navigator.of(
+                                                  context,
+                                                ).pushReplacement(
+                                                  MaterialPageRoute(
+                                                    builder:
+                                                        (builder) => OrdersListFirst(email:widget.email),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: eclatColor,  // texte rouge
+                                            ),                    
+                                            child: Text('Supprimer la commande', style: TextStyle(color: Colors.white),),
+                                          ),
                                       ],
                                     ),
                                     Column(
@@ -212,12 +215,15 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                                               ).pushReplacement(
                                                 MaterialPageRoute(
                                                   builder:
-                                                      (builder) => HomeOrders(),
+                                                      (builder) => OrdersListFirst(email:widget.email),
                                                 ),
                                               );
                                             }
                                           },
-                                          child: Text('Archiver la commande'),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: eclatColor,  // texte rouge
+                                            ),
+                                          child: Text('Archiver la commande', style: TextStyle(color: Colors.white),),
                                         ),
                                       ],
                                     ),

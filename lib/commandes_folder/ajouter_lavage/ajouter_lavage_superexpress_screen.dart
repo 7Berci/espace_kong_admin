@@ -1,16 +1,16 @@
-import 'package:espace_kong_admin/commandes_folder/ajouter_normal_screen.dart';
+import 'package:espace_kong_admin/commandes_folder/ajouter_lavage/ajouter_lavage_normal_screen.dart';
 import 'package:espace_kong_admin/commandes_folder/cart_folder/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'cart_folder/cart_controller.dart';
-import 'catalog_product/catalog_accessoires_screen_superexpress.dart';
-import 'catalog_product/catalog_autres_screen_superexpress.dart';
-import 'catalog_product/catalog_bain_screen_superexpress.dart';
-import 'catalog_product/catalog_literie_screen_superexpress.dart';
-import 'catalog_product/catalog_special_screen_superexpress.dart';
-import 'catalog_product/catalog_vetements_screen_superexpress.dart';
-import 'catalog_product/products_model_list.dart';
+import '../cart_folder/cart_controller.dart';
+import '../catalog_product/catalog_accessoires_screen_superexpress.dart';
+import '../catalog_product/catalog_autres_screen_superexpress.dart';
+import '../catalog_product/catalog_bain_screen_superexpress.dart';
+import '../catalog_product/catalog_literie_screen_superexpress.dart';
+import '../catalog_product/catalog_special_screen_superexpress.dart';
+import '../catalog_product/catalog_vetements_screen_superexpress.dart';
+import '../catalog_product/products_model_list.dart';
 
 class AjouterSuperExpress extends StatefulWidget {
   final String id;
@@ -443,6 +443,7 @@ class AjouterSuperExpressView extends State<AjouterSuperExpress> {
               ),
             ),
             Text('Commandes du client : ${widget.email}'),
+            const SizedBox(height: 18.0),
             CartButton(
               email: widget.email,
               ville: widget.ville,

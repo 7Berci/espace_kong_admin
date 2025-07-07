@@ -26,8 +26,8 @@ class _HomeArchivesState extends State<HomeArchives> {
         await FirebaseFirestore.instance.collection('orders_archive').get();
     final Set<String> monthSet = {};
     for (var doc in snapshot.docs) {
-      final data = doc.data() as Map<String, dynamic>;
-      final Timestamp? created = data['createdby'];
+      final data = doc.data();
+      final Timestamp? created = data['createdAt'];
       if (created != null) {
         final date = created.toDate();
         final month = DateFormat('MMMM yyyy', 'fr_FR').format(date);
@@ -40,6 +40,7 @@ class _HomeArchivesState extends State<HomeArchives> {
             ..sort((a, b) => b.compareTo(a)); // du plus récent au plus ancien
       if (months.isNotEmpty) selectedMonth = months.first;
     });
+    print("Mois récupérés : $months");
   }
 
   Future<void> savePdfToFile(
@@ -61,7 +62,7 @@ class _HomeArchivesState extends State<HomeArchives> {
               ),
               ...commandes.map((commande) {
                 final data = commande.data() as Map<String, dynamic>;
-                final Timestamp? created = data['createdby'];
+                final Timestamp? created = data['createdAt'];
                 final dateStr =
                     created != null
                         ? DateFormat('dd/MM/yyyy').format(created.toDate())
@@ -95,7 +96,7 @@ class _HomeArchivesState extends State<HomeArchives> {
                     ],
                   ),
                 );
-              }).toList(),
+              }),
             ],
       ),
     );
@@ -138,14 +139,17 @@ class _HomeArchivesState extends State<HomeArchives> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Produits archivés')),
+      appBar: AppBar(title: Text('Produits archivés'),automaticallyImplyLeading: false,
+),
       body: Column(
         children: [
           // Dropdown de sélection du mois
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: DropdownButton<String>(
-              value: selectedMonth,
+            child: months.isEmpty
+    ? CircularProgressIndicator()
+    :DropdownButton<String>(
+              value: months.contains(selectedMonth) ? selectedMonth : null,
               hint: Text('Sélectionnez un mois'),
               items:
                   months
@@ -155,10 +159,11 @@ class _HomeArchivesState extends State<HomeArchives> {
                 setState(() {
                   selectedMonth = value;
                 });
+              print("selectedMonth: $selectedMonth");
               },
             ),
           ),
-          if (selectedMonth != null)
+          if (selectedMonth != null && months.contains(selectedMonth))
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -174,22 +179,23 @@ class _HomeArchivesState extends State<HomeArchives> {
                       stream:
                           FirebaseFirestore.instance
                               .collection('orders_archive')
-                              .orderBy('createdby', descending: true)
+                              .orderBy('createdAt', descending: true)
                               .snapshots(),
                       builder: (context, snapshot) {
-                        if (!snapshot.hasData)
+                        if (!snapshot.hasData) {
                           return Center(child: CircularProgressIndicator());
+                        }
                         final commandes =
                             snapshot.data!.docs.where((doc) {
                               final data = doc.data() as Map<String, dynamic>;
-                              final Timestamp? created = data['createdby'];
+                              final Timestamp? created = data['createdAt'];
                               if (created == null) return false;
                               final date = created.toDate();
                               final month = DateFormat(
                                 'MMMM yyyy',
                                 'fr_FR',
                               ).format(date);
-                              return month == selectedMonth;
+                              return month.toLowerCase().trim() == (selectedMonth ?? '').toLowerCase().trim();
                             }).toList();
 
                         if (commandes.isEmpty) {
@@ -205,7 +211,7 @@ class _HomeArchivesState extends State<HomeArchives> {
                           itemBuilder: (context, index) {
                             final data =
                                 commandes[index].data() as Map<String, dynamic>;
-                            final Timestamp? created = data['createdby'];
+                            final Timestamp? created = data['createdAt'];
                             final dateStr =
                                 created != null
                                     ? DateFormat(
@@ -258,20 +264,20 @@ class _HomeArchivesState extends State<HomeArchives> {
                 final snapshot =
                     await FirebaseFirestore.instance
                         .collection('orders_archive')
-                        .orderBy('createdby', descending: true)
+                        .orderBy('createdAt', descending: true)
                         .get();
 
                 final commandes =
                     snapshot.docs.where((doc) {
-                      final data = doc.data() as Map<String, dynamic>;
-                      final Timestamp? created = data['createdby'];
+                      final data = doc.data();
+                      final Timestamp? created = data['createdAt'];
                       if (created == null) return false;
                       final date = created.toDate();
                       final month = DateFormat(
                         'MMMM yyyy',
                         'fr_FR',
                       ).format(date);
-                      return month == selectedMonth;
+                      return month.toLowerCase().trim() == (selectedMonth ?? '').toLowerCase().trim();
                     }).toList();
 
                 await savePdfToFile(selectedMonth!, commandes);

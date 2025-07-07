@@ -1,120 +1,109 @@
-import 'package:espace_kong_admin/commandes_folder/ajouter_express_screen.dart';
-import 'package:espace_kong_admin/commandes_folder/ajouter_normal_screen.dart';
-import 'package:espace_kong_admin/commandes_folder/ajouter_superexpress_screen.dart';
-import 'package:espace_kong_admin/home_folder/home.dart';
+import 'package:espace_kong_admin/commandes_folder/ajouter_lavage/ajouter_articles_lavage_home.dart';
+import 'package:espace_kong_admin/commandes_folder/ajouter_lavage_repassage/ajouter_articles_lavagerepassage_home.dart';
+import 'package:espace_kong_admin/commandes_folder/ajouter_repassage/ajouter_articles_repassage_home.dart';
 import 'package:flutter/material.dart';
 
-class Articles extends StatefulWidget {
-  final String id;
-  final String email;
+class AddHome extends StatelessWidget {
+  final id;
+  final email;
   final ville;
   final quartier;
-
-  const Articles({
-    super.key,
-    required this.id,
-    required this.email,
-    required this.ville,
-    required this.quartier,
-  });
+  const AddHome({super.key, required this.id,
+    required this.ville, required this.email,
+    required this.quartier,});
 
   @override
-  ArticlesView createState() => ArticlesView();
-}
-
-class ArticlesView extends State<Articles> {
-  late final List<Widget> screens;
-  int index = 0;
-  // // Récupération du document par ID
-  // final document = await FirebaseFirestore.instance.collection('orders_users').doc(docs[index].id).get();
-
-  // // Accès à l'email
-  // final email = document['email'];
-
-  @override
-  void initState() {
-    super.initState();
-    screens = [
-      AjouterNormal(
-        id: widget.id,
-        email: widget.email,
-        ville: widget.ville,
-        quartier: widget.quartier,
-      ),
-      AjouterExpress(
-        id: widget.id,
-        email: widget.email,
-        ville: widget.ville,
-        quartier: widget.quartier,
-      ),
-      AjouterSuperExpress(
-        id: widget.id,
-        email: widget.email,
-        ville: widget.ville,
-        quartier: widget.quartier,
-      ),
-    ];
-    // Vous pouvez utiliser widget.email ici si nécessaire
-    print('Email reçu : ${widget.email}');
-  }
-
-  // late final client_email = widget.email;
-
-  // final screens = [
-  //   AjouterNormal(email: widget.email),
-  //   AjouterExpress(email: widget.email),
-  //   AjouterSuperExpress(email: widget.email),
-  // ];
-
-  @override
-  Widget build(BuildContext context) {
-    // if (screens.isEmpty) {
-    //   return const Center(child: CircularProgressIndicator());
-    // }
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: eclatColor,
-        title: const Center(
-          // child: Text('Que voulez-vous laver ?')
-          child: Text('Ajouter des articles'),
-        ),
-      ),
-
-      body: screens[index],
-      bottomNavigationBar: NavigationBarTheme(
-        data: NavigationBarThemeData(
-          indicatorColor: Colors.green,
-          labelTextStyle: WidgetStateProperty.all(
-            const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
-          ),
-        ),
-        child: NavigationBar(
-          selectedIndex: index,
-          onDestinationSelected: (index) => setState(() => this.index = index),
-          height: 60.0,
-          backgroundColor:
-              // userr.isDarkMode ? Colors.grey.shade900 : Colors.white,
-              Colors.white,
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.delivery_dining),
-              label: 'Normal',
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Choisir le type de service'),
+    ),
+    body: Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Center(
+        child: Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          alignment: WrapAlignment.center,
+          children: [
+            _buildCard(
+              context,
+              icon: Icons.local_laundry_service,
+              label: 'LAVAGE SIMPLE',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ArticlesToWash(
+                    id: id, email: email, ville: ville, quartier: quartier,
+                  ),
+                ),
+              ),
             ),
-            NavigationDestination(
-              icon: Icon(Icons.local_shipping),
-              label: 'Express',
+            _buildCard(
+              context,
+              icon: Icons.local_laundry_service,
+              label: 'LAVAGE + REPASSAGE',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ArticlesToWashnIron(
+                    id: id, email: email, ville: ville, quartier: quartier,
+                  ),
+                ),
+              ),
             ),
-            NavigationDestination(
-              icon: Icon(Icons.motorcycle),
-              label: 'Super Express',
+            _buildCard(
+              context,
+              icon: Icons.local_laundry_service,
+              label: 'REPASSAGE SIMPLE',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ArticlesToIron(
+                    id: id, email: email, ville: ville, quartier: quartier,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
       ),
-      //     ),
-      //   ),
-      // ),
-    );
-  }
+    ),
+  );
+}
+
+Widget _buildCard(
+  BuildContext context, {
+  required IconData icon,
+  required String label,
+  required VoidCallback onTap,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Container(
+        width: 130,
+        height: 130,
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 50, color: Colors.blue),
+            const SizedBox(height: 10),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 }

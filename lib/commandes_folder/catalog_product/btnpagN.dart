@@ -1,4 +1,4 @@
-import 'package:espace_kong_admin/commandes_folder/ajouter_articles_home.dart';
+import 'package:espace_kong_admin/commandes_folder/ajouter_lavage/ajouter_articles_lavage_home.dart';
 import 'package:espace_kong_admin/commandes_folder/cart_folder/cart_total.dart';
 import 'package:flutter/material.dart';
 
@@ -58,7 +58,7 @@ class _CartButtonState extends State<CartButtonPco> {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder:
-                      (builder) => Articles(
+                      (builder) => ArticlesToWash(
                         id: widget.id,
                         email: widget.email,
                         ville: widget.ville,

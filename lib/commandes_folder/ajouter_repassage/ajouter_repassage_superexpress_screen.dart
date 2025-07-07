@@ -1,24 +1,23 @@
+import 'package:espace_kong_admin/commandes_folder/ajouter_lavage/ajouter_lavage_normal_screen.dart';
 import 'package:espace_kong_admin/commandes_folder/cart_folder/cart_screen.dart';
-import 'package:espace_kong_admin/home_folder/home.dart';
+import 'package:espace_kong_admin/commandes_folder/catalog_product_iron/catalog_accessoires_screen_superexpress.dart';
+import 'package:espace_kong_admin/commandes_folder/catalog_product_iron/catalog_autres_screen_superexpress.dart';
+import 'package:espace_kong_admin/commandes_folder/catalog_product_iron/catalog_bain_screen_superexpress.dart';
+import 'package:espace_kong_admin/commandes_folder/catalog_product_iron/catalog_literie_screen_superexpress.dart';
+import 'package:espace_kong_admin/commandes_folder/catalog_product_iron/catalog_special_screen_superexpress.dart';
+import 'package:espace_kong_admin/commandes_folder/catalog_product_iron/catalog_vetements_screen_superexpress.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../cart_folder/cart_controller.dart';
+import '../catalog_product/products_model_list.dart';
 
-import 'cart_folder/cart_controller.dart';
-import 'catalog_product/catalog_accessoires_screen.dart';
-import 'catalog_product/catalog_autres_screen.dart';
-import 'catalog_product/catalog_bain_screen.dart';
-import 'catalog_product/catalog_literie_screen.dart';
-import 'catalog_product/catalog_special_screen.dart';
-import 'catalog_product/catalog_vetements_screen.dart';
-import 'catalog_product/products_model_list.dart';
-
-class AjouterNormal extends StatefulWidget {
+class AjouterSuperExpressRepassage extends StatefulWidget {
   final String id;
   final String email;
   final ville;
   final quartier;
 
-  const AjouterNormal({
+  const AjouterSuperExpressRepassage({
     super.key,
     required this.id,
     required this.email,
@@ -27,10 +26,10 @@ class AjouterNormal extends StatefulWidget {
   });
 
   @override
-  AjouterNormalView createState() => AjouterNormalView();
+  AjouterSuperExpressView createState() => AjouterSuperExpressView();
 }
 
-class AjouterNormalView extends State<AjouterNormal> {
+class AjouterSuperExpressView extends State<AjouterSuperExpressRepassage> {
   final cartController = Get.put(CartController());
 
   @override
@@ -40,67 +39,67 @@ class AjouterNormalView extends State<AjouterNormal> {
     print('Email reçu : ${widget.email}');
   }
 
-  void initAllClothesNormal(List<Product> allProducts) {
-    final clothesNormalProducts =
+  void initAllClothesSuperExpress(List<Product> allProducts) {
+    final clothesSuperExpressProducts =
         allProducts
-            .where((p) => p.cat == 'Clothes' && p.type == 'normal')
+            .where((p) => p.cat == 'Clothes' && p.type == 'super express')
             .toList();
-    for (final product in clothesNormalProducts) {
+    for (final product in clothesSuperExpressProducts) {
       cartController.clothesInitCounter(product);
       cartController.clothesInitRealCounter(product);
     }
   }
 
-  void initAllSpecialNormal(List<Product> allProducts) {
-    final specialNormalProducts =
+  void initAllSpecialSuperExpress(List<Product> allProducts) {
+    final specialSuperExpressProducts =
         allProducts
-            .where((p) => p.cat == 'Special' && p.type == 'normal')
+            .where((p) => p.cat == 'Special' && p.type == 'super express')
             .toList();
-    for (final product in specialNormalProducts) {
+    for (final product in specialSuperExpressProducts) {
       cartController.specialInitCounter(product);
       cartController.specialInitRealCounter(product);
     }
   }
 
-  void initAllAccessoriesNormal(List<Product> allProducts) {
-    final accessoriesNormalProducts =
+  void initAllAccessoriesSuperExpress(List<Product> allProducts) {
+    final accessoriesSuperExpressProducts =
         allProducts
-            .where((p) => p.cat == 'Accessories' && p.type == 'normal')
+            .where((p) => p.cat == 'Accessories' && p.type == 'super express')
             .toList();
-    for (final product in accessoriesNormalProducts) {
+    for (final product in accessoriesSuperExpressProducts) {
       cartController.clothesInitCounter(product);
       cartController.clothesInitRealCounter(product);
     }
   }
 
-  void initAllBathNormal(List<Product> allProducts) {
-    final bathNormalProducts =
+  void initAllBathSuperExpress(List<Product> allProducts) {
+    final bathSuperExpressProducts =
         allProducts
-            .where((p) => p.cat == 'Bath' && p.type == 'normal')
+            .where((p) => p.cat == 'Bath' && p.type == 'super express')
             .toList();
-    for (final product in bathNormalProducts) {
+    for (final product in bathSuperExpressProducts) {
       cartController.bathInitCounter(product);
       cartController.bathInitRealCounter(product);
     }
   }
 
-  void initAllBeddingNormal(List<Product> allProducts) {
-    final beddingNormalProducts =
+  void initAllBeddingSuperExpress(List<Product> allProducts) {
+    final beddingSuperExpressProducts =
         allProducts
-            .where((p) => p.cat == 'Bedding' && p.type == 'normal')
+            .where((p) => p.cat == 'Bedding' && p.type == 'super express')
             .toList();
-    for (final product in beddingNormalProducts) {
+    for (final product in beddingSuperExpressProducts) {
       cartController.beddingInitCounter(product);
       cartController.beddingInitRealCounter(product);
     }
   }
 
-  void initAllOthersNormal(List<Product> allProducts) {
-    final othersNormalProducts =
+  void initAllOthersSuperExpress(List<Product> allProducts) {
+    final othersSuperExpressProducts =
         allProducts
-            .where((p) => p.cat == 'Others' && p.type == 'normal')
+            .where((p) => p.cat == 'Others' && p.type == 'super express')
             .toList();
-    for (final product in othersNormalProducts) {
+    for (final product in othersSuperExpressProducts) {
       cartController.othersInitCounter(product);
       cartController.othersInitRealCounter(product);
     }
@@ -122,11 +121,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      initAllClothesNormal;
+                      initAllClothesSuperExpress;
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) => Clothes(
+                              (builder) => ClothesSuperExpressIron(
                                 id: widget.id,
                                 email: widget.email,
                                 ville: widget.ville,
@@ -144,7 +143,7 @@ class AjouterNormalView extends State<AjouterNormal> {
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
-                            'Vêtements',
+                            'Vêtements (Super Express)',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 21.0,
@@ -154,11 +153,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                         const Spacer(),
                         IconButton(
                           onPressed: () {
-                            initAllClothesNormal;
+                            initAllClothesSuperExpress;
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder:
-                                    (builder) => Clothes(
+                                    (builder) => ClothesSuperExpressIron(
                                       id: widget.id,
                                       email: widget.email,
                                       ville: widget.ville,
@@ -175,11 +174,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                   const Divider(),
                   GestureDetector(
                     onTap: () {
-                      initAllSpecialNormal;
+                      initAllSpecialSuperExpress;
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) => Special(
+                              (builder) => SpecialSuperExpressIron(
                                 id: widget.id,
                                 email: widget.email,
                                 ville: widget.ville,
@@ -197,7 +196,7 @@ class AjouterNormalView extends State<AjouterNormal> {
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
-                            'Spécial',
+                            'Spécial (Super Express)',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 21.0,
@@ -208,11 +207,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                         IconButton(
                           icon: const Icon(Icons.add_box_rounded),
                           onPressed: () {
-                            initAllSpecialNormal;
+                            initAllSpecialSuperExpress;
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder:
-                                    (builder) => Special(
+                                    (builder) => SpecialSuperExpressIron(
                                       id: widget.id,
                                       email: widget.email,
                                       ville: widget.ville,
@@ -228,11 +227,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                   const Divider(),
                   GestureDetector(
                     onTap: () {
-                      initAllAccessoriesNormal;
+                      initAllAccessoriesSuperExpress;
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) => Accessories(
+                              (builder) => AccessoriesSuperExpressIron(
                                 id: widget.id,
                                 email: widget.email,
                                 ville: widget.ville,
@@ -250,7 +249,7 @@ class AjouterNormalView extends State<AjouterNormal> {
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
-                            'Accessoires',
+                            'Accessoires (Super Express)',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 21.0,
@@ -261,11 +260,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                         IconButton(
                           icon: const Icon(Icons.add_box_rounded),
                           onPressed: () {
-                            initAllAccessoriesNormal;
+                            initAllAccessoriesSuperExpress;
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder:
-                                    (builder) => Accessories(
+                                    (builder) => AccessoriesSuperExpressIron(
                                       id: widget.id,
                                       email: widget.email,
                                       ville: widget.ville,
@@ -281,11 +280,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                   const Divider(),
                   GestureDetector(
                     onTap: () {
-                      initAllBathNormal;
+                      initAllBathSuperExpress;
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) => Bain(
+                              (builder) => BainSuperExpressIron(
                                 id: widget.id,
                                 email: widget.email,
                                 ville: widget.ville,
@@ -303,7 +302,7 @@ class AjouterNormalView extends State<AjouterNormal> {
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
-                            'Bain',
+                            'Bain (Super Express)',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 21.0,
@@ -314,11 +313,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                         IconButton(
                           icon: const Icon(Icons.add_box_rounded),
                           onPressed: () {
-                            initAllBathNormal;
+                            initAllBathSuperExpress;
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder:
-                                    (builder) => Bain(
+                                    (builder) => BainSuperExpressIron(
                                       id: widget.id,
                                       email: widget.email,
                                       ville: widget.ville,
@@ -334,11 +333,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                   const Divider(),
                   GestureDetector(
                     onTap: () {
-                      initAllBeddingNormal;
+                      initAllBeddingSuperExpress;
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) => Literie(
+                              (builder) => LiterieSuperExpressIron(
                                 id: widget.id,
                                 email: widget.email,
                                 ville: widget.ville,
@@ -356,7 +355,7 @@ class AjouterNormalView extends State<AjouterNormal> {
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
-                            'Literie',
+                            'Literie (Super Express)',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 21.0,
@@ -367,11 +366,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                         IconButton(
                           icon: const Icon(Icons.add_box_rounded),
                           onPressed: () {
-                            initAllBeddingNormal;
+                            initAllBeddingSuperExpress;
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder:
-                                    (builder) => Literie(
+                                    (builder) => LiterieSuperExpressIron(
                                       id: widget.id,
                                       email: widget.email,
                                       ville: widget.ville,
@@ -387,11 +386,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                   const Divider(),
                   GestureDetector(
                     onTap: () {
-                      initAllOthersNormal;
+                      initAllOthersSuperExpress;
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder:
-                              (builder) => Autre(
+                              (builder) => AutreSuperExpressIron(
                                 id: widget.id,
                                 email: widget.email,
                                 ville: widget.ville,
@@ -409,7 +408,7 @@ class AjouterNormalView extends State<AjouterNormal> {
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
-                            'Autre',
+                            'Autre (Super Express)',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 21.0,
@@ -420,11 +419,11 @@ class AjouterNormalView extends State<AjouterNormal> {
                         IconButton(
                           icon: const Icon(Icons.add_box_rounded),
                           onPressed: () {
-                            initAllOthersNormal;
+                            initAllOthersSuperExpress;
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder:
-                                    (builder) => Autre(
+                                    (builder) => AutreSuperExpressIron(
                                       id: widget.id,
                                       email: widget.email,
                                       ville: widget.ville,
@@ -443,6 +442,7 @@ class AjouterNormalView extends State<AjouterNormal> {
               ),
             ),
             Text('Commandes du client : ${widget.email}'),
+            const SizedBox(height: 18.0),
             CartButton(
               email: widget.email,
               ville: widget.ville,
@@ -454,34 +454,4 @@ class AjouterNormalView extends State<AjouterNormal> {
       ),
     );
   }
-}
-
-int number = 0;
-
-Widget myDialog() {
-  return const AlertDialog();
-}
-
-Widget showPictures(String image) {
-  return Container(
-    width: 40.0,
-    height: 40.0,
-    decoration: BoxDecoration(
-      color: eclatColor,
-      borderRadius: BorderRadius.circular(10.0),
-    ),
-    child: Center(
-      child: Container(
-        width: 38.0,
-        height: 38.0,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.scaleDown,
-            image: AssetImage(image),
-          ),
-          borderRadius: BorderRadius.circular(7.0),
-        ),
-      ),
-    ),
-  );
 }
