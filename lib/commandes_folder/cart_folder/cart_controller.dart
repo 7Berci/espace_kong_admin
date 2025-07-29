@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../catalog_product/products_model_list.dart';
+import '../catalog_product_wash/products_model_list.dart';
 
 class CartController extends GetxController {
   int accessoriesCounterByProduct(Product? product) {
@@ -27,12 +27,17 @@ class CartController extends GetxController {
     return accessoriesnumber[product] ?? 0; // Retourne 0 si la valeur est null
   }
 
-  //Les variables de la remise ______________________________________________
-  // final TextEditingController remiseController = TextEditingController();
-  // final RxDouble remiseManuelle = 0.0.obs;
+  //Les variables de la remise manuel______________________________________________
   RxDouble remiseManuelle = 0.0.obs;
   void initRemiseManuel() {
     remiseManuelle = 0.0.obs;
+  }
+  //--------------------------------------------------------------------
+  
+  //Les variables de la remise manuel______________________________________________
+  RxDouble fraisAdditionnel = 0.0.obs;
+  void initFraisAdditionnel() {
+    fraisAdditionnel = 0.0.obs;
   }
   //--------------------------------------------------------------------
 

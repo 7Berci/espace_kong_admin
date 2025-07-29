@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../cart_folder/cart_controller.dart';
-import '../catalog_product/products_model_list.dart';
+import '../catalog_product_wash/products_model_list.dart';
 
 class CatalogOthersProductsSuperExpressWashandIron extends StatelessWidget {
   const CatalogOthersProductsSuperExpressWashandIron({super.key});

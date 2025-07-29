@@ -23,6 +23,7 @@ class CartBill extends StatefulWidget {
 
 class _CartBillState extends State<CartBill> {
   final TextEditingController remiseController = TextEditingController();
+  final TextEditingController fraisAdditionnelController = TextEditingController();
 
   final CartController controller = Get.find();
 
@@ -33,6 +34,7 @@ class _CartBillState extends State<CartBill> {
   double remiseTen = 0;
   double remiseTwenty = 0;
   double remiseManuelle = 0;
+  double fraisAdditionnel = 0;
   double totalFinal = 0;
 
   @override
@@ -40,41 +42,20 @@ class _CartBillState extends State<CartBill> {
     super.initState();
     // Initialiser le nombre d'articles
     nbrArticles = controller.totalOfArticles.toString();
-    // // Mettre à jour le nombre d'articles si nécessaire
-    // controller.totalOfArticles.listen((value) {
-    //   setState(() {
-    //     nbrArticles = value.toString();
-    //   });
-    // });
     totalSansLivraison = controller.printTotal;
-    // controller.printTotal.listen((value) {
-    //   setState(() {
-    //     totalSimple = "${value} FCFA";
-    //   });
-    // });
-
     fraisLivraison = controller.shipping;
     totalWithLivraison = "${controller.shipping + controller.realTotal} FCFA";
-
     remiseTen = controller.printTheRemiseTen;
-    // controller.printTheRemiseTen.listen((value) {
-    //   setState(() {
-    //     remiseTen = "${value} FCFA";
-    //   });
-    // });
     remiseTwenty = controller.printTheRemiseTwenty;
-    // controller.printTheRemiseTwenty.listen((value) {
-    //   setState(() {
-    //     remiseTwenty = "${value} FCFA";
-    //   });
-    // });
     remiseManuelle = controller.remiseManuelle.value;
+    fraisAdditionnel = controller.fraisAdditionnel.value;
     totalFinal =
         controller.realTotal -
         controller.theRemiseTen -
         controller.theRemiseTwenty +
         controller.shipping -
-        controller.remiseManuelle.value;
+        controller.remiseManuelle.value +
+        controller.fraisAdditionnel.value;
   }
 
   @override
@@ -209,27 +190,6 @@ class _CartBillState extends State<CartBill> {
                 ],
               ),
               const SizedBox(height: 4.0),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: <Widget>[
-              //     const Text(
-              //       "Total sans remise",
-              //       style: TextStyle(
-              //         fontWeight: FontWeight.bold,
-              //         fontSize: 21.0,
-              //       ),
-              //     ),
-              //     Text(
-              //       "${controller.realTotal - controller.theRemiseTen - controller.theRemiseTwenty + controller.shipping} FCFA",
-              //       //"${controller.realTotal - theRemiseTen - theRemiseTwenty + controller.shipping} FCFA",
-              //       style: const TextStyle(
-              //         fontWeight: FontWeight.bold,
-              //         fontSize: 21.0,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // const SizedBox(height: 4.0),
               // Champ de remise manuelle
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -253,6 +213,29 @@ class _CartBillState extends State<CartBill> {
                 ],
               ),
               const SizedBox(height: 4.0),
+              // Champ de frais additionnels
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Frais additionnel",
+                    style: TextStyle(fontSize: 19.0),
+                  ),
+                  SizedBox(
+                    width: 120,
+                    child: TextField(
+                      controller: fraisAdditionnelController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(hintText: "0 FCFA"),
+                      onChanged: (val) {
+                        double value = double.tryParse(val) ?? 0.0;
+                        controller.fraisAdditionnel.value = value;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4.0),
               Obx(
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -265,7 +248,7 @@ class _CartBillState extends State<CartBill> {
                       ),
                     ),
                     Text(
-                      "${controller.realTotal - controller.theRemiseTen - controller.theRemiseTwenty + controller.shipping - controller.remiseManuelle.value} FCFA",
+                      "${controller.realTotal - controller.theRemiseTen - controller.theRemiseTwenty + controller.shipping - controller.remiseManuelle.value + controller.fraisAdditionnel.value} FCFA",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 21.0,
@@ -291,6 +274,7 @@ class _CartBillState extends State<CartBill> {
                             remiseTen: remiseTen,
                             remiseTwenty: remiseTwenty,
                             remiseManuelle: remiseManuelle,
+                            fraisAdditionnel: fraisAdditionnel,
                             totalFinal: totalFinal,
                           ),
                     ),

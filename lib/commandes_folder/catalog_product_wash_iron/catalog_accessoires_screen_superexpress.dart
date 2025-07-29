@@ -1,4 +1,4 @@
-import 'package:espace_kong_admin/commandes_folder/catalog_product_wash_iron/btnpagN.dart';
+import 'package:espace_kong_admin/commandes_folder/catalog_product_wash_iron/button_to_home_shop_wash_iron.dart.dart';
 import 'package:espace_kong_admin/commandes_folder/cart_folder/cart_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +31,7 @@ class AccessoriesSuperExpressWashandIron extends StatelessWidget {
             CatalogAccessoriesProductsSuperExpressWashandIron(),
             CartButton(email: email, ville: ville, quartier: quartier),
             SizedBox(height: 10),
-            CartButtonPco(id: id, email: email, ville: ville, quartier: quartier),
+            CartToMainButtonWashnIron(id: id, email: email, ville: ville, quartier: quartier),
           ],
         ),
       ),

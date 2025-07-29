@@ -1,4 +1,4 @@
-import 'package:espace_kong_admin/commandes_folder/catalog_product_iron/btnpagN.dart';
+import 'package:espace_kong_admin/commandes_folder/catalog_product_iron/button_to_home_shop_iron.dart';
 import 'package:espace_kong_admin/commandes_folder/cart_folder/cart_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,7 @@ class SpecialIron extends StatelessWidget {
             CatalogSpecialProductsIron(),
             CartButton(email: email, ville: ville, quartier: quartier),
             SizedBox(height: 10),
-            CartButtonPco(id: id, email: email, ville: ville, quartier: quartier),
+            CartToMainButtonIron(id: id, email: email, ville: ville, quartier: quartier),
           ],
         ),
       ),

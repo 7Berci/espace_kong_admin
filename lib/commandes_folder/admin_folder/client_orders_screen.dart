@@ -11,7 +11,7 @@ import '../cart_folder/cart_controller.dart';
 import '../cart_folder/cart_others_products.dart';
 import '../cart_folder/cart_special_products.dart';
 import '../cart_folder/cart_total.dart';
-import '../catalog_product/products_model_list.dart';
+import '../catalog_product_wash/products_model_list.dart';
 
 class ClientOrdersScreen extends StatelessWidget {
   final String email;

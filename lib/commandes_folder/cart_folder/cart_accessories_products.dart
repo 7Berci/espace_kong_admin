@@ -1,4 +1,4 @@
-import '../catalog_product/products_model_list.dart';
+import '../catalog_product_wash/products_model_list.dart';
 import 'package:flutter/material.dart';
 import 'cart_controller.dart';
 import 'package:get/get.dart';

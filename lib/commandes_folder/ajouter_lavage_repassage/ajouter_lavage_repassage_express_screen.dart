@@ -9,7 +9,7 @@ import 'package:espace_kong_admin/commandes_folder/catalog_product_wash_iron/cat
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../cart_folder/cart_controller.dart';
-import '../catalog_product/products_model_list.dart';
+import '../catalog_product_wash/products_model_list.dart';
 
 class AjouterExpressLavageRepassage extends StatefulWidget {
   final String id;

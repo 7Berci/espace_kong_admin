@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../cart_folder/cart_controller.dart';
-import '../catalog_product/catalog_accessoires_screen_superexpress.dart';
-import '../catalog_product/catalog_autres_screen_superexpress.dart';
-import '../catalog_product/catalog_bain_screen_superexpress.dart';
-import '../catalog_product/catalog_literie_screen_superexpress.dart';
-import '../catalog_product/catalog_special_screen_superexpress.dart';
-import '../catalog_product/catalog_vetements_screen_superexpress.dart';
-import '../catalog_product/products_model_list.dart';
+import '../catalog_product_wash/catalog_accessoires_screen_superexpress.dart';
+import '../catalog_product_wash/catalog_autres_screen_superexpress.dart';
+import '../catalog_product_wash/catalog_bain_screen_superexpress.dart';
+import '../catalog_product_wash/catalog_literie_screen_superexpress.dart';
+import '../catalog_product_wash/catalog_special_screen_superexpress.dart';
+import '../catalog_product_wash/catalog_vetements_screen_superexpress.dart';
+import '../catalog_product_wash/products_model_list.dart';
 
-class AjouterSuperExpress extends StatefulWidget {
+class AjouterSuperExpressWash extends StatefulWidget {
   final String id;
   final String email;
   final ville;
   final quartier;
 
-  const AjouterSuperExpress({
+  const AjouterSuperExpressWash({
     super.key,
     required this.id,
     required this.email,
@@ -27,10 +27,10 @@ class AjouterSuperExpress extends StatefulWidget {
   });
 
   @override
-  AjouterSuperExpressView createState() => AjouterSuperExpressView();
+  AjouterSuperExpressViewWash createState() => AjouterSuperExpressViewWash();
 }
 
-class AjouterSuperExpressView extends State<AjouterSuperExpress> {
+class AjouterSuperExpressViewWash extends State<AjouterSuperExpressWash> {
   final cartController = Get.put(CartController());
 
   @override

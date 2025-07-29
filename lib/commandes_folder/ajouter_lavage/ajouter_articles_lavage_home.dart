@@ -35,19 +35,19 @@ class ArticlesView extends State<ArticlesToWash> {
   void initState() {
     super.initState();
     screens = [
-      AjouterNormal(
+      AjouterNormalWash(
         id: widget.id,
         email: widget.email,
         ville: widget.ville,
         quartier: widget.quartier,
       ),
-      AjouterExpress(
+      AjouterExpressWash(
         id: widget.id,
         email: widget.email,
         ville: widget.ville,
         quartier: widget.quartier,
       ),
-      AjouterSuperExpress(
+      AjouterSuperExpressWash(
         id: widget.id,
         email: widget.email,
         ville: widget.ville,

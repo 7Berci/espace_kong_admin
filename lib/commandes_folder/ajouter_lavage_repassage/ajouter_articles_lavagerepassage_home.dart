@@ -1,6 +1,6 @@
-import 'package:espace_kong_admin/commandes_folder/ajouter_lavage/ajouter_lavage_express_screen.dart';
-import 'package:espace_kong_admin/commandes_folder/ajouter_lavage/ajouter_lavage_normal_screen.dart';
-import 'package:espace_kong_admin/commandes_folder/ajouter_lavage/ajouter_lavage_superexpress_screen.dart';
+import 'package:espace_kong_admin/commandes_folder/ajouter_lavage_repassage/ajouter_lavage_repassage_express_screen.dart';
+import 'package:espace_kong_admin/commandes_folder/ajouter_lavage_repassage/ajouter_lavage_repassage_normal_screen.dart';
+import 'package:espace_kong_admin/commandes_folder/ajouter_lavage_repassage/ajouter_lavage_repassage_superexpress_screen.dart';
 import 'package:espace_kong_admin/home_folder/home.dart';
 import 'package:flutter/material.dart';
 
@@ -35,19 +35,19 @@ class ArticlesView extends State<ArticlesToWashnIron> {
   void initState() {
     super.initState();
     screens = [
-      AjouterNormal(
+      AjouterNormalLavageRepassage(
         id: widget.id,
         email: widget.email,
         ville: widget.ville,
         quartier: widget.quartier,
       ),
-      AjouterExpress(
+      AjouterExpressLavageRepassage(
         id: widget.id,
         email: widget.email,
         ville: widget.ville,
         quartier: widget.quartier,
       ),
-      AjouterSuperExpress(
+      AjouterSuperExpressLavageRepassage(
         id: widget.id,
         email: widget.email,
         ville: widget.ville,

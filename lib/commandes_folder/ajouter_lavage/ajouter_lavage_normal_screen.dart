@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../cart_folder/cart_controller.dart';
-import '../catalog_product/catalog_accessoires_screen.dart';
-import '../catalog_product/catalog_autres_screen.dart';
-import '../catalog_product/catalog_bain_screen.dart';
-import '../catalog_product/catalog_literie_screen.dart';
-import '../catalog_product/catalog_special_screen.dart';
-import '../catalog_product/catalog_vetements_screen.dart';
-import '../catalog_product/products_model_list.dart';
+import '../catalog_product_wash/catalog_accessoires_screen.dart';
+import '../catalog_product_wash/catalog_autres_screen.dart';
+import '../catalog_product_wash/catalog_bain_screen.dart';
+import '../catalog_product_wash/catalog_literie_screen.dart';
+import '../catalog_product_wash/catalog_special_screen.dart';
+import '../catalog_product_wash/catalog_vetements_screen.dart';
+import '../catalog_product_wash/products_model_list.dart';
 
-class AjouterNormal extends StatefulWidget {
+class AjouterNormalWash extends StatefulWidget {
   final String id;
   final String email;
   final ville;
   final quartier;
 
-  const AjouterNormal({
+  const AjouterNormalWash({
     super.key,
     required this.id,
     required this.email,
@@ -27,10 +27,10 @@ class AjouterNormal extends StatefulWidget {
   });
 
   @override
-  AjouterNormalView createState() => AjouterNormalView();
+  AjouterNormalWashView createState() => AjouterNormalWashView();
 }
 
-class AjouterNormalView extends State<AjouterNormal> {
+class AjouterNormalWashView extends State<AjouterNormalWash> {
   final cartController = Get.put(CartController());
 
   @override

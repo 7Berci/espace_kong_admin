@@ -59,6 +59,7 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                     final remises =
                         data['remises'] as Map<String, dynamic>? ?? {};
                     final fraisLivraison = data['fraisLivraison'] ?? 0;
+                    final fraisAdditionnel = data['fraisAdditionnel'] ?? 0;
                     final totalSansRemise = data['totalSansRemise'] ?? 0;
                     final totalFinal = data['totalFinal'] ?? 0;
 
@@ -105,6 +106,9 @@ class _OrdersListFirstState extends State<OrdersListFirst> {
                                 ),
                                 Text(
                                   'Remise manuelle : ${remises['manuelle'] ?? 0} FCFA',
+                                ),
+                                Text(
+                                  'Frais additionnels : $fraisAdditionnel FCFA',
                                 ),
                                 Divider(),
                                 Text(

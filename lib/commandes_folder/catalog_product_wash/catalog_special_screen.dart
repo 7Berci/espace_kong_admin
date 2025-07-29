@@ -1,0 +1,36 @@
+import 'package:espace_kong_admin/commandes_folder/catalog_product_wash/button_to_home_shop_wash.dart';
+import 'package:espace_kong_admin/commandes_folder/cart_folder/cart_screen.dart';
+import 'package:flutter/material.dart';
+
+import 'catalog_special_products.dart';
+
+class Special extends StatelessWidget {
+  final String email;
+  final String id;
+  final ville;
+  final quartier;
+  const Special({super.key, 
+    required this.ville,
+    required this.quartier,required this.id, required this.email});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Center(child: Text('Special')),
+        backgroundColor: const Color(0xFF5ACC80),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            CatalogSpecialProducts(),
+            CartButton(email: email, ville: ville, quartier: quartier),
+            SizedBox(height: 10),
+            CartToMainButtonWash(id: id, email: email, ville: ville, quartier: quartier),
+          ],
+        ),
+      ),
+    );
+  }
+}

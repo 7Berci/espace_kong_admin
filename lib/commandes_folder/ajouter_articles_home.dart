@@ -40,7 +40,7 @@ Widget build(BuildContext context) {
             ),
             _buildCard(
               context,
-              icon: Icons.local_laundry_service,
+              icon: Icons.local_laundry_service_outlined,
               label: 'LAVAGE + REPASSAGE',
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
@@ -52,7 +52,7 @@ Widget build(BuildContext context) {
             ),
             _buildCard(
               context,
-              icon: Icons.local_laundry_service,
+              icon: Icons.iron,
               label: 'REPASSAGE SIMPLE',
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(

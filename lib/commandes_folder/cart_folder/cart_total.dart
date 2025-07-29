@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
 
-import '../catalog_product/products_model_list.dart';
+import '../catalog_product_wash/products_model_list.dart';
 import 'cart_bill.dart';
 import 'cart_controller.dart';
 
@@ -389,6 +389,8 @@ class CartTotalSum extends StatelessWidget {
       //controller.initRemise;
       controller.theRemiseTen = 0.0;
       controller.theRemiseTwenty = 0.0;
+      controller.remiseManuelle = 0.0 as RxDouble;
+      controller.fraisAdditionnel = 0.0 as RxDouble;
 
       controller.productasclothes.clear();
       controller.productaspecial.clear();
